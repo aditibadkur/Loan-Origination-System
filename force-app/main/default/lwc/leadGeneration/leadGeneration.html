@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Enter Details" class="slds-align_absolute-center"> <!-- add CSS -->
+        <div class="slds-grid slds-wrap slds-grid_align-center">
+
+            <!-- first row -->
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="phone" name="phoneNumber" label="Phone Number"></lightning-input>
+                <lightning-button variant="brand" label="verify" title="Verify" onclick={handleVerification}></lightning-button>
+            </div>
+
+            <!-- second row -->
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                <lightning-input type="text" name="applicantName" label="Applicant Name"></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                <lightning-input type="number" name="applicantAge" label="Applicant Age"></lightning-input>
+            </div>
+
+        </div>
+    </lightning-card>
+
+</template>
