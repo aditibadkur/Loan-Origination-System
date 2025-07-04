@@ -48,7 +48,7 @@ export default class LeadGeneration extends LightningElement {
     handleDocuments(){
         console.log("documents is working");
         if(this.applicantAadhar == '123456789012' && this.panCard == 'ABCDE1234F'){
-            this.applicantCIBIL = '550';
+            this.applicantCIBIL = '750';
             console.log("Aadhar working");
             console.log("CIBIL Score: " + this.applicantCIBIL);
 
@@ -60,9 +60,9 @@ export default class LeadGeneration extends LightningElement {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
             }
         } 
-        if(this.applicantAadhar != '123456789012' || this.panCard != 'ABCDE1234F'){
-            this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
-        }
+        // if(this.applicantAadhar != '123456789012' || this.panCard != 'ABCDE1234F'){
+        //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
+        // }
     }
 
     showToast(title, message, variant) {
