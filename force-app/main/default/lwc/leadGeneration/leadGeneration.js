@@ -17,8 +17,7 @@ export default class LeadGeneration extends LightningElement {
     @track applicantAge = '';
     @track applicantAddress = '';
     @track addressType = '';
-    @track currAddress = false; 
-    @track currentAddress = 'Current Address';
+    @track currentAddress = 'Enter Current Address';
     @track applicantGender = '';
     @track applicantCIBIL = '';
 
@@ -86,8 +85,10 @@ export default class LeadGeneration extends LightningElement {
 
     handleCurrentAddress(event){
         this.addressType = event.target.value;
-        this.currAddress = true;
         console.log("handleCurrentAddress is working");
+        if(this.addressType.length > 1){
+            this.addressType = [this.addressType.pop()];
+        }  
         if(this.addressType == 'Permanent'){
             this.currentAddress = this.applicantAddress;
             console.log("Current Address is same as Permanent Address");
