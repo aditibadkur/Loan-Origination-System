@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LeadGeneration extends LightningElement {
     // get phone number and usse recordId? maybe usse populate the name and age  
@@ -10,7 +11,7 @@ export default class LeadGeneration extends LightningElement {
     @track panCard = '';
     @track applicantAadhar = '';
 
-    // @track formDisabled = true;
+    @track formDisabled = true;
 
     applicantCIBIL = '';
 
@@ -32,7 +33,7 @@ export default class LeadGeneration extends LightningElement {
         console.log("verification is working");
         if(this.phoneNumber == '9867187591'){
             this.verified = true;
-            // formDisabled = false;
+            this.formDisabled = false;
             console.log("checked phone number");
             this.applicantName = 'Nisha';
             this.applicantAge = '23';
@@ -46,15 +47,25 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789012'){
-            this.applicantCIBIL = '750';
+        if(this.applicantAadhar == '123456789012' && this.panCard == 'ABCDE1234F'){
+            this.applicantCIBIL = '550';
             console.log("Aadhar working");
             console.log("CIBIL Score: " + this.applicantCIBIL);
+
+            console.log("parsed CIBIL Score: " + parseInt(this.applicantCIBIL));
+            if(parseInt(this.applicantCIBIL) >= 600){ 
+                console.log("parsed CIBIL Score: " + parseInt(this.applicantCIBIL));
+                this.showToast('Success', 'You are eligible for a loan!', 'success');
+            } else {
+                this.showToast('Error', 'You are not eligible for a loan.', 'error');
+            }
         } 
-        if(this.panCard == 'ABCDE1234F'){
-            this.applicantCIBIL = '650';
-            console.log("PAN Card working");
-            console.log("CIBIL Score: " + this.applicantCIBIL);
-        }  
+        if(this.applicantAadhar != '123456789012' || this.panCard != 'ABCDE1234F'){
+            this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
+        }
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 }
