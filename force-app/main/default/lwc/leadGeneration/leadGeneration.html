@@ -17,6 +17,32 @@
             </div>
 
         </div>
+
+        <template if:true={verified}> <!-- instead use formDisabled, agar upar ka nhi hai verified and valid tabh tak disabled -->
+        <lightning-card title="Identity Documents" class="slds-align_absolute-center">
+            <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                <!-- first row   -->
+                <!-- add OR -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" name="panCard" label="PAN Card" onchange={handleChange} disabled={formDisabled}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="number" name="applicantAadhar" label="Aadhar" onchange={handleChange} disabled={formDisabled}></lightning-input>
+                </div>
+
+                <!-- second row -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" data-id="CIBIL" disabled={formDisabled}></lightning-input>
+                </div>
+
+            </div>
+        </lightning-card>
+    </template>
+
     </lightning-card>
 
 </template>
