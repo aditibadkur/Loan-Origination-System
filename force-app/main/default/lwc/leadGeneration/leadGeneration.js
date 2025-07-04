@@ -14,6 +14,8 @@ export default class LeadGeneration extends LightningElement {
     @track formDisabled = true;
     @track disableForm = true;
 
+    @track isNext = false;
+
     @track applicantAge = '';
     @track applicantAddress = '';
     @track addressType = '';
@@ -85,6 +87,7 @@ export default class LeadGeneration extends LightningElement {
 
     handleCurrentAddress(event){
         this.addressType = event.target.value;
+        this.isNext = true;
         console.log("handleCurrentAddress is working");
         if(this.addressType.length > 1){
             this.addressType = [this.addressType.pop()];
@@ -102,5 +105,20 @@ export default class LeadGeneration extends LightningElement {
 
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    get NextButton() {
+        return this.isNext;
+    }
+
+    handleNext(){
+        if(this.isNext){
+            // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
+            this.showToast('Success', 'Proceed to Loan Application Form', 'success');
+        }
+        else {
+            this.showToast('Error', 'Please enter valid details', 'error');
+        }
+
     }
 }
