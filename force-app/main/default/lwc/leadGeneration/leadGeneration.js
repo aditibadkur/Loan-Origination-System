@@ -114,7 +114,12 @@ export default class LeadGeneration extends LightningElement {
     handleNext(){
         if(this.isNext){
             // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
-            this.showToast('Success', 'Proceed to Loan Application Form', 'success');
+            if(this.addressType == 'Permanent'){
+                this.showToast('Success', 'Proceed to Loan Application Form', 'success');
+            }
+            else{
+                this.showToast('Error', 'Please enter the Current Address.', 'error');
+            }
         }
         else {
             this.showToast('Error', 'Please enter valid details', 'error');
