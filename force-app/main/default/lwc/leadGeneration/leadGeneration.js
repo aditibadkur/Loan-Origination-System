@@ -2,18 +2,25 @@ import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LeadGeneration extends LightningElement {
-    // get phone number and usse recordId? maybe usse populate the name and age  
-    @track phoneNumber = '';
-    applicantName = '';
-    applicantAge = '';
 
-    @track verified = false; // check this
+    @track phoneNumber = '';
+    @track applicantName = '';
+    @track applicantEmail = '';
+
+    @track verified = false; 
     @track panCard = '';
     @track applicantAadhar = '';
 
     @track formDisabled = true;
+    @track disableForm = true;
 
-    applicantCIBIL = '';
+    @track applicantAge = '';
+    @track applicantAddress = '';
+    @track addressType = '';
+    @track currAddress = false; 
+    @track currentAddress = 'Current Address';
+    @track applicantGender = '';
+    @track applicantCIBIL = '';
 
     handleChange(event) {
         const field = event.target.name;
@@ -24,7 +31,7 @@ export default class LeadGeneration extends LightningElement {
 
     connectedCallback() {
         console.log("Component connected");
-        this.handleVerification();
+        this.handleVerification();  
     }
     // ⚠️ hard-coded hai 
     // irl fetch data from api using named credentials?
@@ -34,27 +41,39 @@ export default class LeadGeneration extends LightningElement {
         if(this.phoneNumber == '9867187591'){
             this.verified = true;
             this.formDisabled = false;
-            console.log("checked phone number");
+            this.disableForm = true;
             this.applicantName = 'Nisha';
-            this.applicantAge = '23';
-            console.log("Name: " + this.applicantName);
-            console.log("Age: " + this.applicantAge);
+            this.applicantEmail = 'nisha@email.com';
         }
         if(this.verified){
             this.handleDocuments();
         }
     }
 
+    get addressOptions(){
+        return [
+            { label: 'Yes', value: 'Permanent' },
+            { label: 'No', value: 'Current' }
+        ];
+    }
+
+    get genderOptions(){
+        return [
+            { label : 'Male', value: 'Male' },
+            { label: 'Female', value: 'Female' }
+        ];
+    }
+
     handleDocuments(){
         console.log("documents is working");
         if(this.applicantAadhar == '123456789012' && this.panCard == 'ABCDE1234F'){
+            this.disableForm = false;
             this.applicantCIBIL = '750';
-            console.log("Aadhar working");
-            console.log("CIBIL Score: " + this.applicantCIBIL);
+            this.applicantAge = '23';
+            this.applicantGender = 'Female';
+            this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
 
-            console.log("parsed CIBIL Score: " + parseInt(this.applicantCIBIL));
             if(parseInt(this.applicantCIBIL) >= 600){ 
-                console.log("parsed CIBIL Score: " + parseInt(this.applicantCIBIL));
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
             } else {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
@@ -63,6 +82,21 @@ export default class LeadGeneration extends LightningElement {
         // if(this.applicantAadhar != '123456789012' || this.panCard != 'ABCDE1234F'){
         //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
         // }
+    }
+
+    handleCurrentAddress(event){
+        this.addressType = event.target.value;
+        this.currAddress = true;
+        console.log("handleCurrentAddress is working");
+        if(this.addressType == 'Permanent'){
+            this.currentAddress = this.applicantAddress;
+            console.log("Current Address is same as Permanent Address");
+        }
+        if(this.addressType == 'Current'){
+            this.currentAddress = '';
+            console.log("Current Address is different from Permanent Address");
+        }
+        console.log("Current Address: " + this.currentAddress);
     }
 
     showToast(title, message, variant) {
