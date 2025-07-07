@@ -18,7 +18,7 @@
         <div class="slds-grid slds-wrap slds-grid_align-center"> 
             <!-- first row -->
             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
-                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange}></lightning-input>
+                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange} disabled={freezeInput}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
                 <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
@@ -70,7 +70,7 @@
 
                 <!-- fourth row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" disabled={disableForm}></lightning-input>
+                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" disabled=true></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <lightning-input type="text" value={applicantAddress} label="Permanent Address" disabled={disableForm}></lightning-input>

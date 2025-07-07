@@ -13,6 +13,7 @@ export default class LeadGeneration extends LightningElement {
 
     @track formDisabled = true;
     @track disableForm = true;
+    @track freezeInput = false;
 
     @track isNext = false;
     @track isSuccess = false;
@@ -56,6 +57,7 @@ export default class LeadGeneration extends LightningElement {
             this.applicantEmail = 'aarav@email.com';
         }
         if(this.verified){
+            this.freezeInput = true;
             this.handleDocuments();
             // if(this.applicantAadhar == '' || this.applicantPan == ''){
             //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
@@ -80,6 +82,7 @@ export default class LeadGeneration extends LightningElement {
     handleDocuments(){
         console.log("documents is working");
         if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
+            this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '750';
             this.applicantAge = '23';
@@ -96,6 +99,7 @@ export default class LeadGeneration extends LightningElement {
         } 
 
         if(this.applicantAadhar == '123456789011' && this.applicantPan == 'ABCDE1234W'){
+            this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '550';
             this.applicantAge = '20';
