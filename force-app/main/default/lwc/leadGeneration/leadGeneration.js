@@ -3,12 +3,12 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LeadGeneration extends LightningElement {
 
-    @track phoneNumber = '';
+    @track applicantPhone = '';
     @track applicantName = '';
     @track applicantEmail = '';
 
     @track verified = false; 
-    @track panCard = '';
+    @track applicantPan = '';
     @track applicantAadhar = '';
 
     @track formDisabled = true;
@@ -41,7 +41,7 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.phoneNumber == '9867187591'){
+        if(this.applicantPhone == '9867187591'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
@@ -69,7 +69,7 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789012' && this.panCard == 'ABCDE1234F'){
+        if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
             this.disableForm = false;
             this.applicantCIBIL = '750';
             this.applicantAge = '23';
@@ -82,7 +82,7 @@ export default class LeadGeneration extends LightningElement {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
             }
         } 
-        // if(this.applicantAadhar != '123456789012' || this.panCard != 'ABCDE1234F'){
+        // if(this.applicantAadhar != '123456789012' || this.applicantPan != 'ABCDE1234F'){
         //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
         // }
     }

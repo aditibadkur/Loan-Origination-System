@@ -1,12 +1,24 @@
 <template>
-<c-loan-application-form message={nextPage}></c-loan-application-form>
+<c-loan-application-form 
+    message={nextPage}
+    name={applicantName}
+    email={applicantEmail}
+    phone={applicantPhone}
+    aadhar={applicantAadhar}
+    pan={applicantPan}
+    age={applicantAge}
+    gender={applicantGender}
+    current={currentAddress}
+    permanent={applicantAddress}
+    >
+</c-loan-application-form>
 <template if:false={nextPage}>
     <lightning-card title="Enter Details"> <!-- name, place, animal, thing from phone number -->
 
         <div class="slds-grid slds-wrap slds-grid_align-center"> 
             <!-- first row -->
             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
-                <lightning-input type="phone" name="phoneNumber" label="Phone Number" onchange={handleChange}></lightning-input>
+                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
                 <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
@@ -28,7 +40,7 @@
 
                 <!-- first row --> <!-- add OR -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" name="panCard" label="PAN Card" onchange={handleChange} disabled={formDisabled}></lightning-input>
+                    <lightning-input type="text" name="applicantPan" label="PAN Card" onchange={handleChange} disabled={formDisabled}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <lightning-input type="number" name="applicantAadhar" label="Aadhar" onchange={handleChange} disabled={formDisabled}></lightning-input>

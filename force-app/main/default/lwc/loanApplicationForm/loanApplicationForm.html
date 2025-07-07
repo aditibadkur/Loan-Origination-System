@@ -1,7 +1,53 @@
 <template>
     <template if:true={message}>
         <lightning-card title="Loan Application Form">
-            Loan Application Form will be displayed here
+            <!-- autopopulated waale sab mai onchange wala functionality nhi daala hai!!! -->
+            <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                <!-- first row -->
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-input type="text" label="First Name" value={name}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-input type="text" label="Middle Name" onchange={handleChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-input type="text" label="Last Name" onchange={handleChange}></lightning-input>
+                </div>
+
+                <!-- second row -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Gender" value={gender}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="number" label="Age" value={age}></lightning-input>
+                </div>
+
+                <!-- third row -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="email" label="Email" value={email}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="phone" label="Mobile Number" value={phone}></lightning-input>
+                </div>
+
+                <!-- fourth row -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="number" label="Aadhar" value={aadhar}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="PAN Card" value={pan}></lightning-input>
+                </div>
+
+                <!-- fifth row --> 
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Current Address" value={current}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Permanent Address" value={permanent}></lightning-input>
+                </div>
+
+            </div>
+
         </lightning-card>
     </template>
 </template>
