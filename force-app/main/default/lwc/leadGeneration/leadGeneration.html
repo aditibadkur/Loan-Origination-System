@@ -1,4 +1,6 @@
 <template>
+<c-loan-application-form message={nextPage}></c-loan-application-form>
+<template if:false={nextPage}>
     <lightning-card title="Enter Details"> <!-- name, place, animal, thing from phone number -->
 
         <div class="slds-grid slds-wrap slds-grid_align-center"> 
@@ -89,7 +91,7 @@
         </template>
 
     </lightning-card>
-
+</template>
 </template>
 
 <!-- these are all hard-coded, if details save karna hua toh handleChange daalna padega for every input and then create record 

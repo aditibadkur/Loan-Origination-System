@@ -15,6 +15,7 @@ export default class LeadGeneration extends LightningElement {
     @track disableForm = true;
 
     @track isNext = false;
+    @track isSuccess = false;
 
     @track applicantAge = '';
     @track applicantAddress = '';
@@ -28,6 +29,7 @@ export default class LeadGeneration extends LightningElement {
         this[field] = event.target.type === 'number' 
         ? event.target.value.toString() 
         : event.target.value;
+        console.log(`Field changed: ${field}, Value: ${this[field]}`);
     }
 
     connectedCallback() {
@@ -97,7 +99,7 @@ export default class LeadGeneration extends LightningElement {
             console.log("Current Address is same as Permanent Address");
         }
         if(this.addressType == 'Current'){
-            this.currentAddress = '';
+            this.currentAddress = '123 Mane Street';
             console.log("Current Address is different from Permanent Address");
         }
         console.log("Current Address: " + this.currentAddress);
@@ -116,14 +118,25 @@ export default class LeadGeneration extends LightningElement {
             // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
             if(this.addressType == 'Permanent'){
                 this.showToast('Success', 'Proceed to Loan Application Form', 'success');
+                this.isSuccess = true;
             }
             else{
-                this.showToast('Error', 'Please enter the Current Address.', 'error');
+                if(this.currentAddress == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
+                    this.showToast('Error', 'Please enter the Current Address', 'error');
+                }
+                else{
+                    this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
+                    this.isSuccess = true;
+                }
             }
         }
         else {
             this.showToast('Error', 'Please enter valid details', 'error');
         }
 
+    }
+
+    get nextPage() {
+        return this.isSuccess;
     }
 }
