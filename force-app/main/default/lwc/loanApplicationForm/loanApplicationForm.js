@@ -1,4 +1,5 @@
 import { api, LightningElement, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LoanApplicationForm extends LightningElement {
     @api message;
@@ -14,15 +15,14 @@ export default class LoanApplicationForm extends LightningElement {
     @api bday;
 
     @track readOnly = true;
-    @track disableForm = true;
+    @track isSingle = true;
 
     @track marriedType = '';
     @track annualIncome = '';
 
     get marriedOptions(){
         return [
-            { label: 'Married', value: 'Married' },
-            { label: 'Single', value: 'Single' }
+            { label: 'Yes', value: 'Married' }
         ];
     }
 
@@ -47,14 +47,18 @@ export default class LoanApplicationForm extends LightningElement {
     handleMarried(event){
         this.marriedType = event.target.value;
         if(this.marriedType == 'Married'){
-            this.disableForm = false;
+            this.isSingle = false;
         }
         else{
-            this.disableForm = true;
+            this.isSingle = true;
         }
     }
 
-    get spouseName(){
-        return this.readOnly;
+    handleSubmit(){
+        this.showToast('Success', 'Basic details collected', 'success');
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 }

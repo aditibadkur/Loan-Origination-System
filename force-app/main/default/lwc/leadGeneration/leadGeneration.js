@@ -3,6 +3,8 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LeadGeneration extends LightningElement {
 
+    readOnly = true;
+
     @track applicantPhone = '';
     @track applicantName = '';
     @track applicantEmail = '';
@@ -14,6 +16,7 @@ export default class LeadGeneration extends LightningElement {
     @track formDisabled = true;
     @track disableForm = true;
     @track freezeInput = false;
+    @track freezeAddress = true;
 
     @track isNext = false;
     @track isSuccess = false;
@@ -127,10 +130,12 @@ export default class LeadGeneration extends LightningElement {
         }  
         if(this.addressType == 'Permanent'){
             this.currentAddress = this.applicantAddress;
+            this.freezeAddress = true;
             console.log("Current Address is same as Permanent Address");
         }
         if(this.addressType == 'Current'){
             this.currentAddress = '123 Mane Street';
+            this.freezeAddress = false;
             console.log("Current Address is different from Permanent Address");
         }
         console.log("Current Address: " + this.currentAddress);

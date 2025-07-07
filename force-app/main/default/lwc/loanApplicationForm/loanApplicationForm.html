@@ -56,28 +56,44 @@
                         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                             <lightning-input type="text" label="Father's Name" value={father}></lightning-input>
                         </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Father's Occupation" value={spouse} disabled={disableForm}></lightning-input>
+                        </div>
+
                         <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                             <lightning-input type="text" label="Mother's Name" value={mother}></lightning-input>
                         </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Mother's Occupation" value={spouse} disabled={disableForm}></lightning-input>
+                        </div>
 
-                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
-                            <lightning-input type="text" label="Guardian Name" value={guardian}></lightning-input>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-input type="text" label="Guardian's Name" value={guardian}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Guardian's Occupation" value={spouse} disabled={disableForm}></lightning-input>
                         </div>
                         
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium"> 
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_medium"> 
                             <lightning-checkbox-group 
+                                class="display-flex"
                                 name="marriedType"
                                 label="Are you married?"
                                 options={marriedOptions}
                                 value={marriedType}
                                 onchange={handleMarried}
                                 >
-                                <!-- should disable the spouse field if not married -->
                             </lightning-checkbox-group>
                         </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Spouse Name" value={spouse} disabled={disableForm}></lightning-input>
-                        </div>
+
+                        <template if:false={isSingle}>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning-input type="text" label="Spouse Name" value={spouse} disabled={disableForm}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning-input type="text" label="Spouse Occupation" value={spouse} disabled={disableForm}></lightning-input>
+                            </div>
+                        </template>
 
                     </div>
                 </lightning-accordion-section>
@@ -113,6 +129,10 @@
                 </lightning-accordion-section>
 
             </lightning-accordion>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+            </div>
 
         </lightning-card>
     </template>

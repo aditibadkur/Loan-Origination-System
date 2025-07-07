@@ -59,7 +59,7 @@
                 </div>
                 <!-- <div class="slds-col slds-size_1-of-3 slds-p-around_small"> -->
                     <!-- actually DOB hona chahiye -->
-                    <!-- <lightning-input type="number" value={applicantAge} label="Applicant Age" disabled=true></lightning-input>
+                    <!-- <lightning-input type="number" value={applicantAge} label="Applicant Age" disabled={readOnly}></lightning-input>
                 </div> -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <lightning-combobox
@@ -74,10 +74,10 @@
 
                 <!-- fourth row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" disabled=true></lightning-input>
+                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" value={applicantAddress} label="Permanent Address" disabled={disableForm}></lightning-input>
+                    <lightning-input type="text" value={applicantAddress} label="Permanent Address" disabled={readOnly}></lightning-input>
                 </div>
 
                 <!-- fifth row -->
@@ -94,7 +94,7 @@
                 </div>
                 <!-- if not same then show input to add address, if same, copy paste permanent and keep the input disabled -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Current Address" value={currentAddress} disabled={disableForm}></lightning-input>
+                    <lightning-input type="text" label="Current Address" value={currentAddress} disabled={freezeAddress}></lightning-input>
                 </div>
 
             </div>
