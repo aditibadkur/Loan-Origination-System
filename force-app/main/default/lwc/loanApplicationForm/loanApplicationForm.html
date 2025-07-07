@@ -48,6 +48,63 @@
 
             </div>
 
+            <lightning-accordion allow-multiple-sections-open>
+
+                <lightning-accordion-section name="section1" label="Family Details">
+                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
+
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-input type="text" label="Father's Name" value={father}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-input type="text" label="Mother's Name" value={mother}></lightning-input>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                            <lightning-input type="text" label="Guardian Name" value={guardian}></lightning-input>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium"> 
+                            <lightning-checkbox-group 
+                                name="addressType"
+                                label="Are you married?"
+                                options={marriedOptions}
+                                value={marriedType}
+                                onchange={handleSpouse}
+                                >
+                                <!-- should disable the spouse field if not married -->
+                            </lightning-checkbox-group>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Spouse Name" value={spouse}></lightning-input>
+                        </div>
+
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="section2" label="Work Details">
+                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
+
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Annual Income" value={income}></lightning-input> 
+                            <!-- shd be a drop down so that processing easy ho -->
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Company Name" value={company}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                            <lightning-input type="text" label="Experience" value={experience}></lightning-input>
+                        </div>
+
+                    </div>
+                </lightning-accordion-section>
+
+            </lightning-accordion>
+
         </lightning-card>
     </template>
 </template>

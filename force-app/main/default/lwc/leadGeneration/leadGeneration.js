@@ -48,8 +48,18 @@ export default class LeadGeneration extends LightningElement {
             this.applicantName = 'Nisha';
             this.applicantEmail = 'nisha@email.com';
         }
+        if(this.applicantPhone == '1234567890'){
+            this.verified = true;
+            this.formDisabled = false;
+            this.disableForm = true;
+            this.applicantName = 'Aarav';
+            this.applicantEmail = 'aarav@email.com';
+        }
         if(this.verified){
             this.handleDocuments();
+            // if(this.applicantAadhar == '' || this.applicantPan == ''){
+            //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
+            // }
         }
     }
 
@@ -78,18 +88,32 @@ export default class LeadGeneration extends LightningElement {
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
+                this.isNext = true;
             } else {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
+                this.isNext = false;
             }
         } 
-        // if(this.applicantAadhar != '123456789012' || this.applicantPan != 'ABCDE1234F'){
-        //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
-        // }
+
+        if(this.applicantAadhar == '123456789011' && this.applicantPan == 'ABCDE1234W'){
+            this.disableForm = false;
+            this.applicantCIBIL = '550';
+            this.applicantAge = '20';
+            this.applicantGender = 'Male';
+            this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
+
+            if(parseInt(this.applicantCIBIL) >= 600){ 
+                this.showToast('Success', 'You are eligible for a loan!', 'success');
+                this.isNext = true;
+            } else {
+                this.showToast('Error', 'You are not eligible for a loan.', 'error');
+                this.isNext = false;
+            }
+        } 
     }
 
     handleCurrentAddress(event){
         this.addressType = event.target.value;
-        this.isNext = true;
         console.log("handleCurrentAddress is working");
         if(this.addressType.length > 1){
             this.addressType = [this.addressType.pop()];
@@ -117,7 +141,7 @@ export default class LeadGeneration extends LightningElement {
         if(this.isNext){
             // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
             if(this.addressType == 'Permanent'){
-                this.showToast('Success', 'Proceed to Loan Application Form', 'success');
+                this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
                 this.isSuccess = true;
             }
             else{
