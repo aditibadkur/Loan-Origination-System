@@ -6,7 +6,7 @@
     phone={applicantPhone}
     aadhar={applicantAadhar}
     pan={applicantPan}
-    age={applicantAge}
+    bday={applicantDOB}
     gender={applicantGender}
     current={currentAddress}
     permanent={applicantAddress}
@@ -26,11 +26,11 @@
 
             <!-- second row -->
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="text" value={applicantName} label="Applicant Name" disabled={formDisabled}></lightning-input>
+                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantName} onchange={handleChange} disabled={formDisabled}></lightning-input>
                 <!-- FName, MName, LName -->
             </div>
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="email" value={applicantEmail} label="Email" disabled={formDisabled}></lightning-input>
+                <lightning-input type="email" value={applicantEmail} label="Email" onchange={handleChange} disabled={formDisabled}></lightning-input>
             </div>
 
         </div>
@@ -55,8 +55,12 @@
                 <!-- third row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <!-- actually DOB hona chahiye -->
-                    <lightning-input type="number" value={applicantAge} label="Applicant Age" disabled={disableForm}></lightning-input>
+                    <lightning-input type="date" value={applicantDOB} label="Applicant DOB" disabled={disableForm}></lightning-input>
                 </div>
+                <!-- <div class="slds-col slds-size_1-of-3 slds-p-around_small"> -->
+                    <!-- actually DOB hona chahiye -->
+                    <!-- <lightning-input type="number" value={applicantAge} label="Applicant Age" disabled=true></lightning-input>
+                </div> -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <lightning-combobox
                         name="gender"

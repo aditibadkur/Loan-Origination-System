@@ -18,7 +18,8 @@ export default class LeadGeneration extends LightningElement {
     @track isNext = false;
     @track isSuccess = false;
 
-    @track applicantAge = '';
+    // @track applicantAge = '';
+    @track applicantDOB = '';
     @track applicantAddress = '';
     @track addressType = '';
     @track currentAddress = 'Enter Current Address';
@@ -46,7 +47,7 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Nisha';
+            // this.applicantName = 'Nisha';
             this.applicantEmail = 'nisha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
@@ -85,7 +86,8 @@ export default class LeadGeneration extends LightningElement {
             this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '750';
-            this.applicantAge = '23';
+            this.applicantDOB = 'Oct 10, 2002';
+            // this.applicantAge = '23';
             this.applicantGender = 'Female';
             this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
 
@@ -102,7 +104,8 @@ export default class LeadGeneration extends LightningElement {
             this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '550';
-            this.applicantAge = '20';
+            this.applicantDOB = '10-10-2005';
+            // this.applicantAge = '20';
             this.applicantGender = 'Male';
             this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
 
@@ -148,7 +151,7 @@ export default class LeadGeneration extends LightningElement {
                 this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
                 this.isSuccess = true;
             }
-            else{
+            else if (this.addressType == 'Current'){
                 if(this.currentAddress == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
                     this.showToast('Error', 'Please enter the Current Address', 'error');
                 }
@@ -156,6 +159,9 @@ export default class LeadGeneration extends LightningElement {
                     this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
                     this.isSuccess = true;
                 }
+            }
+            else{
+                this.showToast('Error', 'Please enter the Current Address', 'error');
             }
         }
         else {

@@ -16,34 +16,34 @@
 
                 <!-- second row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Gender" value={gender}></lightning-input>
+                    <lightning-input type="text" label="Gender" value={gender} disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Age" value={age}></lightning-input>
+                    <lightning-input type="date" label="DOB" value={bday} disabled={readOnly}></lightning-input>
                 </div>
 
                 <!-- third row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="email" label="Email" value={email}></lightning-input>
+                    <lightning-input type="email" label="Email" value={email} disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="phone" label="Mobile Number" value={phone}></lightning-input>
+                    <lightning-input type="phone" label="Mobile Number" value={phone} disabled={readOnly}></lightning-input>
                 </div>
 
                 <!-- fourth row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Aadhar" value={aadhar}></lightning-input>
+                    <lightning-input type="number" label="Aadhar" value={aadhar} disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="PAN Card" value={pan}></lightning-input>
+                    <lightning-input type="text" label="PAN Card" value={pan} disabled={readOnly}></lightning-input>
                 </div>
 
                 <!-- fifth row --> 
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Current Address" value={current}></lightning-input>
+                    <lightning-input type="text" label="Current Address" value={current} disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Permanent Address" value={permanent}></lightning-input>
+                    <lightning-input type="text" label="Permanent Address" value={permanent} disabled={readOnly}></lightning-input>
                 </div>
 
             </div>
@@ -66,17 +66,17 @@
                         
                         <div class="slds-col slds-size_1-of-2 slds-p-around_medium"> 
                             <lightning-checkbox-group 
-                                name="addressType"
+                                name="marriedType"
                                 label="Are you married?"
                                 options={marriedOptions}
                                 value={marriedType}
-                                onchange={handleSpouse}
+                                onchange={handleMarried}
                                 >
                                 <!-- should disable the spouse field if not married -->
                             </lightning-checkbox-group>
                         </div>
                         <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Spouse Name" value={spouse}></lightning-input>
+                            <lightning-input type="text" label="Spouse Name" value={spouse} disabled={disableForm}></lightning-input>
                         </div>
 
                     </div>
@@ -89,8 +89,17 @@
                             <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Annual Income" value={income}></lightning-input> 
+                            <!-- <lightning-input type="text" label="Annual Income" value={income}></lightning-input>  -->
                             <!-- shd be a drop down so that processing easy ho -->
+                            <lightning-combobox
+                                name="annualIncome"
+                                label="Annual Income"
+                                value={annualIncome}
+                                placeholder="Select Income"
+                                options={incomeOptions}
+                                onchange={handleChange} 
+                                >
+                            </lightning-combobox>
                         </div>
                         
                         <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
