@@ -10,30 +10,20 @@
                 </lightning-progress-indicator>
             </div>
 
-            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-                <p>LOAN DETAILS</p>
+            <!-- LOAN DETAILS -->
+            <div class="slds-grid slds-wrap slds-grid_align-center"> <!-- do we ask type of loan?, total loans pending??? -->
 
-                <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-combobox
-                        name="annualIncome"
-                        label="Annual Income"
-                        value={annualIncome}
-                        placeholder="Select Income"
-                        options={incomeOptions}
-                        onchange={handleChange} 
-                        >
-                    </lightning-combobox>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_medium">
+                    <lightning-input type="text" label="Purpose"></lightning-input>
                 </div>
                 
+                <!-- conditional rendering of city and then pincode maybe? -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Company Name" value={company}></lightning-input>
+                    <lightning-input type="text" label="Loan Amount"></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Experience" value={experience}></lightning-input>
-                </div> -->
+                    <lightning-input type="text" label="Tenure"></lightning-input>
+                </div>
 
             </div>
 

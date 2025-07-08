@@ -30,16 +30,6 @@ export default class LoanApplicationForm extends LightningElement {
         ];
     }
 
-    get incomeOptions() {
-        return [
-            { label: 'Below 50k', value: 'Below 50k' },
-            { label: '50k-1L', value: '50k-1L' },
-            { label: '1L-5L', value: '1L-5L' },
-            { label: '5L-10L', value: '5L-10L' },
-            { label: 'Above 10L', value: 'Above 10L' }
-        ];
-    }
-
     handleChange(event) {
         const field = event.target.name;
         this[field] = event.target.type === 'number' 

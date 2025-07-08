@@ -1,6 +1,6 @@
 <template>
     <template if:true={message}>
-        <c-property-details message={formVisible}></c-property-details>
+        <c-property-details message={formVisible} permanent={permanent} current={current}></c-property-details>
         <template if:false={formVisible}>
             <div class="slds-p-around_medium">
                 <lightning-progress-indicator current-step="2" type="path" has-error="false" variant="base">
@@ -11,12 +11,11 @@
                 </lightning-progress-indicator>
             </div>
 
+            <!-- EMPLOYMENT DETAILS -->
             <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                EMPLOYMENT DETAILS
-
-                <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <lightning-input type="text" label="Occupation"></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
                     <lightning-combobox
@@ -31,11 +30,11 @@
                 </div>
                 
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Company Name" value={company}></lightning-input>
+                    <lightning-input type="text" label="Company Name"></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Experience" value={experience}></lightning-input>
-                </div> -->
+                    <lightning-input type="text" label="Experience"></lightning-input>
+                </div>
 
             </div>
 

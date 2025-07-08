@@ -5,6 +5,8 @@ export default class PropertyDetails extends LightningElement {
     @track formVisible = false;
     
     @api message;
+    @api current;
+    @api permanent;
 
     handleChange(event) {
         const field = event.target.name;

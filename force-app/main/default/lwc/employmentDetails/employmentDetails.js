@@ -1,11 +1,12 @@
 import { api, LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class EmploymentAndIncome extends LightningElement {
-
+export default class EmploymentDetails extends LightningElement {
     @track formVisible = false;
-
+        
     @api message;
+    @api current;
+    @api permanent;
 
     get incomeOptions() {
         return [
@@ -26,8 +27,8 @@ export default class EmploymentAndIncome extends LightningElement {
     }
 
     handleSubmit(){
+        this.showToast('Success', 'Employment Details collected', 'success');
         this.formVisible = true;
-        this.showToast('Success', 'Employment details collected', 'success');
     }
 
     showToast(title, message, variant) {

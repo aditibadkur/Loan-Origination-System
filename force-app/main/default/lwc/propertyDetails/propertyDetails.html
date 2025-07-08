@@ -11,30 +11,26 @@
                 </lightning-progress-indicator>
             </div>
 
+            <!-- PROPERTY DETAILS -->
             <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                PROPERTY DETAILS
-                <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <lightning-input type="text" label="Permanent Address" value={permanent} disabled=true></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-combobox
-                        name="annualIncome"
-                        label="Annual Income"
-                        value={annualIncome}
-                        placeholder="Select Income"
-                        options={incomeOptions}
-                        onchange={handleChange} 
-                        >
-                    </lightning-combobox>
+                    <lightning-input type="text" label="Property Address" value={current} disabled="true"></lightning-input>
                 </div>
                 
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Company Name" value={company}></lightning-input>
+                <!-- conditional rendering of city and then pincode maybe? -->
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning-input type="text" label="State"></lightning-input>
                 </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Experience" value={experience}></lightning-input>
-                </div> -->
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning-input type="text" label="City"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <lightning-input type="text" label="Pincode"></lightning-input>
+                </div>
 
             </div>
 
