@@ -9,6 +9,8 @@ export default class LeadGeneration extends LightningElement {
     @track applicantName = '';
     @track applicantEmail = '';
 
+    @track applicantNameValue = ''
+
     @track verified = false; 
     @track applicantPan = '';
     @track applicantAadhar = '';
@@ -50,29 +52,26 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            // this.applicantName = 'Nisha';
+            this.applicantNameValue = 'Nisha';
             this.applicantEmail = 'nisha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Aarav';
+            this.applicantNameValue = 'Aarav';
             this.applicantEmail = 'aarav@email.com';
         }
         if(this.verified){
             this.freezeInput = true;
             this.handleDocuments();
-            // if(this.applicantAadhar == '' || this.applicantPan == ''){
-            //     this.showToast('Error', 'Invalid Aadhar or PAN Card details.', 'error');
-            // }
         }
     }
 
     get addressOptions(){
         return [
-            { label: 'Yes', value: 'Permanent' },
-            { label: 'No', value: 'Current' }
+            { label: 'Yes', value: 'Permanent' }
+            // , { label: 'No', value: 'Current' }
         ];
     }
 
@@ -93,6 +92,7 @@ export default class LeadGeneration extends LightningElement {
             // this.applicantAge = '23';
             this.applicantGender = 'Female';
             this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
+            this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
@@ -111,6 +111,7 @@ export default class LeadGeneration extends LightningElement {
             // this.applicantAge = '20';
             this.applicantGender = 'Male';
             this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
+            this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
@@ -133,7 +134,7 @@ export default class LeadGeneration extends LightningElement {
             this.freezeAddress = true;
             console.log("Current Address is same as Permanent Address");
         }
-        if(this.addressType == 'Current'){
+        else{
             this.currentAddress = '123 Mane Street';
             this.freezeAddress = false;
             console.log("Current Address is different from Permanent Address");
@@ -145,7 +146,7 @@ export default class LeadGeneration extends LightningElement {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 
-    get NextButton() {
+    get NextButton() { // for rendering the last button (if possible usko disable better rahega imo)
         return this.isNext;
     }
 
@@ -156,9 +157,9 @@ export default class LeadGeneration extends LightningElement {
                 this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
                 this.isSuccess = true;
             }
-            else if (this.addressType == 'Current'){
+            else if (this.addressType != 'Permanent'){
                 if(this.currentAddress == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
-                    this.showToast('Error', 'Please enter the Current Address', 'error');
+                    this.showToast('Error', 'current address null error', 'error');
                 }
                 else{
                     this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
@@ -166,7 +167,7 @@ export default class LeadGeneration extends LightningElement {
                 }
             }
             else{
-                this.showToast('Error', 'Please enter the Current Address', 'error');
+                this.showToast('Error', 'no option selected error', 'error');
             }
         }
         else {
@@ -175,7 +176,7 @@ export default class LeadGeneration extends LightningElement {
 
     }
 
-    get nextPage() {
+    get nextPage() { // for rendering the next page
         return this.isSuccess;
     }
 }

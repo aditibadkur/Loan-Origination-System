@@ -2,6 +2,7 @@
 <c-loan-application-form 
     message={nextPage}
     name={applicantName}
+    name1={applicantNameValue}
     email={applicantEmail}
     phone={applicantPhone}
     aadhar={applicantAadhar}
@@ -26,11 +27,10 @@
 
             <!-- second row -->
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantName} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                <!-- FName, MName, LName -->
+                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantNameValue} onchange={handleChange} disabled={formDisabled}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="email" value={applicantEmail} label="Email" onchange={handleChange} disabled={formDisabled}></lightning-input>
+                <lightning-input type="email" name="applicantEmail" label="Email" value={applicantEmail} onchange={handleChange} disabled={formDisabled}></lightning-input>
             </div>
 
         </div>
@@ -55,7 +55,7 @@
                 <!-- third row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <!-- actually DOB hona chahiye -->
-                    <lightning-input type="date" value={applicantDOB} label="Applicant DOB" disabled={disableForm}></lightning-input>
+                    <lightning-input type="date" label="Applicant DOB" value={applicantDOB} disabled={disableForm}></lightning-input>
                 </div>
                 <!-- <div class="slds-col slds-size_1-of-3 slds-p-around_small"> -->
                     <!-- actually DOB hona chahiye -->
@@ -74,10 +74,10 @@
 
                 <!-- fourth row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" value={applicantCIBIL} label="CIBIL Score" disabled={readOnly}></lightning-input>
+                    <lightning-input type="number" label="CIBIL Score" value={applicantCIBIL} disabled={readOnly}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" value={applicantAddress} label="Permanent Address" disabled={readOnly}></lightning-input>
+                    <lightning-input type="text" label="Permanent Address" value={applicantAddress} disabled={readOnly}></lightning-input>
                 </div>
 
                 <!-- fifth row -->

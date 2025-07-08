@@ -4,6 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class LoanApplicationForm extends LightningElement {
     @api message;
     @api name;
+    @api name1;
     @api email;
     @api phone;
     @api age;
@@ -60,5 +61,14 @@ export default class LoanApplicationForm extends LightningElement {
 
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    get finalName(){
+        if(this.name != ''){
+            return this.name;
+        }
+        else{
+            return this.name1;
+        }
     }
 }
