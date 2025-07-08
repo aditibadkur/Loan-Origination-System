@@ -1,139 +1,120 @@
 <template>
     <template if:true={message}>
         <lightning-card title="Loan Application Form">
-            <!-- autopopulated waale sab mai onchange wala functionality nhi daala hai!!! -->
-            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-                <!-- first row -->
-                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                    <lightning-input type="text" label="First Name" value={finalName}></lightning-input>
+            <c-employment-and-income message={formVisible}></c-employment-and-income>
+            <template if:false={formVisible}>
+                <div class="slds-p-around_medium">
+                    <lightning-progress-indicator current-step="1" type="path" has-error="false" variant="base">
+                        <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
+                        <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
+                        <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
+                        <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
+                    </lightning-progress-indicator>
                 </div>
-                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                    <lightning-input type="text" label="Middle Name" onchange={handleChange}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                    <lightning-input type="text" label="Last Name" onchange={handleChange}></lightning-input>
+                <!-- autopopulated waale sab mai onchange wala functionality nhi daala hai!!! -->
+                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                    <!-- first row -->
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <lightning-input type="text" label="First Name" value={finalName}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <lightning-input type="text" label="Middle Name" onchange={handleChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <lightning-input type="text" label="Last Name" onchange={handleChange}></lightning-input>
+                    </div>
+
+                    <!-- second row -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Gender" value={gender} disabled={readOnly}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="date" label="DOB" value={bday} disabled={readOnly}></lightning-input>
+                    </div>
+
+                    <!-- third row -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="email" label="Email" value={email} disabled={readOnly}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="phone" label="Mobile Number" value={phone} disabled={readOnly}></lightning-input>
+                    </div>
+
+                    <!-- fourth row -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="number" label="Aadhar" value={aadhar} disabled={readOnly}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="PAN Card" value={pan} disabled={readOnly}></lightning-input>
+                    </div>
+
+                    <!-- fifth row --> 
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Current Address" value={current} disabled={readOnly}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Permanent Address" value={permanent} disabled={readOnly}></lightning-input>
+                    </div>
+
                 </div>
 
-                <!-- second row -->
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Gender" value={gender} disabled={readOnly}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="date" label="DOB" value={bday} disabled={readOnly}></lightning-input>
-                </div>
+                <lightning-accordion allow-multiple-sections-open>
 
-                <!-- third row -->
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="email" label="Email" value={email} disabled={readOnly}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="phone" label="Mobile Number" value={phone} disabled={readOnly}></lightning-input>
-                </div>
+                    <lightning-accordion-section name="section1" label="Family Details">
+                        <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                <!-- fourth row -->
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Aadhar" value={aadhar} disabled={readOnly}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="PAN Card" value={pan} disabled={readOnly}></lightning-input>
-                </div>
-
-                <!-- fifth row --> 
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Current Address" value={current} disabled={readOnly}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Permanent Address" value={permanent} disabled={readOnly}></lightning-input>
-                </div>
-
-            </div>
-
-            <lightning-accordion allow-multiple-sections-open>
-
-                <lightning-accordion-section name="section1" label="Family Details">
-                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Father's Name" value={father}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Father's Occupation" value={spouse} disabled={disableForm}></lightning-input>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Mother's Name" value={mother}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Mother's Occupation" value={spouse} disabled={disableForm}></lightning-input>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Guardian's Name" value={guardian}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Guardian's Occupation" value={spouse} disabled={disableForm}></lightning-input>
-                        </div>
-                        
-                        <div class="slds-col slds-size_1-of-1 slds-p-around_medium"> 
-                            <lightning-checkbox-group 
-                                class="display-flex"
-                                name="marriedType"
-                                label="Are you married?"
-                                options={marriedOptions}
-                                value={marriedType}
-                                onchange={handleMarried}
-                                >
-                            </lightning-checkbox-group>
-                        </div>
-
-                        <template if:false={isSingle}>
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                                <lightning-input type="text" label="Spouse Name" value={spouse} disabled={disableForm}></lightning-input>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Father's Name" disabled={disableForm}></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                                <lightning-input type="text" label="Spouse Occupation" value={spouse} disabled={disableForm}></lightning-input>
+                                <lightning-input type="text" label="Father's Occupation" disabled={disableForm}></lightning-input>
                             </div>
-                        </template>
 
-                    </div>
-                </lightning-accordion-section>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Mother's Name" disabled={disableForm}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning-input type="text" label="Mother's Occupation" disabled={disableForm}></lightning-input>
+                            </div>
 
-                <lightning-accordion-section name="section2" label="Work Details">
-                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Guardian's Name" disabled={disableForm}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning-input type="text" label="Guardian's Occupation" disabled={disableForm}></lightning-input>
+                            </div>
+                            
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_medium"> 
+                                <lightning-checkbox-group 
+                                    class="display-flex"
+                                    name="marriedType"
+                                    label="Are you married?"
+                                    options={marriedOptions}
+                                    value={marriedType}
+                                    onchange={handleMarried}
+                                    disabled={disableForm}
+                                    >
+                                </lightning-checkbox-group>
+                            </div>
 
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Occupation" value={occupation}></lightning-input>
+                            <template if:false={isSingle}>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                    <lightning-input type="text" label="Spouse Name" disabled={disableForm}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                    <lightning-input type="text" label="Spouse Occupation" disabled={disableForm}></lightning-input>
+                                </div>
+                            </template>
+
                         </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <!-- <lightning-input type="text" label="Annual Income" value={income}></lightning-input>  -->
-                            <!-- shd be a drop down so that processing easy ho -->
-                            <lightning-combobox
-                                name="annualIncome"
-                                label="Annual Income"
-                                value={annualIncome}
-                                placeholder="Select Income"
-                                options={incomeOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Company Name" value={company}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                            <lightning-input type="text" label="Experience" value={experience}></lightning-input>
-                        </div>
+                    </lightning-accordion-section>
 
-                    </div>
-                </lightning-accordion-section>
+                </lightning-accordion>
 
-            </lightning-accordion>
-
-            <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
-            </div>
-
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                    <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+                </div>
+            </template>
         </lightning-card>
     </template>
 </template>
