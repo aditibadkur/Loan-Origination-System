@@ -29,14 +29,14 @@
             <template if:true={salaried}>
                 <div class="slds-grid slds-wrap slds-grid_align-center">
 
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-input type="text" label="Company"></lightning-input>
                     </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-input type="text" label="Job Title"></lightning-input>
                     </div>
 
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-combobox
                             name="annualIncome"
                             label="Annual Income"
@@ -48,7 +48,7 @@
                         </lightning-combobox>
                     </div>
                     <!-- if less toh ask previous company ka info bhi? -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-input type="text" label="Experience"></lightning-input>
                     </div>
 
@@ -58,10 +58,10 @@
             <template if:true={self}>
                 <div class="slds-grid slds-wrap slds-grid_align-center">
 
-                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-input type="text" label="Business Name"></lightning-input>
                     </div>
-                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-combobox
                             name="businessType"
                             label="Business Type"
@@ -72,13 +72,13 @@
                             >
                         </lightning-combobox>
                     </div>
-                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-input type="text" label="Your Role"></lightning-input>
                     </div>
 
                     <!-- ask type of business? -->
 
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-combobox
                             name="annualIncome"
                             label="Annual Income"
@@ -90,21 +90,44 @@
                         </lightning-combobox>
                     </div>
                     <!-- if less toh ask previous company ka info bhi? -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-input type="text" label="Experience"></lightning-input>
                     </div>
 
                 </div>
             </template>
-            <template if:true={unemployed}>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
-                </div>
 
+            <template if:true={unemployed}>
+                <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Your relation to them"></lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    </div>
+
+                </div>
             </template>
+
             <template if:true={student}>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
+                <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Your relation to them"></lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    </div>
+                    
                 </div>
             </template>
 
