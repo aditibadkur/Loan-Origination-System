@@ -15,7 +15,7 @@ export default class LoanDetails extends LightningElement {
     }
 
     handleSubmit(){
-        this.showToast('Success', 'New Record Created', 'success');
+        this.showToast('Success', 'Send email now', 'success');
     }
 
     showToast(title, message, variant) {

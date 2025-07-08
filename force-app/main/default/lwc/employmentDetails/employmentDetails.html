@@ -13,30 +13,100 @@
 
             <!-- EMPLOYMENT DETAILS -->
             <div class="slds-grid slds-wrap slds-grid_align-center"> 
-
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Occupation"></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                <div class="slds-col slds-size_1-of-1 slds-grid_align-center slds-p-around_small">
                     <lightning-combobox
-                        name="annualIncome"
-                        label="Annual Income"
-                        value={annualIncome}
-                        placeholder="Select Income"
-                        options={incomeOptions}
+                        name="employmentType"
+                        label="Employment Type"
+                        value={employmentType}
+                        placeholder="Select Employment Type"
+                        options={employmentOptions}
                         onchange={handleChange} 
                         >
                     </lightning-combobox>
                 </div>
-                
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Company Name"></lightning-input>
+            </div>
+
+            <template if:true={salaried}>
+                <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-input type="text" label="Company"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-input type="text" label="Job Title"></lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-combobox
+                            name="annualIncome"
+                            label="Annual Income"
+                            value={annualIncome}
+                            placeholder="Select Income"
+                            options={incomeOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
+                    </div>
+                    <!-- if less toh ask previous company ka info bhi? -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-input type="text" label="Experience"></lightning-input>
+                    </div>
+
                 </div>
+            </template>
+
+            <template if:true={self}>
+                <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning-input type="text" label="Business Name"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning-combobox
+                            name="businessType"
+                            label="Business Type"
+                            value={businessType}
+                            placeholder="Select Business Type"
+                            options={businessOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                        <lightning-input type="text" label="Your Role"></lightning-input>
+                    </div>
+
+                    <!-- ask type of business? -->
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-combobox
+                            name="annualIncome"
+                            label="Annual Income"
+                            value={annualIncome}
+                            placeholder="Select Income"
+                            options={incomeOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
+                    </div>
+                    <!-- if less toh ask previous company ka info bhi? -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                        <lightning-input type="text" label="Experience"></lightning-input>
+                    </div>
+
+                </div>
+            </template>
+            <template if:true={unemployed}>
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Experience"></lightning-input>
+                    <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
                 </div>
 
-            </div>
+            </template>
+            <template if:true={student}>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                    <lightning-input type="text" label="Co-Applicant/Gurantor"></lightning-input>
+                </div>
+            </template>
 
             <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
                 <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>

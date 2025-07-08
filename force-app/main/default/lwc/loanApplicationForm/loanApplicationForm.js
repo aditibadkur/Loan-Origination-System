@@ -7,7 +7,6 @@ export default class LoanApplicationForm extends LightningElement {
 
     @api message;
     @api name;
-    @api name1;
     @api email;
     @api phone;
     @api age;

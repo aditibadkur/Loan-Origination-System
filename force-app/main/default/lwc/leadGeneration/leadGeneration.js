@@ -16,8 +16,8 @@ export default class LeadGeneration extends LightningElement {
     @track applicantAadhar = '';
 
     @track formDisabled = true;
-    @track disableForm = true;
-    @track freezeInput = false;
+    // @track disableForm = true;
+    @track freezePhone = false;
     @track freezeAddress = true;
 
     @track isNext = false;
@@ -27,7 +27,8 @@ export default class LeadGeneration extends LightningElement {
     @track applicantDOB = '';
     @track applicantAddress = '';
     @track addressType = '';
-    @track currentAddress = 'Enter Current Address';
+    // @track currentAddress = 'Enter Current Address';
+    @track currentAddressValue = '';
     @track applicantGender = '';
     @track applicantCIBIL = '';
 
@@ -51,19 +52,19 @@ export default class LeadGeneration extends LightningElement {
         if(this.applicantPhone == '9867187591'){
             this.verified = true;
             this.formDisabled = false;
-            this.disableForm = true;
-            this.applicantNameValue = 'Nisha';
+            // this.disableForm = true;
+            this.applicantName = 'Nisha';
             this.applicantEmail = 'nisha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
             this.formDisabled = false;
-            this.disableForm = true;
-            this.applicantNameValue = 'Aarav';
+            // this.disableForm = true;
+            this.applicantName = 'Aarav';
             this.applicantEmail = 'aarav@email.com';
         }
         if(this.verified){
-            this.freezeInput = true;
+            this.freezePhone = true;
             this.handleDocuments();
         }
     }
@@ -86,7 +87,7 @@ export default class LeadGeneration extends LightningElement {
         console.log("documents is working");
         if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
             this.formDisabled = true;
-            this.disableForm = false;
+            // this.disableForm = false;
             this.applicantCIBIL = '750';
             this.applicantDOB = 'Oct 10, 2002';
             // this.applicantAge = '23';
@@ -105,7 +106,7 @@ export default class LeadGeneration extends LightningElement {
 
         if(this.applicantAadhar == '123456789011' && this.applicantPan == 'ABCDE1234W'){
             this.formDisabled = true;
-            this.disableForm = false;
+            // this.disableForm = false;
             this.applicantCIBIL = '550';
             this.applicantDOB = '10-10-2005';
             // this.applicantAge = '20';
@@ -130,16 +131,16 @@ export default class LeadGeneration extends LightningElement {
             this.addressType = [this.addressType.pop()];
         }  
         if(this.addressType == 'Permanent'){
-            this.currentAddress = this.applicantAddress;
+            this.currentAddressValue = this.applicantAddress;
             this.freezeAddress = true;
             console.log("Current Address is same as Permanent Address");
         }
         else{
-            this.currentAddress = '123 Mane Street';
+            // this.currentAddress = '123 Mane Street';
             this.freezeAddress = false;
             console.log("Current Address is different from Permanent Address");
         }
-        console.log("Current Address: " + this.currentAddress);
+        console.log("Current Address: " + this.currentAddressValue);
     }
 
     showToast(title, message, variant) {
@@ -154,15 +155,15 @@ export default class LeadGeneration extends LightningElement {
         if(this.isNext){
             // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
             if(this.addressType == 'Permanent'){
-                this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
+                this.showToast('Success', 'Proceeded to LAF & record created', 'success');
                 this.isSuccess = true;
             }
             else if (this.addressType != 'Permanent'){
-                if(this.currentAddress == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
+                if(this.currentAddressValue == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
                     this.showToast('Error', 'current address null error', 'error');
                 }
                 else{
-                    this.showToast('Success', 'Proceeded to Loan Application Form', 'success');
+                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
                     this.isSuccess = true;
                 }
             }
@@ -174,6 +175,11 @@ export default class LeadGeneration extends LightningElement {
             this.showToast('Error', 'Please enter valid details', 'error');
         }
 
+    }
+
+    get getCurrentAddress(){
+        return this.currentAddressValue;
+        
     }
 
     get nextPage() { // for rendering the next page

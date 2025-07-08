@@ -9,7 +9,7 @@
     pan={applicantPan}
     bday={applicantDOB}
     gender={applicantGender}
-    current={currentAddress}
+    current={getCurrentAddress}
     permanent={applicantAddress}
     >
 </c-loan-application-form>
@@ -19,7 +19,7 @@
         <div class="slds-grid slds-wrap slds-grid_align-center"> 
             <!-- first row -->
             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
-                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange} disabled={freezeInput}></lightning-input>
+                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange} value={applicantPhone} disabled={freezePhone}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
                 <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
@@ -27,10 +27,10 @@
 
             <!-- second row -->
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantNameValue} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantName} disabled={readOnly}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <lightning-input type="email" name="applicantEmail" label="Email" value={applicantEmail} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                <lightning-input type="email" name="applicantEmail" label="Email" value={applicantEmail} disabled={readOnly}></lightning-input>
             </div>
 
         </div>
@@ -54,13 +54,8 @@
 
                 <!-- third row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <!-- actually DOB hona chahiye -->
-                    <lightning-input type="date" label="Applicant DOB" value={applicantDOB} disabled={disableForm}></lightning-input>
+                    <lightning-input type="date" label="Applicant DOB" value={applicantDOB} disabled={readOnly}></lightning-input>
                 </div>
-                <!-- <div class="slds-col slds-size_1-of-3 slds-p-around_small"> -->
-                    <!-- actually DOB hona chahiye -->
-                    <!-- <lightning-input type="number" value={applicantAge} label="Applicant Age" disabled={readOnly}></lightning-input>
-                </div> -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                     <lightning-combobox
                         name="gender"
@@ -68,7 +63,7 @@
                         options={genderOptions}
                         onchange={handleChange}
                         value={applicantGender}
-                        disabled={disableForm}>
+                        disabled={readOnly}>
                     </lightning-combobox>
                 </div>
 
@@ -94,7 +89,7 @@
                 </div>
                 <!-- if not same then show input to add address, if same, copy paste permanent and keep the input disabled -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" label="Current Address" value={currentAddress} disabled={freezeAddress}></lightning-input>
+                    <lightning-input type="text" name="currentAddressValue" label="Current Address" value={getCurrentAddress} onchange={handleChange} disabled={freezeAddress}></lightning-input>
                 </div>
 
             </div>
