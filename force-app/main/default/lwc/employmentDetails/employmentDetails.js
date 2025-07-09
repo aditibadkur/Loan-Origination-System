@@ -15,27 +15,6 @@ export default class EmploymentDetails extends LightningElement {
     @track unemployed = false;
     @track salaried = false;
 
-    @track coApplicantNumber = '';
-    @track isVerified = false;
-    @track freezePhone = false;
-    @track formDisabled = true;
-    
-    @track coApplicant = '';
-    @track coApplicantEmail = '';
-    @track coApplicantCIBIL = '';
-    @track occupation = '';
-
-
-    get incomeOptions() {
-        return [
-            { label: 'Below 50k', value: 'Below 50k' },
-            { label: '50k-1L', value: '50k-1L' },
-            { label: '1L-5L', value: '1L-5L' },
-            { label: '5L-10L', value: '5L-10L' },
-            { label: 'Above 10L', value: 'Above 10L' }
-        ];
-    }
-
     get employmentOptions(){
         return [
             { label: 'Salaried', value: 'Salaried' },
@@ -43,95 +22,6 @@ export default class EmploymentDetails extends LightningElement {
             { label: 'Unemployed', value: 'Unemployed' },
             { label: 'Student', value: 'Student' }
         ];
-    }
-
-    get businessOptions(){
-        return [
-            { label: 'IT', value: 'IT' },
-            { label: 'Finance', value: 'Finance' }, 
-            { label: 'Retail', value: 'Retail' },
-            { label: 'Service', value: 'Service' },
-            { label: 'Education', value: 'Education' },
-            { label: 'Health', value: 'Health' },
-            { label: 'Others', value: 'Others' }
-        ];
-    }
-
-    get relationOptions(){
-        return [
-            { label: 'Father', value: 'Father' },
-            { label: 'Mother', value: 'Mother' },
-            { label: 'Guardian', value: 'Guardian' },
-            { label: 'Brother', value: 'Brother' },
-            { label: 'Sister', value: 'Sister' },
-            { label: 'Friend', value: 'Friend' },
-            { label: 'Spouse', value: 'Spouse' }
-        ];
-    }
-
-    connectedCallback(){
-        this.handleVerification();
-    }
-
-    handleVerification(){
-        if(this.coApplicantNumber == '9867187272'){
-            this.coApplicant = 'Sara';
-            this.coApplicantEmail = 'sara@gmail.com';
-            this.freezePhone = true;
-            this.isVerified = true;
-            this.formDisabled = false;
-        }
-        if(this.isVerified){
-            this.handleDocuments();
-        }
-    }
-
-    // if not eligible toh number change karna padega, so that random pan and aadhar dont get attached w some other number
-    // maybe add a back button to change the co-applicant if mann ho
-
-    handleDocuments(){
-        if(this.coApplicantAadhar == '123456789012' && this.coApplicantPAN == 'ABCDE1234F'){
-            this.coApplicantCIBIL = '590';
-            this.occupation = 'Doctor';
-            this.formDisabled = true;
-
-            if(this.coApplicantCIBIL >= 600){
-                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
-            }
-            else{
-                this.showToast('Error', 'Co-Applicant not eligible for loan, change applicant (number)', 'error');
-                this.isVerified = false;
-                this.freezePhone = false;
-                // EMPTY THE FIELDS?
-            }
-        }
-        if(this.coApplicantAadhar == '123456789011' && this.coApplicantPAN == 'ABCDE1234W'){
-            this.coApplicantCIBIL = '700';
-            this.occupation = 'Doctor';
-            this.formDisabled = true;
-
-            if(this.coApplicantCIBIL >= 600){
-                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
-            }
-            else{
-                this.showToast('Error', 'Co-Applicant not eligible for loan', 'error');
-                this.formDisabled = false;
-            }
-        }
-    }
-
-    handleNotEligible(){
-        // aadhar pan nhi change ho rha!
-        this.coApplicantNumber = '';
-        this.coApplicant = '';
-        this.coApplicantEmail = '';
-        this.coApplicantAadhar = '';
-        this.coApplicantPAN = '';
-        this.coApplicantCIBIL = '';
-        this.occupation = '';
-
-        this.freezePhone = false;
-        this.isVerified = false;
     }
 
     handleChange(event) {
@@ -168,7 +58,121 @@ export default class EmploymentDetails extends LightningElement {
     }
 
     // sab submission ka logic ke liye alag alag handleSubmit banao
-    handleSubmit(){
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    // SALARIED AND SELF-EMPLOYED
+
+    get incomeOptions() {
+        return [
+            { label: 'Below 50k', value: 'Below 50k' },
+            { label: '50k-1L', value: '50k-1L' },
+            { label: '1L-5L', value: '1L-5L' },
+            { label: '5L-10L', value: '5L-10L' },
+            { label: 'Above 10L', value: 'Above 10L' }
+        ];
+    }
+
+    get businessOptions(){
+        return [
+            { label: 'IT', value: 'IT' },
+            { label: 'Finance', value: 'Finance' }, 
+            { label: 'Retail', value: 'Retail' },
+            { label: 'Service', value: 'Service' },
+            { label: 'Education', value: 'Education' },
+            { label: 'Health', value: 'Health' },
+            { label: 'Others', value: 'Others' }
+        ];
+    }
+
+    // UNEMPLOYED AND STUDENT
+
+    @track coApplicantNumber = '';
+    @track isVerified = false;
+    @track freezePhone = false;
+    @track formDisabled = true;
+    
+    @track coApplicant = '';
+    @track coApplicantEmail = '';
+    @track coApplicantCIBIL = '';
+    @track occupation = '';
+
+    get relationOptions(){
+        return [
+            { label: 'Father', value: 'Father' },
+            { label: 'Mother', value: 'Mother' },
+            { label: 'Guardian', value: 'Guardian' },
+            { label: 'Brother', value: 'Brother' },
+            { label: 'Sister', value: 'Sister' },
+            { label: 'Friend', value: 'Friend' },
+            { label: 'Spouse', value: 'Spouse' }
+        ];
+    }
+
+    connectedCallback(){
+        this.handleVerification();
+    }
+
+    handleVerification(){
+        if(this.coApplicantNumber == '9867187272'){
+            this.coApplicant = 'Sara';
+            this.coApplicantEmail = 'sara@gmail.com';
+            this.freezePhone = true;
+            this.isVerified = true;
+            this.formDisabled = false;
+        }
+        if(this.isVerified){
+            this.handleDocuments();
+        }
+    }
+
+    handleDocuments(){
+        if(this.coApplicantAadhar == '123456789012' && this.coApplicantPAN == 'ABCDE1234F'){
+            this.coApplicantCIBIL = '590';
+            this.occupation = 'Doctor';
+            this.formDisabled = true;
+
+            if(this.coApplicantCIBIL >= 600){
+                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
+            }
+            else{
+                this.showToast('Error', 'Co-Applicant not eligible for loan, change applicant (number)', 'error');
+                this.isVerified = false;
+                this.freezePhone = false;
+                // EMPTY THE FIELDS
+            }
+        }
+        if(this.coApplicantAadhar == '123456789011' && this.coApplicantPAN == 'ABCDE1234W'){
+            this.coApplicantCIBIL = '700';
+            this.occupation = 'Doctor';
+            this.formDisabled = true;
+
+            if(this.coApplicantCIBIL >= 600){
+                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
+            }
+            else{
+                this.showToast('Error', 'Co-Applicant not eligible for loan', 'error');
+                this.formDisabled = false;
+            }
+        }
+    }
+
+    handleNotEligible(){
+        this.coApplicantNumber = '';
+        this.coApplicant = '';
+        this.coApplicantEmail = '';
+        this.coApplicantAadhar = '';
+        this.coApplicantPAN = '';
+        this.coApplicantCIBIL = '';
+        this.occupation = '';
+
+        this.freezePhone = false;
+        this.isVerified = false;
+    }
+
+    handleSubmit(){ 
         if(this.coApplicantNumber == '' || this.coApplicantAadhar == '' || this.coApplicantPAN == ''){
             this.showToast('Error', 'Please enter Co-Applicant data', 'error');
         }
@@ -182,9 +186,5 @@ export default class EmploymentDetails extends LightningElement {
             this.showToast('Success', 'Employment Details collected', 'success');
             this.formVisible = true;
         }
-    }
-
-    showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 }
