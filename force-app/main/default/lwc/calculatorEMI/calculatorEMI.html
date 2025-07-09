@@ -3,19 +3,32 @@
             <div class="slds-grid slds-wrap slds-grid_align-center">
 
                 <!-- first row -->
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Loan Amount" name="loanAmount" onchange={handleChange}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Tenure (Years)" name="tenure" onchange={handleChange}></lightning-input>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="number" name="loanAmount" label="Loan Amount" onchange={handleChange}></lightning-input>
                 </div>
 
                 <!-- second row -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="number" label="Interest Rate (%)" name="interestRate" onchange={handleChange}></lightning-input>
+                    <lightning-input type="number" name="tenure" label="Tenure (Years)" value={tenureSlider} onchange={handleChange}></lightning-input>
                 </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-slider label="Tenure Slider" name="tenureSlider" min="0" max="30" value={tenureSlider} onchange={handleChange}></lightning-slider>
+                </div>
+
+                <!-- third row -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="number" name="interestRate" label="Interest Rate (%)" value={rateSlider} onchange={handleChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-slider name="rateSlider" label="Interest Rate Slider" min="0" max="30" value={rateSlider} onchange={handleChange}></lightning-slider>
+                </div>
+
+
                 <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
                     <lightning-button variant="brand" label="Calculate EMI" title="Calculate EMI" onclick={calculateEMI}></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                    <lightning-input type="number" name="emi" label="EMI" value={emi} disabled={readOnly}></lightning-input> 
                 </div>
 
             </div>
