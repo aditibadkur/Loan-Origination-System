@@ -2,7 +2,8 @@ import { api, LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class EmploymentDetails extends LightningElement {
-    @track formVisible = false;
+    @track formVisible = false; // for next page!
+    readOnly = true;
         
     @api message;
     @api current;
@@ -13,6 +14,17 @@ export default class EmploymentDetails extends LightningElement {
     @track student = false;
     @track unemployed = false;
     @track salaried = false;
+
+    @track coApplicantNumber = '';
+    @track isVerified = false;
+    @track freezePhone = false;
+    @track formDisabled = true;
+    
+    @track coApplicant = '';
+    @track coApplicantEmail = '';
+    @track coApplicantCIBIL = '';
+    @track occupation = '';
+
 
     get incomeOptions() {
         return [
@@ -43,6 +55,83 @@ export default class EmploymentDetails extends LightningElement {
             { label: 'Health', value: 'Health' },
             { label: 'Others', value: 'Others' }
         ];
+    }
+
+    get relationOptions(){
+        return [
+            { label: 'Father', value: 'Father' },
+            { label: 'Mother', value: 'Mother' },
+            { label: 'Guardian', value: 'Guardian' },
+            { label: 'Brother', value: 'Brother' },
+            { label: 'Sister', value: 'Sister' },
+            { label: 'Friend', value: 'Friend' },
+            { label: 'Spouse', value: 'Spouse' }
+        ];
+    }
+
+    connectedCallback(){
+        this.handleVerification();
+    }
+
+    handleVerification(){
+        if(this.coApplicantNumber == '9867187272'){
+            this.coApplicant = 'Sara';
+            this.coApplicantEmail = 'sara@gmail.com';
+            this.freezePhone = true;
+            this.isVerified = true;
+            this.formDisabled = false;
+        }
+        if(this.isVerified){
+            this.handleDocuments();
+        }
+    }
+
+    // if not eligible toh number change karna padega, so that random pan and aadhar dont get attached w some other number
+    // maybe add a back button to change the co-applicant if mann ho
+
+    handleDocuments(){
+        if(this.coApplicantAadhar == '123456789012' && this.coApplicantPAN == 'ABCDE1234F'){
+            this.coApplicantCIBIL = '590';
+            this.occupation = 'Doctor';
+            this.formDisabled = true;
+
+            if(this.coApplicantCIBIL >= 600){
+                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
+            }
+            else{
+                this.showToast('Error', 'Co-Applicant not eligible for loan, change applicant (number)', 'error');
+                this.isVerified = false;
+                this.freezePhone = false;
+                // EMPTY THE FIELDS?
+            }
+        }
+        if(this.coApplicantAadhar == '123456789011' && this.coApplicantPAN == 'ABCDE1234W'){
+            this.coApplicantCIBIL = '700';
+            this.occupation = 'Doctor';
+            this.formDisabled = true;
+
+            if(this.coApplicantCIBIL >= 600){
+                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
+            }
+            else{
+                this.showToast('Error', 'Co-Applicant not eligible for loan', 'error');
+                this.formDisabled = false;
+            }
+        }
+    }
+
+    handleNotEligible(){
+        // aadhar pan nhi change ho rha!
+        this.coApplicantNumber = '';
+        this.coApplicant = '';
+        this.coApplicantEmail = '';
+        this.coApplicantAadhar = '';
+        this.coApplicantPAN = '';
+        this.coApplicantCIBIL = '';
+        this.occupation = '';
+
+        this.freezePhone = false;
+        this.isVerified = false;
     }
 
     handleChange(event) {
@@ -78,9 +167,21 @@ export default class EmploymentDetails extends LightningElement {
         }
     }
 
+    // sab submission ka logic ke liye alag alag handleSubmit banao
     handleSubmit(){
-        this.showToast('Success', 'Employment Details collected', 'success');
-        this.formVisible = true;
+        if(this.coApplicantNumber == '' || this.coApplicantAadhar == '' || this.coApplicantPAN == ''){
+            this.showToast('Error', 'Please enter Co-Applicant data', 'error');
+        }
+        else if(this.formDisabled == false){
+            this.showToast('Error', 'Please fill all the fields with valid data', 'error');
+        }
+        else if(this.coApplicantCIBIL < 600 && this.coApplicantCIBIL != ''){
+            this.showToast('Error', 'Co-Applicant is not eligible for loan, CHANGE CO-APPLICANT', 'error');
+        }
+        else{
+            this.showToast('Success', 'Employment Details collected', 'success');
+            this.formVisible = true;
+        }
     }
 
     showToast(title, message, variant) {
