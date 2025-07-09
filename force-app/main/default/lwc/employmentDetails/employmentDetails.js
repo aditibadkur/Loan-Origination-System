@@ -63,9 +63,31 @@ export default class EmploymentDetails extends LightningElement {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 
+    // handleBack(){ // child to parent hai to event banana padega!!!!!
+    //     this.formVisible = true;
+    // }
+
     // SALARIED AND SELF-EMPLOYED
 
+    get formatOptions(){
+        return [
+            {label: 'WFH', value: 'WFH'},
+            {label: 'Hybrid (2-3 days WFH)', value: 'Hybrid (2-3 days WFH)'},
+            {label: 'Full-time', value: 'Full-time'}
+        ];
+    }
+
     get incomeOptions() {
+        return [
+            { label: 'Below 50k', value: 'Below 50k' },
+            { label: '50k-1L', value: '50k-1L' },
+            { label: '1L-5L', value: '1L-5L' },
+            { label: '5L-10L', value: '5L-10L' },
+            { label: 'Above 10L', value: 'Above 10L' }
+        ];
+    }
+
+    get profitOptions() {
         return [
             { label: 'Below 50k', value: 'Below 50k' },
             { label: '50k-1L', value: '50k-1L' },
@@ -85,6 +107,11 @@ export default class EmploymentDetails extends LightningElement {
             { label: 'Health', value: 'Health' },
             { label: 'Others', value: 'Others' }
         ];
+    }
+
+    handleBasicSubmit(){
+        this.showToast('Success', 'Employment Details collected', 'success');
+        this.formVisible = true;
     }
 
     // UNEMPLOYED AND STUDENT
@@ -159,7 +186,7 @@ export default class EmploymentDetails extends LightningElement {
         }
     }
 
-    handleNotEligible(){
+    clearFields(){
         this.coApplicantNumber = '';
         this.coApplicant = '';
         this.coApplicantEmail = '';
@@ -173,14 +200,20 @@ export default class EmploymentDetails extends LightningElement {
     }
 
     handleSubmit(){ 
-        if(this.coApplicantNumber == '' || this.coApplicantAadhar == '' || this.coApplicantPAN == ''){
-            this.showToast('Error', 'Please enter Co-Applicant data', 'error');
-        }
-        else if(this.formDisabled == false){
-            this.showToast('Error', 'Please fill all the fields with valid data', 'error');
-        }
-        else if(this.coApplicantCIBIL < 600 && this.coApplicantCIBIL != ''){
-            this.showToast('Error', 'Co-Applicant is not eligible for loan, CHANGE CO-APPLICANT', 'error');
+        if(this.unemployed || this.student){
+            if(this.coApplicantNumber == '' || this.coApplicantAadhar == '' || this.coApplicantPAN == ''){
+                this.showToast('Error', 'Please enter Co-Applicant data', 'error');
+            }
+            else if(this.formDisabled == false){
+                this.showToast('Error', 'Please fill all the fields with valid data', 'error');
+            }
+            else if(this.coApplicantCIBIL < 600 && this.coApplicantCIBIL != ''){
+                this.showToast('Error', 'Co-Applicant is not eligible for loan, CHANGE CO-APPLICANT', 'error');
+            }
+            else{
+                this.showToast('Success', 'Employment Details collected', 'success');
+                this.formVisible = true;
+            }
         }
         else{
             this.showToast('Success', 'Employment Details collected', 'success');

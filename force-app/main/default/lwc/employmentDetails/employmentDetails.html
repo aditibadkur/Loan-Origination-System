@@ -30,10 +30,21 @@
             <template if:true={salaried}>
                 <div class="slds-grid slds-wrap slds-grid_align-center">
 
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-input type="text" label="Company"></lightning-input>
                     </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <lightning-combobox
+                            name="workFormat"
+                            label="Select Work Format"
+                            value={workFormat}
+                            placeholder="Select Format"
+                            options={formatOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-input type="text" label="Job Title"></lightning-input>
                     </div>
 
@@ -48,9 +59,47 @@
                             >
                         </lightning-combobox>
                     </div>
+                    <!-- add salary slip here -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Salary Slip"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
+                    </div>
+
                     <!-- if less toh ask previous company ka info bhi? -->
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-input type="text" label="Experience"></lightning-input>
+                    </div>
+                    <!-- add OL? -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Offer Letter"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <!-- picklist hoyega yeh bhi -->
+                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Qualification Proof"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
                     </div>
 
                 </div>
@@ -80,18 +129,72 @@
 
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-combobox
-                            name="annualIncome"
-                            label="Annual Income"
-                            value={annualIncome}
-                            placeholder="Select Income"
-                            options={incomeOptions}
+                            name="annualProfit"
+                            label="Annual Profit"
+                            value={annualProfit}
+                            placeholder="Select Profit"
+                            options={profitOptions}
                             onchange={handleChange} 
                             >
                         </lightning-combobox>
                     </div>
+                    <!-- add annual revenue of business -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Annual Revenue"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
+                    </div>
+
                     <!-- if less toh ask previous company ka info bhi? -->
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" label="Experience"></lightning-input>
+                        <!-- picklist hoyega yeh bhi -->
+                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Qualification Proof"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <!-- picklist hoyega yeh bhi, koi metric range hoga naa -->
+                        <lightning-input type="number" label="Business Rating"></lightning-input>
+                    </div>
+                    <!-- balance sheet, profit and loss, business registration -->
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Balance Sheet"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <!-- picklist hoyega yeh bhi, koi metric hoga naa -->
+                        <lightning-input type="text" label="Business Location"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <lightning-file-upload
+                            label="Business Registration"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={myRecordId}
+                            onuploadfinished={handleUploadFinished}
+                        >
+                        </lightning-file-upload>
                     </div>
 
                 </div>
@@ -104,7 +207,7 @@
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-combobox
                             name="relation"
-                            label="Relation"
+                            label="Relation to the Co-Applicant"
                             value={relation}
                             placeholder="Select Relation"
                             options={relationOptions}
@@ -126,7 +229,7 @@
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                                 <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
                             </div>
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
                                 <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
                             </div>
 
@@ -158,7 +261,7 @@
                         </div>
 
                         <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                            <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
+                            <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={clearFields}></lightning-button>
                         </div>
 
                     </lightning-accordion-section>
@@ -232,10 +335,13 @@
                     </lightning-accordion-section>
                 </lightning-accordion>
             </template>
-
+            
             <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
                 <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
             </div>
+            <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                <lightning-button variant="brand" label="Back" title="Back" onclick={handleBack}></lightning-button>
+            </div> -->
         </template>
     </template>
 </template>

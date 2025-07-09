@@ -9,14 +9,12 @@ export default class LeadGeneration extends LightningElement {
     @track applicantName = '';
     @track applicantEmail = '';
 
-    @track applicantNameValue = ''
-
     @track verified = false; 
     @track applicantPan = '';
     @track applicantAadhar = '';
 
     @track formDisabled = true;
-    // @track disableForm = true;
+    @track disableForm = true;
     @track freezePhone = false;
     @track freezeAddress = true;
 
@@ -52,14 +50,14 @@ export default class LeadGeneration extends LightningElement {
         if(this.applicantPhone == '9867187591'){
             this.verified = true;
             this.formDisabled = false;
-            // this.disableForm = true;
+            this.disableForm = true;
             this.applicantName = 'Nisha';
             this.applicantEmail = 'nisha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
             this.formDisabled = false;
-            // this.disableForm = true;
+            this.disableForm = true;
             this.applicantName = 'Aarav';
             this.applicantEmail = 'aarav@email.com';
         }
@@ -83,11 +81,31 @@ export default class LeadGeneration extends LightningElement {
         ];
     }
 
+    clearFields(){
+        this.applicantPhone = '';
+        this.applicantName = '';
+        this.applicantEmail = '';
+        this.applicantAadhar = '';
+        this.applicantPan = '';
+        this.applicantCIBIL = '';
+        this.applicantGender = '';
+        this.applicantDOB = '';
+        this.applicantAddress = '';
+        this.currentAddressValue = '';
+
+        this.verified = false; 
+        this.formDisabled = true;
+        this.freezePhone = false;
+        this.freezeAddress = true;
+        this.isNext = false;
+        this.isSuccess = false;
+    }
+
     handleDocuments(){
         console.log("documents is working");
         if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
             this.formDisabled = true;
-            // this.disableForm = false;
+            this.disableForm = false;
             this.applicantCIBIL = '750';
             this.applicantDOB = 'Oct 10, 2002';
             // this.applicantAge = '23';
@@ -106,7 +124,7 @@ export default class LeadGeneration extends LightningElement {
 
         if(this.applicantAadhar == '123456789011' && this.applicantPan == 'ABCDE1234W'){
             this.formDisabled = true;
-            // this.disableForm = false;
+            this.disableForm = false;
             this.applicantCIBIL = '550';
             this.applicantDOB = '10-10-2005';
             // this.applicantAge = '20';
@@ -151,21 +169,21 @@ export default class LeadGeneration extends LightningElement {
         return this.isNext;
     }
 
-    handleNext(){
+    handleNext(){ // on all empty bhi next page pe jaa rha
         if(this.isNext){
             // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
             if(this.addressType == 'Permanent'){
                 this.showToast('Success', 'Proceeded to LAF & record created', 'success');
                 this.isSuccess = true;
             }
-            else if (this.addressType != 'Permanent'){
+            else if (this.addressType != 'Permanent'){ // try this this.addressType == ''
                 if(this.currentAddressValue == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
                     this.showToast('Error', 'current address null error', 'error');
                 }
                 else{
                     this.showToast('Success', 'Proceeded to LAF & record created', 'success');
                     this.isSuccess = true;
-                }
+                }   
             }
             else{
                 this.showToast('Error', 'no option selected error', 'error');
