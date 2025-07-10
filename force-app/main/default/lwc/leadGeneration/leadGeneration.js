@@ -1,5 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import addLead from '@salesforce/apex/addApplicant.addLead';
 
 export default class LeadGeneration extends LightningElement {
 
@@ -18,14 +19,12 @@ export default class LeadGeneration extends LightningElement {
     @track freezePhone = false;
     @track freezeAddress = true;
 
-    @track isNext = false;
-    @track isSuccess = false;
+    @track isEligible = false;
+    @track addressEntered = false;
 
-    // @track applicantAge = '';
     @track applicantDOB = '';
     @track applicantAddress = '';
     @track addressType = '';
-    // @track currentAddress = 'Enter Current Address';
     @track currentAddressValue = '';
     @track applicantGender = '';
     @track applicantCIBIL = '';
@@ -35,7 +34,7 @@ export default class LeadGeneration extends LightningElement {
         this[field] = event.target.type === 'number' 
         ? event.target.value.toString() 
         : event.target.value;
-        console.log(`Field changed: ${field}, Value: ${this[field]}`);
+        // console.log(`Field changed: ${field}, Value: ${this[field]}`);
     }
 
     connectedCallback() {
@@ -70,35 +69,7 @@ export default class LeadGeneration extends LightningElement {
     get addressOptions(){
         return [
             { label: 'Yes', value: 'Permanent' }
-            // , { label: 'No', value: 'Current' }
         ];
-    }
-
-    get genderOptions(){
-        return [
-            { label : 'Male', value: 'Male' },
-            { label: 'Female', value: 'Female' }
-        ];
-    }
-
-    clearFields(){
-        this.applicantPhone = '';
-        this.applicantName = '';
-        this.applicantEmail = '';
-        this.applicantAadhar = '';
-        this.applicantPan = '';
-        this.applicantCIBIL = '';
-        this.applicantGender = '';
-        this.applicantDOB = '';
-        this.applicantAddress = '';
-        this.currentAddressValue = '';
-
-        this.verified = false; 
-        this.formDisabled = true;
-        this.freezePhone = false;
-        this.freezeAddress = true;
-        this.isNext = false;
-        this.isSuccess = false;
     }
 
     handleDocuments(){
@@ -107,18 +78,17 @@ export default class LeadGeneration extends LightningElement {
             this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '750';
-            this.applicantDOB = 'Oct 10, 2002';
-            // this.applicantAge = '23';
+            this.applicantDOB = '10/10/2005';
             this.applicantGender = 'Female';
             this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
-                this.isNext = true;
+                this.isEligible = true;
             } else {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
-                this.isNext = false;
+                this.isEligible = false;
             }
         } 
 
@@ -126,18 +96,17 @@ export default class LeadGeneration extends LightningElement {
             this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '550';
-            this.applicantDOB = '10-10-2005';
-            // this.applicantAge = '20';
+            this.applicantDOB = '1/08/2005';
             this.applicantGender = 'Male';
             this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
                 this.showToast('Success', 'You are eligible for a loan!', 'success');
-                this.isNext = true;
+                this.isEligible = true;
             } else {
                 this.showToast('Error', 'You are not eligible for a loan.', 'error');
-                this.isNext = false;
+                this.isEligible = false;
             }
         } 
     }
@@ -154,45 +123,56 @@ export default class LeadGeneration extends LightningElement {
             console.log("Current Address is same as Permanent Address");
         }
         else{
-            // this.currentAddress = '123 Mane Street';
             this.freezeAddress = false;
             console.log("Current Address is different from Permanent Address");
         }
         console.log("Current Address: " + this.currentAddressValue);
     }
 
-    showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
-    }
-
-    get NextButton() { // for rendering the last button (if possible usko disable better rahega imo)
-        return this.isNext;
-    }
-
-    handleNext(){ // on all empty bhi next page pe jaa rha
-        if(this.isNext){
-            // if yes toh theeke save ho jaayega, if not toh after the current address is entered then allow karna warna error
-            if(this.addressType == 'Permanent'){
-                this.showToast('Success', 'Proceeded to LAF & record created', 'success');
-                this.isSuccess = true;
-            }
-            else if (this.addressType != 'Permanent'){ // try this this.addressType == ''
-                if(this.currentAddressValue == ''){ // abhi yeh implemented nhi hai (handleChange and value saath mai nhi chal rha ig)
-                    this.showToast('Error', 'current address null error', 'error');
-                }
-                else{
-                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
-                    this.isSuccess = true;
-                }   
+    handleNext(){ 
+        if(this.addressType == 'Permanent'){
+            this.showToast('Success', 'Proceeded to LAF & record created', 'success');
+            this.addressEntered = true;
+        }
+        else if (this.addressType != 'Permanent'){ // try this this.addressType == ''
+            if(this.currentAddressValue == ''){ 
+                this.showToast('Error', 'current address null error', 'error');
             }
             else{
-                this.showToast('Error', 'no option selected error', 'error');
-            }
+                this.showToast('Success', 'Proceeded to LAF & record created', 'success');
+                this.addressEntered = true;
+            }   
         }
-        else {
-            this.showToast('Error', 'Please enter valid details', 'error');
+        else{
+            this.showToast('Error', 'no option selected error', 'error');
         }
 
+        if(this.addressEntered){ // EVEN NOT ELIGIBLE SAVE HONA CHAHIYE
+            addLead({
+                leadName: this.applicantName,
+                leadPhone: this.applicantPhone,
+                leadEmail: this.applicantEmail,
+                leadPan: this.applicantPan,
+                leadAadhar: this.applicantAadhar,
+                leadGender: this.applicantGender,
+                leadDOB: this.applicantDOB,
+                leadCIBIL: this.applicantCIBIL,
+                leadPAddress: this.applicantAddress,
+                leadCAddress: this.currentAddressValue,
+                leadEligible: this.isEligible
+            })
+            .then(result => {
+                this.recordId = result; 
+                this.showToast('Success', 'Record created successfully!', 'success');
+                console.log('Record created with ID:', result);
+            })
+            .catch(error => {
+                this.formDisabled = false;
+                const errorMessage = error.message || error.body?.message || 'Unknown error';
+                this.showToast('Error', errorMessage, 'error');
+                console.error('Full error:', error);
+            });
+            }
     }
 
     get getCurrentAddress(){
@@ -201,6 +181,10 @@ export default class LeadGeneration extends LightningElement {
     }
 
     get nextPage() { // for rendering the next page
-        return this.isSuccess;
+        return this.addressEntered;
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 }
