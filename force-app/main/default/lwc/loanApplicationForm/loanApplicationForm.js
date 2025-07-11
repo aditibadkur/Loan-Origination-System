@@ -61,8 +61,6 @@ export default class LoanApplicationForm extends LightningElement {
     }
 
     handleSubmit(){
-        // this.formVisible = true;
-        // this.showToast('Success', 'Personal + Family details collected', 'success');
         familyDetails({
             recordId: this.applicantid,
             father: this.applicantFather,
@@ -76,9 +74,19 @@ export default class LoanApplicationForm extends LightningElement {
             married: !this.isSingle
         })
         .then(() => {
-            this.formVisible = true;
-            this.showToast('Success', 'Personal + Family details collected', 'success');
-            console.log(this.applicantid+' Record updated');
+            if((this.applicantFather == '' || this.applicantMother == '') && this.applicantGuardian == ''){
+                this.showToast('Error', 'Please fill either family or guardian details', 'error');
+                this.formVisible = false;
+            }
+            else if(!this.isSingle && (this.applicantSpouse == '' || this.spouseOccupation == '')){
+                this.showToast('Error', 'Please fill Spouse details', 'error');
+                this.formVisible = false;
+            }
+            else{
+                this.formVisible = true;
+                this.showToast('Success', 'Personal + Family details collected', 'success');
+                console.log(this.applicantid+' Record updated');
+            }
         })
         .catch(error => {
             this.formVisible = false;
@@ -92,12 +100,4 @@ export default class LoanApplicationForm extends LightningElement {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 
-    get finalName(){
-        if(this.name != ''){
-            return this.name;
-        }
-        else{
-            return this.name1;
-        }
-    }
 }

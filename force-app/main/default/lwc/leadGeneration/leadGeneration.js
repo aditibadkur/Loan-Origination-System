@@ -52,8 +52,8 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Diksha';
-            this.applicantEmail = 'Diksha@email.com';
+            this.applicantName = 'Niharika';
+            this.applicantEmail = 'Niharika@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
@@ -161,7 +161,7 @@ export default class LeadGeneration extends LightningElement {
                 leadCIBIL: this.applicantCIBIL,
                 leadPAddress: this.applicantAddress,
                 leadCAddress: this.currentAddressValue,
-                leadEligible: this.isEligible
+                leadEligible: this.isEligible // LEAD LOST/WON?
             })
             .then(result => {
                 this.recordId = result; 
