@@ -6,6 +6,8 @@ export default class LeadGeneration extends LightningElement {
 
     readOnly = true;
 
+    @track recordId = '';
+
     @track applicantPhone = '';
     @track applicantName = '';
     @track applicantEmail = '';
@@ -50,8 +52,8 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Nisha';
-            this.applicantEmail = 'nisha@email.com';
+            this.applicantName = 'Diksha';
+            this.applicantEmail = 'Diksha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;

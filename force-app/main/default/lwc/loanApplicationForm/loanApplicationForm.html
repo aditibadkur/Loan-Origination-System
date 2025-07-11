@@ -64,24 +64,24 @@
                         <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Father's Name" ></lightning-input>
+                                <lightning-input type="text" label="Father's Name" name="applicantFather" onchange={handleChange}></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Father's Occupation" ></lightning-input>
-                            </div>
-
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Mother's Name" ></lightning-input>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Mother's Occupation" ></lightning-input>
+                                <lightning-input type="text" label="Father's Occupation" name="fatherOccupation" onchange={handleChange}></lightning-input>
                             </div>
 
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Guardian's Name" ></lightning-input>
+                                <lightning-input type="text" label="Mother's Name" name="applicantMother" onchange={handleChange}></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                <lightning-input type="text" label="Guardian's Occupation" ></lightning-input>
+                                <lightning-input type="text" label="Mother's Occupation" name="motherOccupation" onchange={handleChange}></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Guardian's Name" name="applicantGuardian" onchange={handleChange}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Guardian's Occupation" name="guardianOccupation" onchange={handleChange}></lightning-input>
                             </div>
                             
                             <div class="slds-col slds-size_1-of-1 slds-p-around_small"> 
@@ -98,10 +98,10 @@
 
                             <template if:false={isSingle}>
                                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Spouse Name" ></lightning-input>
+                                    <lightning-input type="text" label="Spouse Name" name="applicantSpouse" onchange={handleChange}></lightning-input>
                                 </div>
                                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Spouse Occupation" ></lightning-input>
+                                    <lightning-input type="text" label="Spouse Occupation" name="spouseOccupation" onchange={handleChange}></lightning-input>
                                 </div>
                             </template>
 

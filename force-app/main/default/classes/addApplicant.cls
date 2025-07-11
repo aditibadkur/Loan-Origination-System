@@ -35,4 +35,50 @@ public with sharing class addApplicant {
             throw new AuraHandledException('Error creating application: ' + e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static void familyDetails(
+        String recordId,
+        String father, 
+        String fatherOccupation, 
+        String mother,
+        String motherOccupation,
+        String guardian,
+        String guardianOccupation,
+        String spouse,
+        String spouseOccupation,
+        Boolean married
+    ){
+        try {
+            Loan_Application__c appl = [
+                SELECT Id, Father_Name__c, Father_Occupation__c,
+                Mother_Name__c, Mother_Occupation__c,
+                Guardian__c, Guardian_Occupation__c,
+                Married__c,
+                Spouse_Name__c, Spouse_Occupation__c
+                FROM Loan_Application__c 
+                WHERE Id = :recordId LIMIT 1 
+            ];
+
+            appl.Father_Name__c = father;
+            appl.Father_Occupation__c = fatherOccupation;
+
+            appl.Mother_Name__c = mother;
+            appl.Mother_Occupation__c = motherOccupation;
+
+            appl.Guardian__c = guardian;
+            appl.Guardian_Occupation__c = guardianOccupation;
+
+            appl.Married__c = married;
+
+            appl.Spouse_Name__c = spouse != null ? spouse : null;
+            appl.Spouse_Occupation__c = spouseOccupation  != null ? spouseOccupation : null;
+
+
+            update appl;
+            
+        } catch (Exception e) {
+            throw new AuraHandledException('Error creating application: ' + e.getMessage());
+        }
+    }
 }
