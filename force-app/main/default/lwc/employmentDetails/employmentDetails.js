@@ -4,6 +4,8 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class EmploymentDetails extends LightningElement {
     @track formVisible = false; // for next page!
     readOnly = true;
+
+    @api applicantid;
         
     @api message;
     @api current;
@@ -25,6 +27,7 @@ export default class EmploymentDetails extends LightningElement {
     }
 
     handleChange(event) {
+        console.log("recordID: "+applicantid);
         const field = event.target.name;
         this[field] = event.target.type === 'number' 
         ? event.target.value.toString() 

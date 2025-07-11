@@ -14,15 +14,15 @@
             <div class="slds-grid slds-wrap slds-grid_align-center"> <!-- do we ask type of loan?, total loans pending??? -->
 
                 <div class="slds-col slds-size_1-of-1 slds-p-around_medium">
-                    <lightning-input type="text" label="Purpose"></lightning-input>
+                    <lightning-input type="text" name="applicantPurpose" label="Purpose" onchange={handleChange}></lightning-input>
                 </div>
                 
                 <!-- conditional rendering of city and then pincode maybe? -->
                 <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Loan Amount"></lightning-input>
+                    <lightning-input type="number" name="loanAmount" label="Loan Amount"  onchange={handleChange}></lightning-input>
                 </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Tenure"></lightning-input>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_medium"> <!--shd be a picklist??-->
+                    <lightning-input type="number" name="loanTenure" label="Tenure (Years)"  onchange={handleChange}></lightning-input>
                 </div>
 
             </div>

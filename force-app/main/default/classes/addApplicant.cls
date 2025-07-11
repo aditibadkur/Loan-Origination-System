@@ -78,7 +78,60 @@ public with sharing class addApplicant {
             update appl;
             
         } catch (Exception e) {
-            throw new AuraHandledException('Error creating application: ' + e.getMessage());
+            throw new AuraHandledException('Error updating family details: ' + e.getMessage());
+        }
+    }
+
+    // employment details
+    // loan application mai send employment type
+    // employment data mai send employment data including type
+
+    @AuraEnabled
+    public static void propertyDetails(
+        String recordId,
+        String state, 
+        String city,
+        String pincode
+    ){
+        try {
+            Loan_Application__c appl = [
+                SELECT Id, State__c, City__c, Pincode__c
+                FROM Loan_Application__c
+                WHERE Id = :recordId LIMIT 1 
+            ];
+            
+            appl.State__c = state;
+            appl.City__c = city;
+            appl.Pincode__c = pincode != null ? Decimal.valueOf(pincode) : null;
+
+            update appl;
+            
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating property details: ' + e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static void loanDetails(
+        String recordId,
+        String loanPurpose, 
+        String loanAmt, 
+        String loanTenure
+    ){
+        try {
+            Loan_Application__c appl = [
+                SELECT Id, Tenure__c, Loan_Amount__c
+                FROM Loan_Application__c
+                WHERE Id = :recordId LIMIT 1 
+            ];
+
+            appl.Loan_Purpose__c = loanPurpose;
+            appl.Loan_Amount__c = loanAmt != null ? Decimal.valueOf(loanAmt) : null;
+            appl.Tenure__c = loanTenure != null ? Decimal.valueOf(loanTenure) : null;
+
+            update appl;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating loan details: ' + e.getMessage());
         }
     }
 }

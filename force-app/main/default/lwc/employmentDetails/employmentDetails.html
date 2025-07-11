@@ -1,6 +1,6 @@
 <template>
     <template if:true={message}>
-        <c-property-details message={formVisible} permanent={permanent} current={current}></c-property-details>
+        <c-property-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid}></c-property-details>
         <template if:false={formVisible}>
             <div class="slds-p-around_medium">
                 <lightning-progress-indicator current-step="2" type="path" has-error="false" variant="base">

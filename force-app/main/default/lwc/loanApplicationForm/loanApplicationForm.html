@@ -1,7 +1,7 @@
 <template>
     <template if:true={message}>
         <lightning-card title="Loan Application Form">
-            <c-employment-details message={formVisible} permanent={permanent} current={current}></c-employment-details>
+            <c-employment-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid}></c-employment-details>
             <template if:false={formVisible}>
                 <div class="slds-p-around_medium">
                     <lightning-progress-indicator current-step="1" type="path" has-error="false" variant="base">

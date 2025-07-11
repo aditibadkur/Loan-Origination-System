@@ -1,6 +1,6 @@
 <template>
     <template if:true={message}>
-        <c-loan-details message={formVisible}></c-loan-details>
+        <c-loan-details message={formVisible} applicantid={applicantid}></c-loan-details>
         <template if:false={formVisible}>
             <div class="slds-p-around_medium">
                 <lightning-progress-indicator current-step="3" type="path" has-error="false" variant="base">
@@ -23,13 +23,13 @@
                 
                 <!-- conditional rendering of city and then pincode maybe? -->
                 <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="text" label="State"></lightning-input>
+                    <lightning-input type="text" name="applicantState" label="State" onchange={handleChange}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="text" label="City"></lightning-input>
+                    <lightning-input type="text" name="applicantCity" label="City" onchange={handleChange}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="text" label="Pincode"></lightning-input>
+                    <lightning-input type="number" name="applicantPincode" label="Pincode" onchange={handleChange}></lightning-input>
                 </div>
 
             </div>
