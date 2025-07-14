@@ -52,8 +52,8 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Niharika';
-            this.applicantEmail = 'Niharika@email.com';
+            this.applicantName = 'natasha';
+            this.applicantEmail = 'natasha@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;

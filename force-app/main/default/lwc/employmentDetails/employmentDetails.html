@@ -18,9 +18,9 @@
                         name="employmentType"
                         label="Employment Type"
                         value={employmentType}
-                        placeholder="Select Employment Type"
+                        placeholder="Select Type"
                         options={employmentOptions}
-                        onchange={handleChange} 
+                        onchange={handleEmploymentType} 
                         >
                     </lightning-combobox>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="slds-grid slds-wrap slds-grid_align-center">
 
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                        <lightning-input type="text" label="Company"></lightning-input>
+                        <lightning-input type="text" name="companyName" label="Company" onchange={handleChange}></lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-combobox
@@ -45,7 +45,7 @@
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                        <lightning-input type="text" label="Job Title"></lightning-input>
+                        <lightning-input type="text" name="jobRole" label="Job Title" onchange={handleChange}></lightning-input>
                     </div>
 
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
@@ -72,8 +72,8 @@
                     </div>
 
                     <!-- if less toh ask previous company ka info bhi? -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" label="Experience"></lightning-input>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                        <lightning-input type="text" name="experience" label="Experience" onchange={handleChange}></lightning-input>
                     </div>
                     <!-- add OL? -->
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
@@ -87,9 +87,16 @@
                         </lightning-file-upload>
                     </div>
 
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <!-- picklist hoyega yeh bhi -->
-                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                        <lightning-combobox
+                            name="qualification"
+                            label="Qualification"
+                            value={qualification}
+                            placeholder="Select Qualification"
+                            options={qualificationOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-file-upload
@@ -110,7 +117,7 @@
                 <div class="slds-grid slds-wrap slds-grid_align-center">
 
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                        <lightning-input type="text" label="Business Name"></lightning-input>
+                        <lightning-input type="text" name="bName" label="Business Name" onchange={handleChange}></lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <lightning-combobox
@@ -124,16 +131,16 @@
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                        <lightning-input type="text" label="Your Role"></lightning-input>
+                        <lightning-input type="text" name="jobRole" label="Your Role" onchange={handleChange}></lightning-input>
                     </div>
 
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-combobox
-                            name="annualProfit"
-                            label="Annual Profit"
-                            value={annualProfit}
-                            placeholder="Select Profit"
-                            options={profitOptions}
+                            name="annualIncome"
+                            label="Annual Income"
+                            value={annualIncome}
+                            placeholder="Select Income"
+                            options={incomeOptions}
                             onchange={handleChange} 
                             >
                         </lightning-combobox>
@@ -151,9 +158,16 @@
                     </div>
 
                     <!-- if less toh ask previous company ka info bhi? -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <!-- picklist hoyega yeh bhi -->
-                        <lightning-input type="text" label="Qualification"></lightning-input>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                        <lightning-combobox
+                            name="qualification"
+                            label="Qualification"
+                            value={qualification}
+                            placeholder="Select Qualification"
+                            options={qualificationOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-file-upload
@@ -168,7 +182,7 @@
 
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <!-- picklist hoyega yeh bhi, koi metric range hoga naa -->
-                        <lightning-input type="number" label="Business Rating"></lightning-input>
+                        <lightning-input type="number" name="businessRating" label="Business Rating" onchange={handleChange}></lightning-input>
                     </div>
                     <!-- balance sheet, profit and loss, business registration -->
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
@@ -183,8 +197,7 @@
                     </div>
 
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <!-- picklist hoyega yeh bhi, koi metric hoga naa -->
-                        <lightning-input type="text" label="Business Location"></lightning-input>
+                        <lightning-input type="text" name="experience" label="Business Experience" onchange={handleChange}></lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                         <lightning-file-upload
@@ -215,8 +228,16 @@
                             >
                         </lightning-combobox>
                     </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" label="Your Qualification"></lightning-input>
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                        <lightning-combobox
+                            name="qualification"
+                            label="Qualification"
+                            value={qualification}
+                            placeholder="Select Qualification"
+                            options={qualificationOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
                     </div>
                     
                 </div>
@@ -284,7 +305,15 @@
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" label="Your Qualification"></lightning-input>
+                        <lightning-combobox
+                            name="qualification"
+                            label="Qualification"
+                            value={qualification}
+                            placeholder="Select Qualification"
+                            options={qualificationOptions}
+                            onchange={handleChange} 
+                            >
+                        </lightning-combobox>
                     </div>
                     
                 </div>

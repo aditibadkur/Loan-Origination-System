@@ -27,14 +27,16 @@ public with sharing class addApplicant {
             appl.Permanent_Address__c = leadPAddress;
             appl.Current_Address__c = leadCAddress;
             appl.Eligible__c = leadEligible ? 'Yes': 'No';
-            // appl.Loan_Amount__c = applicantAmount != null ? Decimal.valueOf(applicantAmount) : null;
 
             insert appl;
             return appl.Id;
+
         } catch (Exception e) {
             throw new AuraHandledException('Error creating application: ' + e.getMessage());
         }
     }
+
+    // family details
 
     @AuraEnabled
     public static void familyDetails(
@@ -74,7 +76,6 @@ public with sharing class addApplicant {
             appl.Spouse_Name__c = spouse != null ? spouse : null;
             appl.Spouse_Occupation__c = spouseOccupation  != null ? spouseOccupation : null;
 
-
             update appl;
             
         } catch (Exception e) {
@@ -82,9 +83,149 @@ public with sharing class addApplicant {
         }
     }
 
-    // employment details
-    // loan application mai send employment type
+    // ⚠️ loan application mai send employment type
     // employment data mai send employment data including type
+    // create new employment data record with the recordId as foreign key
+
+    @AuraEnabled
+    public static String salariedDetails( 
+        String applicantid,
+        String type,
+        String exp,
+        String qualification,
+        String company,
+        String job,
+        String workFormat,
+        String annualIncome
+    ){
+        try {
+            Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
+
+            empData.Applicant_ID__c = applicantid;
+            empData.Name = type;
+            empData.Experience_Years__c = exp;
+            empData.Qualification__c = qualification;
+            empData.Company_Name__c = company;
+            empData.Job_Role__c = job;
+            empData.Work_Format__c = workFormat;
+            empData.Annual_Income__c = annualIncome;
+            
+            insert empData;
+            return empData.Id;
+
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating salaried details: ' + e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static String selfDetails( 
+        String applicantid,
+        String type,
+        String exp,
+        String qualification,
+        String business,
+        String bType,
+        String job,
+        String annualIncome,
+        String rating
+    ){
+        try {
+            Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
+            
+            empData.Applicant_ID__c = applicantid;
+            empData.Name = type;
+            empData.Experience_Years__c = exp;
+            empData.Qualification__c = qualification;
+            empData.Business_Name__c = business;
+            empData.Business_Domain__c = bType;
+            empData.Job_Role__c = job;
+            empData.Annual_Income__c = annualIncome;
+            empData.Business_Rating__c = rating;
+
+            insert empData;
+            return empData.Id;
+
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating self employed details: ' + e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static String studentDetails( 
+        String applicantid,
+        String type,
+        String relationToCo,
+        String qualification,
+        String coNumber, 
+        String coName, 
+        String coEmail,
+        String coPan,
+        String coAadhar,
+        String coOccupation, 
+        String coCIBIL
+    ){
+        try {
+            Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
+            
+            empData.Applicant_ID__c = applicantid;
+            empData.Name = type;
+            empData.Relation_to_C__c = relationToCo;
+            empData.Qualification__c = qualification;
+            empData.Co_Applicant_Phone__c = coNumber;
+            empData.Co_Applicant_Name__c = coName;
+            empData.Co_Applicant_Email__c = coEmail;
+            empData.Co_Applicant_PAN__c = coPan;
+            empData.Co_Applicant_Aadhar__c = coAadhar != null ? Decimal.valueOf(coAadhar) : null;
+            empData.Co_Applicant_Occupation__c = coOccupation;
+            empData.Co_Applicant_CIBIL__c = coCIBIL != null ? Decimal.valueOf(coCIBIL) : null;
+
+            insert empData;
+            return empData.Id;
+
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating student details: ' + e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static String unemployedDetails( 
+        String applicantid,
+        String type,
+        String relationToCo,
+        String qualification,
+        String coNumber, 
+        String coName, 
+        String coEmail,
+        String coPan,
+        String coAadhar,
+        String coOccupation, 
+        String coCIBIL
+    ){
+        try {
+            Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
+            
+            empData.Applicant_ID__c = applicantid;
+            empData.Name = type;
+            empData.Relation_to_C__c = relationToCo;
+            empData.Qualification__c = qualification;
+            empData.Co_Applicant_Phone__c = coNumber;
+            empData.Co_Applicant_Name__c = coName;
+            empData.Co_Applicant_Email__c = coEmail;
+            empData.Co_Applicant_PAN__c = coPan;
+            empData.Co_Applicant_Aadhar__c = coAadhar != null ? Decimal.valueOf(coAadhar) : null;
+            empData.Co_Applicant_Occupation__c = coOccupation;
+            empData.Co_Applicant_CIBIL__c = coCIBIL != null ? Decimal.valueOf(coCIBIL) : null;
+
+            insert empData;
+            return empData.Id;
+            
+        } catch (Exception e) {
+            throw new AuraHandledException('Error updating unemployed details: ' + e.getMessage());
+        }
+    }
+
+    // property details
 
     @AuraEnabled
     public static void propertyDetails(
@@ -111,6 +252,8 @@ public with sharing class addApplicant {
         }
     }
 
+    // loan details
+
     @AuraEnabled
     public static void loanDetails(
         String recordId,
@@ -130,6 +273,7 @@ public with sharing class addApplicant {
             appl.Tenure__c = loanTenure != null ? Decimal.valueOf(loanTenure) : null;
 
             update appl;
+
         } catch (Exception e) {
             throw new AuraHandledException('Error updating loan details: ' + e.getMessage());
         }
