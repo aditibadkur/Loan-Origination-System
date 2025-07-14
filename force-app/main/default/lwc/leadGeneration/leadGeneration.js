@@ -52,8 +52,8 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'natasha';
-            this.applicantEmail = 'natasha@email.com';
+            this.applicantName = 'alexa';
+            this.applicantEmail = 'alexa@email.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
@@ -82,7 +82,7 @@ export default class LeadGeneration extends LightningElement {
             this.applicantCIBIL = '750';
             this.applicantDOB = '10/10/2005';
             this.applicantGender = 'Female';
-            this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
+            this.applicantAddress = '123 Mane Street';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 

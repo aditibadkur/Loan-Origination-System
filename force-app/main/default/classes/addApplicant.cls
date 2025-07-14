@@ -88,7 +88,7 @@ public with sharing class addApplicant {
     // create new employment data record with the recordId as foreign key
 
     @AuraEnabled
-    public static String salariedDetails( 
+    public static void salariedDetails( 
         String applicantid,
         String type,
         String exp,
@@ -101,7 +101,7 @@ public with sharing class addApplicant {
         try {
             Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
 
-            empData.Applicant_ID__c = applicantid;
+            empData.Loan_Application__c = applicantid; 
             empData.Name = type;
             empData.Experience_Years__c = exp;
             empData.Qualification__c = qualification;
@@ -111,7 +111,9 @@ public with sharing class addApplicant {
             empData.Annual_Income__c = annualIncome;
             
             insert empData;
-            return empData.Id;
+            Loan_Application__c loanApp = [SELECT Id FROM Loan_Application__c WHERE Id = :applicantid LIMIT 1];
+            loanApp.Employment_Data__c = empData.Id;
+            update loanApp;
 
         } catch (Exception e) {
             throw new AuraHandledException('Error updating salaried details: ' + e.getMessage());
@@ -119,7 +121,7 @@ public with sharing class addApplicant {
     }
 
     @AuraEnabled
-    public static String selfDetails( 
+    public static void selfDetails( 
         String applicantid,
         String type,
         String exp,
@@ -133,7 +135,7 @@ public with sharing class addApplicant {
         try {
             Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
             
-            empData.Applicant_ID__c = applicantid;
+            empData.Loan_Application__c = applicantid;
             empData.Name = type;
             empData.Experience_Years__c = exp;
             empData.Qualification__c = qualification;
@@ -144,7 +146,9 @@ public with sharing class addApplicant {
             empData.Business_Rating__c = rating;
 
             insert empData;
-            return empData.Id;
+            Loan_Application__c loanApp = [SELECT Id FROM Loan_Application__c WHERE Id = :applicantid LIMIT 1];
+            loanApp.Employment_Data__c = empData.Id;
+            update loanApp;
 
         } catch (Exception e) {
             throw new AuraHandledException('Error updating self employed details: ' + e.getMessage());
@@ -152,7 +156,7 @@ public with sharing class addApplicant {
     }
 
     @AuraEnabled
-    public static String studentDetails( 
+    public static void studentDetails( 
         String applicantid,
         String type,
         String relationToCo,
@@ -168,7 +172,7 @@ public with sharing class addApplicant {
         try {
             Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
             
-            empData.Applicant_ID__c = applicantid;
+            empData.Loan_Application__c = applicantid;
             empData.Name = type;
             empData.Relation_to_C__c = relationToCo;
             empData.Qualification__c = qualification;
@@ -181,7 +185,9 @@ public with sharing class addApplicant {
             empData.Co_Applicant_CIBIL__c = coCIBIL != null ? Decimal.valueOf(coCIBIL) : null;
 
             insert empData;
-            return empData.Id;
+            Loan_Application__c loanApp = [SELECT Id FROM Loan_Application__c WHERE Id = :applicantid LIMIT 1];
+            loanApp.Employment_Data__c = empData.Id;
+            update loanApp;
 
         } catch (Exception e) {
             throw new AuraHandledException('Error updating student details: ' + e.getMessage());
@@ -189,7 +195,7 @@ public with sharing class addApplicant {
     }
 
     @AuraEnabled
-    public static String unemployedDetails( 
+    public static void unemployedDetails( 
         String applicantid,
         String type,
         String relationToCo,
@@ -205,7 +211,7 @@ public with sharing class addApplicant {
         try {
             Applicant_Employment_Data__c empData = new Applicant_Employment_Data__c();
             
-            empData.Applicant_ID__c = applicantid;
+            empData.Loan_Application__c = applicantid;
             empData.Name = type;
             empData.Relation_to_C__c = relationToCo;
             empData.Qualification__c = qualification;
@@ -218,7 +224,9 @@ public with sharing class addApplicant {
             empData.Co_Applicant_CIBIL__c = coCIBIL != null ? Decimal.valueOf(coCIBIL) : null;
 
             insert empData;
-            return empData.Id;
+            Loan_Application__c loanApp = [SELECT Id FROM Loan_Application__c WHERE Id = :applicantid LIMIT 1];
+            loanApp.Employment_Data__c = empData.Id;
+            update loanApp;            
             
         } catch (Exception e) {
             throw new AuraHandledException('Error updating unemployed details: ' + e.getMessage());
