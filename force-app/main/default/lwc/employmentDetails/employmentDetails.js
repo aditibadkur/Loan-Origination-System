@@ -19,7 +19,7 @@ export default class EmploymentDetails extends LightningElement {
     readOnly = true;
 
     @api applicantid;
-        
+
     @api message;
     @api current;
     @api permanent;
@@ -34,6 +34,22 @@ export default class EmploymentDetails extends LightningElement {
     @track incomeOptions = [];
     @track businessOptions = [];
     @track relationOptions = [];
+
+    @track acceptedFormats = ['.pdf'];
+
+    handleUploadFinished(event) {
+        const uploadedFiles = event.detail.files;
+        this.showToast('Success', uploadedFiles.length + ' File(s) uploaded successfully!', 'success');
+        this.showFileComponent = true;
+        this.refreshFileList();
+    }
+
+    refreshFileList() {
+        const fileComponent = this.template.querySelector('c-show-file');
+        if (fileComponent) {
+            fileComponent.getFiles();
+        }
+    }
 
     get employmentOptions(){
         return [
@@ -294,12 +310,6 @@ export default class EmploymentDetails extends LightningElement {
 
     @track relation = '';
 
-    @track acceptedFormats = ['.pdf','.png','.jpg','.jpeg'];
-
-    handleUploadFinished(event) {
-        const uploadedFiles = event.detail.files;
-        this.showToast('Success', `${uploadedFiles.length} file(s) uploaded successfully`, 'success');
-    }
     // qualification upar mentioned hai
 
     // get relationOptions(){
