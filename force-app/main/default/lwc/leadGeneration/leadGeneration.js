@@ -8,6 +8,9 @@ export default class LeadGeneration extends LightningElement {
 
     @track recordId = '';
 
+    @track content = '';
+    @track showModal = false;
+
     @track applicantPhone = '';
     @track applicantName = '';
     @track applicantEmail = '';
@@ -66,7 +69,7 @@ export default class LeadGeneration extends LightningElement {
             this.formDisabled = false;
             this.disableForm = true;
             this.applicantName = 'Pushparaj';
-            this.applicantEmail = 'rjcharsh11sci43@gmail.com';
+            this.applicantEmail = 'aditisbadkur@gmail.com';
         }
         if(this.verified){
             this.freezePhone = true;
@@ -172,6 +175,10 @@ export default class LeadGeneration extends LightningElement {
             } 
             else {
                 this.showToast('Info', 'Applicant not eligible - record saved but cannot proceed', 'info');
+                // add modal ka content ki you're not eligible?
+                this.content = `You're not eligible to apply for a loan at our organization due to low CIBIL score ${this.applicantCIBIL}. 
+                To learn more about CIBIL, click here: "https://www.cibil.in/"`;
+                this.showModal = true;
             }
         })
         .catch(error => {
@@ -180,6 +187,10 @@ export default class LeadGeneration extends LightningElement {
             this.showToast('Error', errorMessage, 'error');
             console.error('Full error:', error);
         });
+    }
+
+    handleModalClose() {
+        this.showModal = false;
     }
 
     get getCurrentAddress(){
