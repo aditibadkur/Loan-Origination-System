@@ -37,7 +37,7 @@ export default class LoanDetails extends LightningElement {
             }
             else{
                 this.formVisible = true;
-                this.showToast('Success', 'Property details collected', 'success');
+                this.showToast('Success', 'Loan details collected', 'success');
                 console.log(this.applicantid+' Record updated');
             }
         })

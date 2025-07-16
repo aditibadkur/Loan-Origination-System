@@ -31,6 +31,12 @@ export default class LeadGeneration extends LightningElement {
     @track applicantGender = '';
     @track applicantCIBIL = '';
 
+    // handleChildEvent(event) {
+    //     this.addressEntered = event.detail.message;
+    //     console.log("Child event reached, address entered value: "+this.addressEntered);
+    // }
+
+
     handleChange(event) {
         const field = event.target.name;
         this[field] = event.target.type === 'number' 
@@ -52,15 +58,15 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'sonia';
-            this.applicantEmail = 'sonia@email.com';
+            this.applicantName = 'Sreevalli';
+            this.applicantEmail = 'vedicam80@gmail.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Aarav';
-            this.applicantEmail = 'aarav@email.com';
+            this.applicantName = 'Pushparaj';
+            this.applicantEmail = 'rjcharsh11sci43@gmail.com';
         }
         if(this.verified){
             this.freezePhone = true;
@@ -131,50 +137,49 @@ export default class LeadGeneration extends LightningElement {
         console.log("Current Address: " + this.currentAddressValue);
     }
 
-    handleNext(){ 
-        if(this.addressType == 'Permanent'){
-            this.showToast('Success', 'Proceeded to LAF & record created', 'success');
-            this.addressEntered = true;
-        }
-        else if (this.addressType != 'Permanent'){ // try this this.addressType == ''
-            if(this.currentAddressValue == ''){ 
-                this.showToast('Error', 'current address null error', 'error');
+    handleNext() { // Always save the record 
+        addLead({
+            leadName: this.applicantName,
+            leadPhone: this.applicantPhone,
+            leadEmail: this.applicantEmail,
+            leadPan: this.applicantPan,
+            leadAadhar: this.applicantAadhar,
+            leadGender: this.applicantGender,
+            leadDOB: this.applicantDOB,
+            leadCIBIL: this.applicantCIBIL,
+            leadPAddress: this.applicantAddress,
+            leadCAddress: this.currentAddressValue,
+            leadEligible: this.isEligible
+        })
+        .then(result => {
+            this.recordId = result;
+            this.showToast('Success', 'Record created successfully!', 'success');
+            console.log('Record created with ID:', result);
+            
+            // Only proceed to next page if eligible
+            if (this.isEligible) {
+                if (this.addressType === 'Permanent') {
+                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
+                    this.addressEntered = true;
+                } 
+                else if (this.currentAddressValue === '') {
+                    this.showToast('Error', 'Current address cannot be empty', 'error');
+                }
+                else {
+                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
+                    this.addressEntered = true;
+                }
+            } 
+            else {
+                this.showToast('Info', 'Applicant not eligible - record saved but cannot proceed', 'info');
             }
-            else{
-                this.showToast('Success', 'Proceeded to LAF & record created', 'success');
-                this.addressEntered = true;
-            }   
-        }
-        else{
-            this.showToast('Error', 'no option selected error', 'error');
-        }
-
-        if(this.addressEntered){ // EVEN NOT ELIGIBLE SAVE HONA CHAHIYE
-            addLead({
-                leadName: this.applicantName,
-                leadPhone: this.applicantPhone,
-                leadEmail: this.applicantEmail,
-                leadPan: this.applicantPan,
-                leadAadhar: this.applicantAadhar,
-                leadGender: this.applicantGender,
-                leadDOB: this.applicantDOB,
-                leadCIBIL: this.applicantCIBIL,
-                leadPAddress: this.applicantAddress,
-                leadCAddress: this.currentAddressValue,
-                leadEligible: this.isEligible // LEAD LOST/WON?
-            })
-            .then(result => {
-                this.recordId = result; 
-                this.showToast('Success', 'Record created successfully!', 'success');
-                console.log('Record created with ID:', result);
-            })
-            .catch(error => {
-                this.formDisabled = false;
-                const errorMessage = error.message || error.body?.message || 'Unknown error';
-                this.showToast('Error', errorMessage, 'error');
-                console.error('Full error:', error);
-            });
-            }
+        })
+        .catch(error => {
+            this.formDisabled = false;
+            const errorMessage = error.message || error.body?.message || 'Unknown error';
+            this.showToast('Error', errorMessage, 'error');
+            console.error('Full error:', error);
+        });
     }
 
     get getCurrentAddress(){

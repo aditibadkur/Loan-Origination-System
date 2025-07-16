@@ -100,4 +100,12 @@ export default class LoanApplicationForm extends LightningElement {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 
+    // @api childMessage = "false";
+    // handleBack(){
+    //     const myEvent = new CustomEvent('childEvent', {
+    //         detail: { message: this.childMessage }
+    //     });
+    //     this.dispatchEvent(myEvent);
+    // }
+
 }

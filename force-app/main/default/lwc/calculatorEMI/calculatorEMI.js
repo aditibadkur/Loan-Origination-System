@@ -3,6 +3,8 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class CalculatorEMI extends LightningElement {
 
+    @track emiNotVisible = false;
+
     readOnly = true;    
 
     @track loanAmount = 0;
@@ -37,6 +39,12 @@ export default class CalculatorEMI extends LightningElement {
         }
     }
 
+    // main component se aayega toh uska child ban jaayega, dusre component mai kaise daalu???????
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
     // connectedCallback(){
     //     this.calculateEMI();
     // }
@@ -60,8 +68,4 @@ export default class CalculatorEMI extends LightningElement {
     //     console.log("EMI: " + this.emi);
     //     // this.showToast('Success', `Your EMI is ${this.emi}`, 'success');
     // }
-
-    showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
-    }
 }

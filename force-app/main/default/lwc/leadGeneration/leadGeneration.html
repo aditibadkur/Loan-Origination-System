@@ -13,6 +13,7 @@
         current={getCurrentAddress}
         permanent={applicantAddress}
         >
+        <!-- onchildevent={handleChildEvent} -->
     </c-loan-application-form>
     <template if:false={nextPage}>
         <lightning-card title="Eligibility Check"> <!-- name, place, animal, thing from phone number -->
@@ -87,7 +88,7 @@
 
                 </div>
             </lightning-card>
-
+            
             <div  class="slds-grid slds-wrap slds-grid_align-center">
                 <lightning-button variant="brand" label="Next" title="Next" onclick={handleNext}></lightning-button>
             </div>
