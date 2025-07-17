@@ -61,14 +61,14 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Sreevalli';
-            this.applicantEmail = 'vedicam80@gmail.com';
+            this.applicantName = 'Harsh';
+            this.applicantEmail = 'badkuraditi3108@gmail.com';
         }
         if(this.applicantPhone == '1234567890'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Pushparaj';
+            this.applicantName = 'Sahil';
             this.applicantEmail = 'aditisbadkur@gmail.com';
         }
         if(this.verified){
@@ -88,9 +88,9 @@ export default class LeadGeneration extends LightningElement {
         if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '750';
-            this.applicantDOB = '10/10/2005';
-            this.applicantGender = 'Female';
+            this.applicantCIBIL = '690';
+            this.applicantDOB = '10/12/2001';
+            this.applicantGender = 'Male';
             this.applicantAddress = '123 Mane Street';
             this.freezeAddress = false;
 

@@ -15,6 +15,8 @@
         >
         <!-- onchildevent={handleChildEvent} -->
     </c-loan-application-form>
+    <div class="slds-grid slds-wrap slds-grid_align-center">
+    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
     <template if:false={nextPage}>
         <lightning-card title="Eligibility Check"> <!-- name, place, animal, thing from phone number -->
 
@@ -98,6 +100,8 @@
 
         </lightning-card>
     </template>
+    </div>
+    </div>
 </template>
 
 <!-- these are all hard-coded, if details save karna hua toh handleChange daalna padega for every input and then create record 
