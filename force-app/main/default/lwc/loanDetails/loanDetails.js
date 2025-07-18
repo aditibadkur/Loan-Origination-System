@@ -5,6 +5,10 @@ import loanDetails from '@salesforce/apex/addApplicant.loanDetails';
 export default class LoanDetails extends LightningElement {
     @track formVisible = false;
 
+    @track showModal = false;
+    @track topic = '';
+    @track content = '';
+
     @api applicantid;
 
     @api message;
@@ -37,9 +41,10 @@ export default class LoanDetails extends LightningElement {
             }
             else{
                 this.formVisible = true;
-                this.showToast('Success', 'Loan details collected', 'success');
-                window.location.href = `https://orgfarm-0e96062adb-dev-ed.develop.lightning.force.com/lightning/r/Loan_Application__c/${this.applicantid}/view`;
-
+                this.topic = 'Application Sent';
+                this.content = "Your application has been sent to the Underwriter for approval. We will notify you once credit decision has been made. Thank you for your patience.";
+                this.showModal = true;
+                // this.showToast('Success', 'Loan details collected', 'success');
             }
         })
         .catch(error => {
@@ -52,5 +57,10 @@ export default class LoanDetails extends LightningElement {
 
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+    }
+
+    handleModalClose() {
+        this.showModal = false;
+        window.location.href = `https://orgfarm-0e96062adb-dev-ed.develop.lightning.force.com/lightning/r/Loan_Application__c/${this.applicantid}/view`;
     }
 }

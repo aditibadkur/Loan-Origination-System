@@ -27,8 +27,11 @@
 
             </div>
 
-            <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+            <div  class="slds-grid slds-wrap slds-grid_align-center">
                 <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+                <template if:true={showModal}>
+                    <c-eligibility-modal label={topic} message={content} onclose={handleModalClose}></c-eligibility-modal>
+                </template>
             </div>
         </template>
     <!-- </template> -->

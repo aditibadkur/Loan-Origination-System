@@ -1,6 +1,7 @@
 import { api, LightningElement } from 'lwc';
 
 export default class EligibilityModal extends LightningElement {
+    @api label;
     @api message;
 
     handleClick(){

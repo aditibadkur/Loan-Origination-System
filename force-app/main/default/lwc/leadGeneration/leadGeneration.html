@@ -94,7 +94,7 @@
             <div  class="slds-grid slds-wrap slds-grid_align-center">
                 <lightning-button variant="brand" label="Next" title="Next" onclick={handleNext}></lightning-button>
                 <template if:true={showModal}>
-                    <c-eligibility-modal message={content} onclose={handleModalClose}></c-eligibility-modal>
+                    <c-eligibility-modal label={topic} message={content} onclose={handleModalClose}></c-eligibility-modal>
                 </template>
             </div>
 
