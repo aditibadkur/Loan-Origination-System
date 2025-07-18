@@ -1,12 +1,12 @@
 import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import addLead from '@salesforce/apex/addApplicant.addLead';
-
 export default class LeadGeneration extends LightningElement {
 
     readOnly = true;
 
     @track recordId = '';
+    @track leadRecordId = '';
 
     @track content = '';
     @track showModal = false;
@@ -34,12 +34,6 @@ export default class LeadGeneration extends LightningElement {
     @track applicantGender = '';
     @track applicantCIBIL = '';
 
-    // handleChildEvent(event) {
-    //     this.addressEntered = event.detail.message;
-    //     console.log("Child event reached, address entered value: "+this.addressEntered);
-    // }
-
-
     handleChange(event) {
         const field = event.target.name;
         this[field] = event.target.type === 'number' 
@@ -61,15 +55,15 @@ export default class LeadGeneration extends LightningElement {
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Harsh';
-            this.applicantEmail = 'badkuraditi3108@gmail.com';
+            this.applicantName = 'Jethalal';
+            this.applicantEmail = 'aditisbadkur@gmail.com';
         }
-        if(this.applicantPhone == '1234567890'){
+        if(this.applicantPhone == '1234567819'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Sahil';
-            this.applicantEmail = 'aditisbadkur@gmail.com';
+            this.applicantName = 'Atharva';
+            this.applicantEmail = 'rheakapadia92@gmail.com';
         }
         if(this.verified){
             this.freezePhone = true;
@@ -88,8 +82,8 @@ export default class LeadGeneration extends LightningElement {
         if(this.applicantAadhar == '123456789012' && this.applicantPan == 'ABCDE1234F'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '690';
-            this.applicantDOB = '10/12/2001';
+            this.applicantCIBIL = '760';
+            this.applicantDOB = '01/12/11';
             this.applicantGender = 'Male';
             this.applicantAddress = '123 Mane Street';
             this.freezeAddress = false;
@@ -103,13 +97,13 @@ export default class LeadGeneration extends LightningElement {
             }
         } 
 
-        if(this.applicantAadhar == '123456789011' && this.applicantPan == 'ABCDE1234W'){
+        if(this.applicantAadhar == '123456789014' && this.applicantPan == 'ABCDE1234S'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '550';
-            this.applicantDOB = '1/08/2005';
+            this.applicantCIBIL = '380';
+            this.applicantDOB = '12/03/2002';
             this.applicantGender = 'Male';
-            this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
+            this.applicantAddress = 'Siddharth Nagar, Kandivali East, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
@@ -155,42 +149,34 @@ export default class LeadGeneration extends LightningElement {
             leadEligible: this.isEligible
         })
         .then(result => {
-            this.recordId = result;
+            this.recordId = result.loanAppId;
+            this.leadRecordId = result.leadId;
+            console.log('recordId: '+this.recordId+' Lead record ID: '+this.leadRecordId);
             this.showToast('Success', 'Record created successfully!', 'success');
-            console.log('Record created with ID:', result);
             
-            // Only proceed to next page if eligible
             if (this.isEligible) {
-                if (this.addressType === 'Permanent') {
-                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
+                // Only redirect to Loan Application if eligible
+                if (this.addressType === 'Permanent' || this.currentAddressValue !== '') {
                     this.addressEntered = true;
-                } 
-                else if (this.currentAddressValue === '') {
-                    this.showToast('Error', 'Current address cannot be empty', 'error');
+                    // window.location.href = `https://orgfarm-0e96062adb-dev-ed.develop.lightning.force.com/lightning/r/Loan_Application__c/${this.recordId}/view`;
                 }
-                else {
-                    this.showToast('Success', 'Proceeded to LAF & record created', 'success');
-                    this.addressEntered = true;
-                }
-            } 
-            else {
-                this.showToast('Info', 'Applicant not eligible - record saved but cannot proceed', 'info');
-                // add modal ka content ki you're not eligible?
-                this.content = `You're not eligible to apply for a loan at our organization due to low CIBIL score ${this.applicantCIBIL}. 
-                To learn more about CIBIL, click here: "https://www.cibil.in/"`;
+            } else {
+                // Redirect to Lead view page if not eligible
+                this.content = `You're not eligible to apply for a loan at our organization due to low CIBIL score ${this.applicantCIBIL}. To learn more about CIBIL, click here: "https://www.cibil.in/"`;
                 this.showModal = true;
             }
         })
         .catch(error => {
             this.formDisabled = false;
             const errorMessage = error.message || error.body?.message || 'Unknown error';
-            this.showToast('Error', errorMessage, 'error');
+            this.showToast('Error in createApplicant', errorMessage, 'error');
             console.error('Full error:', error);
         });
     }
 
     handleModalClose() {
         this.showModal = false;
+        window.location.href = `https://orgfarm-0e96062adb-dev-ed.develop.lightning.force.com/lightning/r/Lead/${this.leadRecordId}/view`;
     }
 
     get getCurrentAddress(){

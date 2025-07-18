@@ -38,7 +38,8 @@ export default class LoanDetails extends LightningElement {
             else{
                 this.formVisible = true;
                 this.showToast('Success', 'Loan details collected', 'success');
-                console.log(this.applicantid+' Record updated');
+                window.location.href = `https://orgfarm-0e96062adb-dev-ed.develop.lightning.force.com/lightning/r/Loan_Application__c/${this.applicantid}/view`;
+
             }
         })
         .catch(error => {

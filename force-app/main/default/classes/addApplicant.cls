@@ -1,6 +1,6 @@
 public with sharing class addApplicant {
     @AuraEnabled
-    public static String addLead(
+    public static Map<String,String> addLead(
         String leadName, 
         String leadPhone, 
         String leadEmail, 
@@ -29,7 +29,24 @@ public with sharing class addApplicant {
             appl.Eligible__c = leadEligible ? 'Yes': 'No';
 
             insert appl;
-            return appl.Id;
+
+            Lead newLead = new Lead();
+            newLead.LastName = leadName;
+            newLead.Phone = leadPhone;
+            newLead.Email = leadEmail;
+            newLead.Company = leadPAddress;
+            newLead.Status = leadEligible ? 'Working - Contacted' : 'Closed - Not Converted';
+            newLead.Applicant_ID__c = appl.Id; 
+            
+            insert newLead;
+
+            appl.Lead_ID__c = newLead.Id;
+            update appl;
+
+            return new Map<String,String>{
+                'loanAppId' => appl.Id,
+                'leadId' => newLead.Id
+            };
 
         } catch (Exception e) {
             throw new AuraHandledException('Error creating application: ' + e.getMessage());
