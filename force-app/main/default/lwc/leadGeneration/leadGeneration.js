@@ -52,19 +52,19 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867187591'){
+        if(this.applicantPhone == '9867180005'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Jethalal Gada';
-            this.applicantEmail = 'rheakapadia92@gmail.com';
+            this.applicantName = 'Divyam Badkur';
+            this.applicantEmail = 'aditisbadkur@gmail.com';
         }
-        if(this.applicantPhone == '1234567819'){
+        if(this.applicantPhone == '1234567896'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Atharva';
-            this.applicantEmail = 'rheakapadia92@gmail.com';
+            this.applicantName = 'Reyansh';
+            this.applicantEmail = 'aditisbadkur@gmail.com';
         }
         if(this.verified){
             this.freezePhone = true;
@@ -80,13 +80,13 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789013' && this.applicantPan == 'ABCDE1234E'){
+        if(this.applicantAadhar == '123456789005' && this.applicantPan == 'ABCDE1234Q'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '760';
-            this.applicantDOB = '01/12/11';
+            this.applicantCIBIL = '690';
+            this.applicantDOB = '02/02/02';
             this.applicantGender = 'Male';
-            this.applicantAddress = '123 Mane Street';
+            this.applicantAddress = '123 Oxford Street';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
@@ -98,13 +98,13 @@ export default class LeadGeneration extends LightningElement {
             }
         } 
 
-        if(this.applicantAadhar == '123456789014' && this.applicantPan == 'ABCDE1234S'){
+        if(this.applicantAadhar == '123456789088' && this.applicantPan == 'ABCDE1234U'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '380';
+            this.applicantCIBIL = '430';
             this.applicantDOB = '12/03/2002';
             this.applicantGender = 'Male';
-            this.applicantAddress = 'Siddharth Nagar, Kandivali East, Mumbai';
+            this.applicantAddress = 'Thakur Complex, Kandivali East, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 

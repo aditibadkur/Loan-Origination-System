@@ -1,123 +1,232 @@
 <template>
     <template if:true={message}>
         <lightning-card title="Loan Application Form">
-            <c-employment-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid}></c-employment-details>
-            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                <template if:false={formVisible}>
-                    <div class="slds-p-around_medium">
-                        <lightning-progress-indicator current-step="1" type="path" has-error="false" variant="base">
-                            <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
-                            <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
-                            <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
-                            <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
-                        </lightning-progress-indicator>
-                    </div>
-                    <!-- autopopulated waale sab mai onchange wala functionality nhi daala hai!!! -->
-                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
-                        <!-- first row -->
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" label="First Name" value={name} disabled={readOnly}></lightning-input>
+            <div class="slds-grid slds-wrap slds-grid_align-center">
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-employment-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid} class="slds-size_1-of-1"></c-employment-details>
+
+                    <template if:false={formVisible}>
+                        <div class="slds-p-around_medium">
+                            <lightning-progress-indicator current-step="1" type="path" has-error="false" variant="base">
+                                <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
+                                <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
+                                <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
+                                <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
+                            </lightning-progress-indicator>
                         </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" label="Middle Name" disabled={readOnly}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" label="Last Name" disabled={readOnly}></lightning-input>
-                        </div>
-
-                        <!-- second row -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Gender" value={gender} disabled={readOnly}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="date" label="DOB" value={bday} disabled={readOnly}></lightning-input>
-                        </div>
-
-                        <!-- third row -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="email" label="Email" value={email} disabled={readOnly}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="phone" label="Mobile Number" value={phone} disabled={readOnly}></lightning-input>
-                        </div>
-
-                        <!-- fourth row -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="number" label="Aadhar" value={aadhar} disabled={readOnly}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="PAN Card" value={pan} disabled={readOnly}></lightning-input>
-                        </div>
-
-                        <!-- fifth row --> 
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Current Address" value={current} disabled={readOnly}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" label="Permanent Address" value={permanent} disabled={readOnly}></lightning-input>
-                        </div>
-
-                    </div>
-
-                    <lightning-accordion allow-multiple-sections-open>
-
-                        <lightning-accordion-section name="section1" label="Family Details">
-                            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Father's Name" name="applicantFather" onchange={handleChange}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Father's Occupation" name="fatherOccupation" onchange={handleChange}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Mother's Name" name="applicantMother" onchange={handleChange}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Mother's Occupation" name="motherOccupation" onchange={handleChange}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Guardian's Name" name="applicantGuardian" onchange={handleChange}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Guardian's Occupation" name="guardianOccupation" onchange={handleChange}></lightning-input>
-                                </div>
-                                
-                                <div class="slds-col slds-size_1-of-1 slds-p-around_small"> 
-                                    <lightning-checkbox-group 
-                                        class="display-flex"
-                                        name="marriedType"
-                                        label="Are you married?"
-                                        options={marriedOptions}
-                                        value={marriedType}
-                                        onchange={handleMarried}
-                                        >
-                                    </lightning-checkbox-group>
-                                </div>
-
-                                <template if:false={isSingle}>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Spouse Name" name="applicantSpouse" onchange={handleChange}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Spouse Occupation" name="spouseOccupation" onchange={handleChange}></lightning-input>
-                                    </div>
-                                </template>
-
+                        <!-- autopopulated waale sab mai onchange wala functionality nhi daala hai!!! -->
+                        <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                            <!-- first row -->
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" label="First Name" value={name} disabled={readOnly}></lightning-input>
                             </div>
-                        </lightning-accordion-section>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" label="Middle Name" disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" label="Last Name" disabled={readOnly}></lightning-input>
+                            </div>
 
-                    </lightning-accordion>
+                            <!-- second row -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Gender" value={gender} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="date" label="DOB" value={bday} disabled={readOnly}></lightning-input>
+                            </div>
 
-                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                        <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
-                    </div>
-                    <!-- <div  class="slds-grid slds-wrap slds-grid_align-center">
-                        <lightning-button variant="brand" label="Back" title="Next" onclick={handleBack}></lightning-button>
-                    </div> -->
-                </template>
+                            <!-- third row -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="email" label="Email" value={email} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="phone" label="Mobile Number" value={phone} disabled={readOnly}></lightning-input>
+                            </div>
+
+                            <!-- fourth row -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="number" label="Aadhar" value={aadhar} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Aadhar"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="PAN Card" value={pan} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="PAN"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                            <!-- fifth row --> 
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Current Address" value={current} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" label="Permanent Address" value={permanent} disabled={readOnly}></lightning-input>
+                            </div>
+
+                        </div>
+
+                        <lightning-accordion allow-multiple-sections-open>
+
+                            <lightning-accordion-section name="section1" label="Family Details">
+                                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Father's Name" name="applicantFather" onchange={handleChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Father's Occupation" name="fatherOccupation" onchange={handleChange}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Mother's Name" name="applicantMother" onchange={handleChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Mother's Occupation" name="motherOccupation" onchange={handleChange}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Guardian's Name" name="applicantGuardian" onchange={handleChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Guardian's Occupation" name="guardianOccupation" onchange={handleChange}></lightning-input>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-size_1-of-1 slds-p-around_small"> 
+                                        <lightning-checkbox-group 
+                                            class="display-flex"
+                                            name="marriedType"
+                                            label="Are you married?"
+                                            options={marriedOptions}
+                                            value={marriedType}
+                                            onchange={handleMarried}
+                                            >
+                                        </lightning-checkbox-group>
+                                    </div>
+
+                                    <template if:false={isSingle}>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Spouse Name" name="applicantSpouse" onchange={handleChange}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Spouse Occupation" name="spouseOccupation" onchange={handleChange}></lightning-input>
+                                        </div>
+                                    </template>
+
+                                </div>
+                            </lightning-accordion-section>
+
+                        </lightning-accordion>
+
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                            <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+                        </div>
+                        <!-- <div  class="slds-grid slds-wrap slds-grid_align-center">
+                            <lightning-button variant="brand" label="Back" title="Next" onclick={handleBack}></lightning-button>
+                        </div> -->
+                    </template>
+                </div>
+
+                <!-- show file upload, this is ALWAYS VISIBLE -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <!-- <template if:false={formVisible}> -->
+                        <template if:true={showFileComponent}>
+                            <template if:true={isFileLoaded}>
+                                
+                                <lightning-card title="Attached Files" class="slds-p-around_medium">
+                                    
+                                    <div class="slds-p-around_small">
+                                        <lightning-button 
+                                            variant="neutral" 
+                                            label="Refresh Files" 
+                                            onclick={forceRefreshFiles}
+                                            class="slds-m-bottom_small">
+                                        </lightning-button>
+                                    </div>
+                                    
+                                    <template if:true={files}>
+                                        <template if:true={files.length}>
+                                            <div class="slds-scrollable_y" style="height: 400px;">
+                                                <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                                                    <thead>
+                                                        <tr class="slds-line-height_reset">
+                                                            <th scope="col" style="width: 50%">
+                                                                <div class="slds-truncate" title="File Name">File Name</div>
+                                                            </th>
+                                                            <th scope="col" style="width: 20%">
+                                                                <div class="slds-truncate" title="Type">Type</div>
+                                                            </th>
+                                                            <th scope="col" style="width: 20%">
+                                                                <div class="slds-truncate" title="Size">Size</div>
+                                                            </th>
+                                                            <th scope="col" style="width: 10%">
+                                                                <div class="slds-truncate" title="View">View</div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <template for:each={files} for:item="file">
+                                                            <tr class="slds-hint-parent" key={file.ContentDocumentId}>
+                                                                <td data-label="File Name">
+                                                                    <div class="slds-truncate" title={file.ContentDocument.Title}>
+                                                                        {file.ContentDocument.Title}
+                                                                    </div>
+                                                                </td>
+                                                                <td data-label="Type">
+                                                                    <div class="slds-truncate">{file.ContentDocument.FileType}</div>
+                                                                </td>
+                                                                <td data-label="Size">
+                                                                    <div class="slds-truncate">{file.formattedSize}</div>
+                                                                </td>
+                                                                <td data-label="Actions">
+                                                                    <lightning-button-icon 
+                                                                        icon-name="utility:preview" 
+                                                                        alternative-text="View" 
+                                                                        title="View" 
+                                                                        data-id={file.ContentDocumentId}
+                                                                        onclick={handleViewFile}>
+                                                                    </lightning-button-icon>
+                                                                </td>
+                                                            </tr>
+                                                        </template>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </template>
+                                        <template if:false={files.length}>
+                                            <lightning-card title="No Files Attached" class="slds-p-around_medium">
+                                                <p class="slds-text-body_regular">No files have been uploaded yet.</p>
+                                            </lightning-card>
+                                        </template>
+                                    </template>
+                                </lightning-card>
+                            </template>
+                        
+                            <template if:false={isFileLoaded}>
+                                <lightning-card title="Loading Files..." class="slds-p-around_medium">
+                                    <lightning-spinner alternative-text="Loading files..."></lightning-spinner>
+                                </lightning-card>
+                            </template>
+                            
+                        </template>
+                    <!-- </template> -->
+                </div>
             </div>
         </lightning-card>
     </template>

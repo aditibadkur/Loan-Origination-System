@@ -1,459 +1,465 @@
 <template>
     <template if:true={message}>
+        <c-property-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid}></c-property-details>
         <div class="slds-grid slds-wrap slds-grid_align-center">
-        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-            <c-property-details message={formVisible} permanent={permanent} current={current} applicantid={applicantid}></c-property-details>
-            <template if:false={formVisible}>
-                <div class="slds-p-around_medium">
-                    <lightning-progress-indicator current-step="2" type="path" has-error="false" variant="base">
-                        <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
-                        <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
-                        <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
-                        <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
-                    </lightning-progress-indicator>
-                </div>
-
-                <!-- EMPLOYMENT DETAILS -->
-                <div class="slds-grid slds-wrap slds-grid_align-center"> 
-                    <div class="slds-col slds-size_1-of-1 slds-grid_align-center slds-p-around_small">
-                        <lightning-combobox
-                            name="employmentType"
-                            label="Employment Type"
-                            value={employmentType}
-                            placeholder="Select Type"
-                            options={employmentOptions}
-                            onchange={handleEmploymentType} 
-                            >
-                        </lightning-combobox>
+            <!-- <div class="slds-col slds-size_1-of-2"> -->
+                <template if:false={formVisible}>
+                    <div class="slds-p-around_medium">
+                        <lightning-progress-indicator current-step="2" type="path" has-error="false" variant="base">
+                            <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
+                            <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
+                            <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
+                            <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
+                        </lightning-progress-indicator>
                     </div>
-                </div>
 
-                <!-- SALARIED -->
-                <template if:true={salaried}>
-                    <div class="slds-grid slds-wrap slds-grid_align-center">
-
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" name="companyName" label="Company" onchange={handleChange}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <!-- EMPLOYMENT DETAILS -->
+                    <!-- <div class="slds-grid slds-wrap slds-grid_align-center">  -->
+                        <div class="slds-col slds-size_1-of-1 slds-grid_align-center slds-p-around_small">
                             <lightning-combobox
-                                name="workFormat"
-                                label="Select Work Format"
-                                value={workFormat}
-                                placeholder="Select Format"
-                                options={formatOptions}
-                                onchange={handleChange} 
+                                name="employmentType"
+                                label="Employment Type"
+                                value={employmentType}
+                                placeholder="Select Type"
+                                options={employmentOptions}
+                                onchange={handleEmploymentType} 
                                 >
                             </lightning-combobox>
                         </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" name="jobRole" label="Job Title" onchange={handleChange}></lightning-input>
-                        </div>
+                    <!-- </div> -->
 
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-combobox
-                                name="annualIncome"
-                                label="Annual Income"
-                                value={annualIncome}
-                                placeholder="Select Income"
-                                options={incomeOptions}
-                                onchange={handleChange} 
+                    <!-- SALARIED -->
+                    <template if:true={salaried}>
+                        <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" name="companyName" label="Company" onchange={handleChange}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-combobox
+                                    name="workFormat"
+                                    label="Select Work Format"
+                                    value={workFormat}
+                                    placeholder="Select Format"
+                                    options={formatOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" name="jobRole" label="Job Title" onchange={handleChange}></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-combobox
+                                    name="annualIncome"
+                                    label="Annual Income"
+                                    value={annualIncome}
+                                    placeholder="Select Income"
+                                    options={incomeOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <!-- add salary slip here -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Salary Slip"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
                                 >
-                            </lightning-combobox>
-                        </div>
-                        <!-- add salary slip here -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Salary Slip"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
+                                </lightning-file-upload>
+                            </div>
 
-                        <!-- if less toh ask previous company ka info bhi? -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
-                            <lightning-input type="text" name="experience" label="Experience" onchange={handleChange}></lightning-input>
-                        </div>
-                        <!-- add OL? -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Offer Letter"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
-                            <lightning-combobox
-                                name="qualification"
-                                label="Qualification"
-                                value={qualification}
-                                placeholder="Select Qualification"
-                                options={qualificationOptions}
-                                onchange={handleChange} 
+                            <!-- if less toh ask previous company ka info bhi? -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                                <lightning-input type="text" name="experience" label="Experience" onchange={handleChange}></lightning-input>
+                            </div>
+                            <!-- add OL? -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Offer Letter"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
                                 >
-                            </lightning-combobox>
+                                </lightning-file-upload>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                                <lightning-combobox
+                                    name="qualification"
+                                    label="Qualification"
+                                    value={qualification}
+                                    placeholder="Select Qualification"
+                                    options={qualificationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Qualification Proof"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
                         </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Qualification Proof"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
+                    </template>
+
+                    <!-- SELF-EMPLOYED -->
+                    <template if:true={self}>
+                        <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" name="bName" label="Business Name" onchange={handleChange}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-combobox
+                                    name="businessType"
+                                    label="Business Type"
+                                    value={businessType}
+                                    placeholder="Select Business Type"
+                                    options={businessOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                                <lightning-input type="text" name="jobRole" label="Your Role" onchange={handleChange}></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-combobox
+                                    name="annualIncome"
+                                    label="Annual Income"
+                                    value={annualIncome}
+                                    placeholder="Select Income"
+                                    options={incomeOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <!-- add annual revenue of business -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Annual Revenue"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                            <!-- if less toh ask previous company ka info bhi? -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                                <lightning-combobox
+                                    name="qualification"
+                                    label="Qualification"
+                                    value={qualification}
+                                    placeholder="Select Qualification"
+                                    options={qualificationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Qualification Proof"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <!-- picklist hoyega yeh bhi, koi metric range hoga naa -->
+                                <lightning-input type="number" name="businessRating" label="Business Rating" onchange={handleChange}></lightning-input>
+                            </div>
+                            <!-- balance sheet, profit and loss, business registration -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Balance Sheet"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" name="experience" label="Business Experience" onchange={handleChange}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-file-upload
+                                    label="Business Registration"
+                                    name="fileUploader"
+                                    accept={acceptedFormats}
+                                    record-id={applicantid}
+                                    onuploadfinished={handleUploadFinished}
+                                >
+                                </lightning-file-upload>
+                            </div>
+
+                        </div>
+                    </template>
+
+                    <!-- UNEMPLOYED -->
+                    <template if:true={unemployed}>
+                        <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-combobox
+                                    name="relation"
+                                    label="Relation to the Co-Applicant"
+                                    value={relation}
+                                    placeholder="Select Relation"
+                                    options={relationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                                <lightning-combobox
+                                    name="qualification"
+                                    label="Qualification"
+                                    value={qualification}
+                                    placeholder="Select Qualification"
+                                    options={qualificationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            
                         </div>
 
+                        <lightning-accordion allow-multiple-sections-open>
+                            <lightning-accordion-section name="section1" label="Co-Applicant Details">
+
+                                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
+                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
+                                    </div>
+
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                                    <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={clearFields}></lightning-button>
+                                </div>
+
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </template>
+
+                    <!-- STUDENT -->
+                    <template if:true={student}>
+                        <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-combobox
+                                    name="relation"
+                                    label="Relation"
+                                    value={relation}
+                                    placeholder="Select Relation"
+                                    options={relationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-combobox
+                                    name="qualification"
+                                    label="Qualification"
+                                    value={qualification}
+                                    placeholder="Select Qualification"
+                                    options={qualificationOptions}
+                                    onchange={handleChange} 
+                                    >
+                                </lightning-combobox>
+                            </div>
+                            
+                        </div>
+
+                        <lightning-accordion allow-multiple-sections-open>
+                            <lightning-accordion-section name="section1" label="Co-Applicant Details">
+
+                                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
+                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                        <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
+                                    </div>
+
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                                    <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
+                                </div>
+
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </template>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                        <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
                     </div>
+                    <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                        <lightning-button variant="brand" label="Back" title="Back" onclick={handleBack}></lightning-button>
+                    </div> -->
                 </template>
+            <!-- </div> -->
 
-                <!-- SELF-EMPLOYED -->
-                <template if:true={self}>
-                    <div class="slds-grid slds-wrap slds-grid_align-center">
-
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" name="bName" label="Business Name" onchange={handleChange}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-combobox
-                                name="businessType"
-                                label="Business Type"
-                                value={businessType}
-                                placeholder="Select Business Type"
-                                options={businessOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                            <lightning-input type="text" name="jobRole" label="Your Role" onchange={handleChange}></lightning-input>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-combobox
-                                name="annualIncome"
-                                label="Annual Income"
-                                value={annualIncome}
-                                placeholder="Select Income"
-                                options={incomeOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        <!-- add annual revenue of business -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Annual Revenue"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
-
-                        <!-- if less toh ask previous company ka info bhi? -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
-                            <lightning-combobox
-                                name="qualification"
-                                label="Qualification"
-                                value={qualification}
-                                placeholder="Select Qualification"
-                                options={qualificationOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Qualification Proof"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <!-- picklist hoyega yeh bhi, koi metric range hoga naa -->
-                            <lightning-input type="number" name="businessRating" label="Business Rating" onchange={handleChange}></lightning-input>
-                        </div>
-                        <!-- balance sheet, profit and loss, business registration -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Balance Sheet"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-input type="text" name="experience" label="Business Experience" onchange={handleChange}></lightning-input>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-file-upload
-                                label="Business Registration"
-                                name="fileUploader"
-                                accept={acceptedFormats}
-                                record-id={applicantid}
-                                onuploadfinished={handleUploadFinished}
-                            >
-                            </lightning-file-upload>
-                        </div>
-
-                    </div>
-                </template>
-
-                <!-- UNEMPLOYED -->
-                <template if:true={unemployed}>
-                    <div class="slds-grid slds-wrap slds-grid_align-center">
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-combobox
-                                name="relation"
-                                label="Relation to the Co-Applicant"
-                                value={relation}
-                                placeholder="Select Relation"
-                                options={relationOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
-                            <lightning-combobox
-                                name="qualification"
-                                label="Qualification"
-                                value={qualification}
-                                placeholder="Select Qualification"
-                                options={qualificationOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
+            <!-- show file upload -->
+            <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                <template if:false={formVisible}>
+                    <template if:true={showFileComponent}>
+                        <template if:true={isFileLoaded}>
+                            
+                            <lightning-card title="Attached Files" class="slds-p-around_medium">
+                                
+                                <div class="slds-p-around_small">
+                                    <lightning-button 
+                                        variant="neutral" 
+                                        label="Refresh Files" 
+                                        onclick={forceRefreshFiles}
+                                        class="slds-m-bottom_small">
+                                    </lightning-button>
+                                </div>
+                                
+                                <template if:true={files}>
+                                    <template if:true={files.length}>
+                                        <div class="slds-scrollable_y" style="height: 400px;">
+                                            <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                                                <thead>
+                                                    <tr class="slds-line-height_reset">
+                                                        <th scope="col" style="width: 50%">
+                                                            <div class="slds-truncate" title="File Name">File Name</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%">
+                                                            <div class="slds-truncate" title="Type">Type</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%">
+                                                            <div class="slds-truncate" title="Size">Size</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 10%">
+                                                            <div class="slds-truncate" title="View">View</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <template for:each={files} for:item="file">
+                                                        <tr class="slds-hint-parent" key={file.ContentDocumentId}>
+                                                            <td data-label="File Name">
+                                                                <div class="slds-truncate" title={file.ContentDocument.Title}>
+                                                                    {file.ContentDocument.Title}
+                                                                </div>
+                                                            </td>
+                                                            <td data-label="Type">
+                                                                <div class="slds-truncate">{file.ContentDocument.FileType}</div>
+                                                            </td>
+                                                            <td data-label="Size">
+                                                                <div class="slds-truncate">{file.formattedSize}</div>
+                                                            </td>
+                                                            <td data-label="Actions">
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:preview" 
+                                                                    alternative-text="View" 
+                                                                    title="View" 
+                                                                    data-id={file.ContentDocumentId}
+                                                                    onclick={handleViewFile}>
+                                                                </lightning-button-icon>
+                                                            </td>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </template>
+                                    <template if:false={files.length}>
+                                        <lightning-card title="No Files Attached" class="slds-p-around_medium">
+                                            <p class="slds-text-body_regular">No files have been uploaded yet.</p>
+                                        </lightning-card>
+                                    </template>
+                                </template>
+                            </lightning-card>
+                        </template>
+                    
+                        <template if:false={isFileLoaded}>
+                            <lightning-card title="Loading Files..." class="slds-p-around_medium">
+                                <lightning-spinner alternative-text="Loading files..."></lightning-spinner>
+                            </lightning-card>
+                        </template>
                         
-                    </div>
-
-                    <lightning-accordion allow-multiple-sections-open>
-                        <lightning-accordion-section name="section1" label="Co-Applicant Details">
-
-                            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
-                                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
-                                </div>
-
-                            </div>
-
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                                <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={clearFields}></lightning-button>
-                            </div>
-
-                        </lightning-accordion-section>
-                    </lightning-accordion>
+                    </template>
                 </template>
-
-                <!-- STUDENT -->
-                <template if:true={student}>
-                    <div class="slds-grid slds-wrap slds-grid_align-center">
-
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-combobox
-                                name="relation"
-                                label="Relation"
-                                value={relation}
-                                placeholder="Select Relation"
-                                options={relationOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                            <lightning-combobox
-                                name="qualification"
-                                label="Qualification"
-                                value={qualification}
-                                placeholder="Select Qualification"
-                                options={qualificationOptions}
-                                onchange={handleChange} 
-                                >
-                            </lightning-combobox>
-                        </div>
-                        
-                    </div>
-
-                    <lightning-accordion allow-multiple-sections-open>
-                        <lightning-accordion-section name="section1" label="Co-Applicant Details">
-
-                            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
-                                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
-                                </div>
-
-                            </div>
-
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                                <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
-                            </div>
-
-                        </lightning-accordion-section>
-                    </lightning-accordion>
-                </template>
-                
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                    <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
-                </div>
-                <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                    <lightning-button variant="brand" label="Back" title="Back" onclick={handleBack}></lightning-button>
-                </div> -->
-            </template>
-        </div>
-
-        <!-- multiple files nhi dikh rha, upload ho rha!!! -->
-        <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-        <template if:true={fileVisible}>
-            <lightning-card title="Attached Files" class="slds-p-around_medium">
-                <div class="slds-table slds-table_cell-buffer slds-table_bordered">
-
-                    <table class="slds-table slds-table_bordered slds-table_col-bordered">
-                        <thead>
-                            <tr class="slds-line-height_reset">
-                                <th scope="col" style="width: 50%">
-                                    <div class="slds-truncate" title="File Name">File Name</div>
-                                </th>
-                                <th scope="col" style="width: 20%">
-                                    <div class="slds-truncate" title="Type">Type</div>
-                                </th>
-                                <th scope="col" style="width: 20%">
-                                    <div class="slds-truncate" title="Size">Size</div>
-                                </th>
-                                <th scope="col" style="width: 10%">
-                                    <div class="slds-truncate" title="View">View</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template for:each={files} for:item="file">
-                                <tr class="slds-hint-parent" key={file.ContentDocumentId}>
-                                    <td data-label="File Name">
-                                        <!-- <lightning-icon icon-name="doctype:image" size="small" title="Image"></lightning-icon> -->
-                                        {file.ContentDocument.Title}
-                                    </td>
-                                    <td data-label="Type">
-                                        <div class="slds-truncate">{file.ContentDocument.FileType}</div>
-                                    </td>
-                                    <td data-label="Size">
-                                        <div class="slds-truncate">{file.formattedSize}</div>
-                                    </td>
-                                    <td data-label="Actions">
-                                        <lightning-button-icon 
-                                            icon-name="utility:preview" 
-                                            alternative-text="View" 
-                                            title="View" 
-                                            data-id={file.ContentDocumentId}
-                                            onclick={handleViewFile}>
-                                        </lightning-button-icon>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-
-                </div>
-            </lightning-card>
-
-            <template if:false={fileVisible}>
-                <lightning-card title="No Files Attached" class="slds-p-around_medium">
-                    <p class="slds-text-body_regular">No files have been attached to this record.</p>
-                </lightning-card>
-            </template>
-
-            <template if:true={showPreview}>
-                <div class="container">
-                <!-- <section class="slds-modal slds-fade-in-open" style="z-index: 10000;">
-                    <div class="slds-modal__container" style="width:50vw; max-width:50vw;">
-                        <header class="slds-modal__header">
-                            <lightning-button-icon class="slds-modal__close" icon-name="utility:close" alternative-text="Close" onclick={handleClosePreview}></lightning-button-icon>
-                            <h2 class="slds-modal__title slds-hyphenate">File Preview</h2>
-                        </header> -->
-                        <div class="slds-modal__content" style="height:50vh;">
-                            <iframe src={previewUrl} width="100%" height="100%" frameborder="0"></iframe>
-                            <lightning-button-icon class="slds-modal__close" icon-name="utility:close" alternative-text="Close" onclick={handleClosePreview}></lightning-button-icon>
-                        </div>
-                    </div>
-                    <!-- </div>
-                </section> -->
-                <!-- <div class="slds-backdrop slds-backdrop_open"></div> -->
-            </template>
-        </template>
-        </div>
+            </div> -->
         </div>
     </template>
 </template>

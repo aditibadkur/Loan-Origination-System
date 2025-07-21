@@ -1,6 +1,7 @@
 <template>
     <template if:true={message}>
         <!-- <template if:false={formVisible}> -->
+            <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small"> -->
             <div class="slds-p-around_medium">
                 <lightning-progress-indicator current-step="4" type="path" has-error="false" variant="base">
                     <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
@@ -33,6 +34,7 @@
                     <c-eligibility-modal label={topic} message={content} onclose={handleModalClose}></c-eligibility-modal>
                 </template>
             </div>
-        </template>
-    <!-- </template> -->
+            <!-- </div> -->
+        <!-- </template> -->
+    </template>
 </template>

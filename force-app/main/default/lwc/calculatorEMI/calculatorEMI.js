@@ -3,8 +3,6 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class CalculatorEMI extends LightningElement {
 
-    @track emiNotVisible = false;
-
     readOnly = true;    
 
     @track loanAmount = 0;

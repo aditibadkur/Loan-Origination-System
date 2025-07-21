@@ -44,18 +44,21 @@ export default class EmploymentDetails extends LightningElement {
         const uploadedFiles = event.detail.files;
         this.showToast('Success', uploadedFiles.length + ' File(s) uploaded successfully!', 'success');
         this.showFileComponent = true;
-        this.refreshFileList();
+        
+        setTimeout(() => {
+            this.getFiles(); // Call getFiles directly instead of refreshFileList
+        }, 1000);
     }
 
-    refreshFileList() {
-        const fileComponent = this.template.querySelector('c-show-file');
-        if (fileComponent) {
-            fileComponent.getFiles();
-        }
-    }
+    // refreshFileList() {
+    //     const fileComponent = this.template.querySelector('c-show-file');
+    //     if (fileComponent) {
+    //         fileComponent.getFiles();
+    //     }
+    // }
 
-    get fileVisible(){
-        return this.showFileComponent;
+    get fileVisible() {
+        return this.showFileComponent && this.files && this.files.length > 0;
     }
 
     @track isFileLoaded = true;
@@ -67,37 +70,52 @@ export default class EmploymentDetails extends LightningElement {
     @track showPreview = false;
 
     renderedCallback() {
-        if (this.showFileComponent) {
-            if (this.applicantid && this.applicantid !== this._lastRecordIdFetched) {
-                this.getFiles();
-                this._lastRecordIdFetched = this.applicantid;
-            }
+        // Only fetch files when showFileComponent is true and applicantid changes
+        if (this.showFileComponent && this.applicantid && this.applicantid !== this._lastRecordIdFetched) {
+            this.getFiles();
+            this._lastRecordIdFetched = this.applicantid;
+        }
+    }
+
+    @api
+    forceRefreshFiles() {
+        this._lastRecordIdFetched = null; // Reset the last fetched ID
+        if (this.applicantid) {
+            this.getFiles();
         }
     }
     
-    @api // on every upload call hota from parent, hence api is needed (so that all files are fetched)
+    @api 
     getFiles() { 
-        fetchFiles({ recordId: this.applicantid })
-            .then(result => {
-                // isse size aane lag gaya!!!!! (since method directly call nhi hota, toh add as property to each file)
+        console.log('Fetching files for applicant:', this.applicantid);
+        fetchFiles({ 
+            recordId: this.applicantid 
+        })
+        .then(result => {
+            console.log('Files fetched:', result);
+            if (result && result.length > 0) {
                 this.files = result.map(file => ({
-                    ...file, // get all deets of file
+                    ...file,
                     formattedSize: this.formattedSize(file.ContentDocument.ContentSize)
                 }));
                 this.error = undefined;
-                if (!result || result.length === 0) {
-                    this.isFileLoaded = false;
-                    this.showToast('No Files', 'No files found for this record.', 'info');
-                } else {
-                    this.isFileLoaded = true;
-                }
-            })
-            .catch(error => {
-                this.error = error;
-                this.files = undefined;
+                this.isFileLoaded = true;
+                this.showFileComponent = true; 
+                
+                console.log('Processed files:', this.files);
+            } else {
+                this.files = [];
                 this.isFileLoaded = false;
-                this.showToast('Error', 'Error fetching files: ' + (error.body?.message || error.message), 'error');
-            });
+                this.showToast('No Files', 'No files found for this record.', 'info');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching files:', error);
+            this.error = error;
+            this.files = [];
+            this.isFileLoaded = false;
+            this.showToast('Error', 'Error fetching files: ' + (error.body?.message || error.message), 'error');
+        });
     }
     
     handleViewFile(event) {
@@ -115,13 +133,13 @@ export default class EmploymentDetails extends LightningElement {
         return Math.round(size / 104857.6) / 10 + ' MB';
     }
 
-    showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title,  message, variant }));
-    }
-
     handleClosePreview() {
         this.showPreview = false;
         this.previewUrl = '';
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({ title,  message, variant }));
     }
 
     get employmentOptions(){

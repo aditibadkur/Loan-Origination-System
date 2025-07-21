@@ -1,42 +1,141 @@
 <template>
     <template if:true={message}>
         <c-loan-details message={formVisible} applicantid={applicantid}></c-loan-details>
-        <template if:false={formVisible}>
-            <div class="slds-p-around_medium">
-                <lightning-progress-indicator current-step="3" type="path" has-error="false" variant="base">
-                    <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
-                    <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
-                    <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
-                    <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
-                </lightning-progress-indicator>
-            </div>
+        <div class="slds-grid slds-wrap slds-grid_align-center">
+            <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small"> -->
+                <template if:false={formVisible}>
+                    <div class="slds-p-around_medium">
+                        <lightning-progress-indicator current-step="3" type="path" has-error="false" variant="base">
+                            <lightning-progress-step label="Personal Details" value="1"></lightning-progress-step>
+                            <lightning-progress-step label="Employment & Income" value="2"></lightning-progress-step>
+                            <lightning-progress-step label="Property Details" value="3"></lightning-progress-step>
+                            <lightning-progress-step label="Loan Requirements" value="4"></lightning-progress-step>
+                        </lightning-progress-indicator>
+                    </div>
 
-            <!-- PROPERTY DETAILS -->
-            <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                    <!-- PROPERTY DETAILS -->
+                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Permanent Address" value={permanent} disabled=true></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
-                    <lightning-input type="text" label="Property Address" value={current} disabled="true"></lightning-input>
-                </div>
-                
-                <!-- conditional rendering of city and then pincode maybe? -->
-                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="text" name="applicantState" label="State" onchange={handleChange}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="text" name="applicantCity" label="City" onchange={handleChange}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                    <lightning-input type="number" name="applicantPincode" label="Pincode" onchange={handleChange}></lightning-input>
-                </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-input type="text" label="Permanent Address" value={permanent} disabled=true></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-input type="text" label="Property Address" value={current} disabled="true"></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-file-upload
+                                label="Proof of Current Address"
+                                name="fileUploader"
+                                accept={acceptedFormats}
+                                record-id={applicantid}
+                                onuploadfinished={handleUploadFinished}
+                            >
+                            </lightning-file-upload>
+                        </div>
+                        
+                        <!-- conditional rendering of city and then pincode maybe? -->
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-input type="text" name="applicantState" label="State" onchange={handleChange}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-input type="text" name="applicantCity" label="City" onchange={handleChange}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
+                            <lightning-input type="number" name="applicantPincode" label="Pincode" onchange={handleChange}></lightning-input>
+                        </div>
 
-            </div>
+                    </div>
 
-            <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
-            </div>
-        </template>
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                        <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+                    </div>
+                </template>
+            <!-- </div> -->
+
+            <!-- show file upload -->
+            <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                <template if:false={formVisible}>
+                    <template if:true={showFileComponent}>
+                        <template if:true={isFileLoaded}>
+                            
+                            <lightning-card title="Attached Files" class="slds-p-around_medium">
+                                
+                                <div class="slds-p-around_small">
+                                    <lightning-button 
+                                        variant="neutral" 
+                                        label="Refresh Files" 
+                                        onclick={forceRefreshFiles}
+                                        class="slds-m-bottom_small">
+                                    </lightning-button>
+                                </div>
+                                
+                                <template if:true={files}>
+                                    <template if:true={files.length}>
+                                        <div class="slds-scrollable_y" style="height: 400px;">
+                                            <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                                                <thead>
+                                                    <tr class="slds-line-height_reset">
+                                                        <th scope="col" style="width: 50%">
+                                                            <div class="slds-truncate" title="File Name">File Name</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%">
+                                                            <div class="slds-truncate" title="Type">Type</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 20%">
+                                                            <div class="slds-truncate" title="Size">Size</div>
+                                                        </th>
+                                                        <th scope="col" style="width: 10%">
+                                                            <div class="slds-truncate" title="View">View</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <template for:each={files} for:item="file">
+                                                        <tr class="slds-hint-parent" key={file.ContentDocumentId}>
+                                                            <td data-label="File Name">
+                                                                <div class="slds-truncate" title={file.ContentDocument.Title}>
+                                                                    {file.ContentDocument.Title}
+                                                                </div>
+                                                            </td>
+                                                            <td data-label="Type">
+                                                                <div class="slds-truncate">{file.ContentDocument.FileType}</div>
+                                                            </td>
+                                                            <td data-label="Size">
+                                                                <div class="slds-truncate">{file.formattedSize}</div>
+                                                            </td>
+                                                            <td data-label="Actions">
+                                                                <lightning-button-icon 
+                                                                    icon-name="utility:preview" 
+                                                                    alternative-text="View" 
+                                                                    title="View" 
+                                                                    data-id={file.ContentDocumentId}
+                                                                    onclick={handleViewFile}>
+                                                                </lightning-button-icon>
+                                                            </td>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </template>
+                                    <template if:false={files.length}>
+                                        <lightning-card title="No Files Attached" class="slds-p-around_medium">
+                                            <p class="slds-text-body_regular">No files have been uploaded yet.</p>
+                                        </lightning-card>
+                                    </template>
+                                </template>
+                            </lightning-card>
+                        </template>
+                    
+                        <template if:false={isFileLoaded}>
+                            <lightning-card title="Loading Files..." class="slds-p-around_medium">
+                                <lightning-spinner alternative-text="Loading files..."></lightning-spinner>
+                            </lightning-card>
+                        </template>
+                        
+                    </template>
+                </template>
+            </div> -->
+        </div>
     </template>
 </template>
