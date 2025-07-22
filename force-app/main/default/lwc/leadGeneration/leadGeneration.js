@@ -52,12 +52,12 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867180005'){
+        if(this.applicantPhone == '9867180018'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Divyam Badkur';
-            this.applicantEmail = 'aditisbadkur@gmail.com';
+            this.applicantName = 'Arav';
+            this.applicantEmail = 'arav@gmail.com';
         }
         if(this.applicantPhone == '1234567896'){
             this.verified = true;
@@ -80,10 +80,10 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789005' && this.applicantPan == 'ABCDE1234Q'){
+        if(this.applicantAadhar == '123456789018' && this.applicantPan == 'ABCDE1234W'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '690';
+            this.applicantCIBIL = '710';
             this.applicantDOB = '02/02/02';
             this.applicantGender = 'Male';
             this.applicantAddress = '123 Oxford Street';
@@ -193,4 +193,38 @@ export default class LeadGeneration extends LightningElement {
     showToast(title, message, variant) {
         this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
+
+    @track loanAmount = 0;
+    @track interestRate = 0;
+    @track tenure = 0;
+    @track emi = 0;
+
+    @track tenureSlider = 5;
+    @track rateSlider = 7;
+
+    handleEMI(event) {
+        const field = event.target.name;
+        this[field] = event.target.type === 'number' 
+        ? event.target.value.toString() 
+        : event.target.value;
+
+        if(this.loanAmount && this.rateSlider && this.tenureSlider) {
+            if(parseInt(this.loanAmount) <= 0 || parseInt(this.rateSlider) <= 0 || parseInt(this.tenureSlider) <= 0) {
+                this.showToast('Error', 'Loan Amount, Interest Rate, and Tenure must be greater than zero.', 'error');
+                return;
+            }   
+            this.rateSliderValue = parseInt(this.rateSlider) / 100;  
+            this.tenureSliderValue = parseInt(this.tenureSlider) * 12; 
+            this.loanAmount = parseInt(this.loanAmount);
+            this.emi = (this.loanAmount * this.rateSliderValue * Math.pow((1 + this.rateSliderValue), this.tenureSliderValue)) / (Math.pow((1 + this.rateSliderValue), this.tenureSliderValue) - 1);
+            this.emi = Math.ceil(this.emi);
+            console.log("EMI: " + this.emi);
+        }
+        else{
+            this.showToast('Error', 'Please fill in all fields.', 'error');
+            return;
+        }
+    }
+
+    // // E = [P x R x (1+R) ^N] / [(1+R) ^ (N-1)]
 }

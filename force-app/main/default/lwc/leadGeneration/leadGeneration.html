@@ -15,93 +15,129 @@
         >
         <!-- onchildevent={handleChildEvent} -->
     </c-loan-application-form>
-    <div class="slds-grid slds-wrap slds-grid_align-center">
-    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
     <template if:false={nextPage}>
-        <lightning-card title="Eligibility Check"> <!-- name, place, animal, thing from phone number -->
+        <div class="slds-grid slds-wrap slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-card title="Eligibility Check"> <!-- name, place, animal, thing from phone number -->
 
-            <div class="slds-grid slds-wrap slds-grid_align-center"> 
-                <!-- first row -->
-                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
-                    <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange} value={applicantPhone} disabled={freezePhone}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                </div>
+                        <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                            <!-- first row -->
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="phone" name="applicantPhone" label="Phone Number" onchange={handleChange} value={applicantPhone} disabled={freezePhone}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                            </div>
 
-                <!-- second row -->
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantName} disabled={readOnly}></lightning-input>
-                </div>
-                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                    <lightning-input type="email" name="applicantEmail" label="Email" value={applicantEmail} disabled={readOnly}></lightning-input>
-                </div>
+                            <!-- second row -->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="text" name="applicantName" label="Applicant Name" value={applicantName} disabled={readOnly}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                <lightning-input type="email" name="applicantEmail" label="Email" value={applicantEmail} disabled={readOnly}></lightning-input>
+                            </div>
 
+                        </div>
+
+                        <lightning-card title="Identity Documents" > <!-- CIBIL using PAN/Aadhar -->
+                            <div class="slds-grid slds-wrap slds-grid_align-center">
+
+                                <!-- first row --> <!-- add OR -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="text" name="applicantPan" label="PAN Card" value={applicantPan} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="number" name="applicantAadhar" label="Aadhar" value={applicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                </div>
+
+                                <!-- populated from aadhar/pan -->
+                                <!-- second row -->
+                                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                    <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                </div>
+
+                                <!-- third row -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="date" label="Applicant DOB" value={applicantDOB} disabled={readOnly}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input name="gender" label="Gender" onchange={handleChange} value={applicantGender} disabled={readOnly}></lightning-input>
+                                </div>
+
+                                <!-- fourth row -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="number" label="CIBIL Score" value={applicantCIBIL} disabled={readOnly}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="text" label="Permanent Address" value={applicantAddress} disabled={readOnly}></lightning-input>
+                                </div>
+
+                                <!-- fifth row -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!-- ask if current address same as permanent -->
+                                    <lightning-checkbox-group 
+                                        name="addressType"
+                                        label="Current Address Same as Permanent Address?"
+                                        options={addressOptions}
+                                        value={addressType}
+                                        onchange={handleCurrentAddress}
+                                        disabled={disableForm}>
+                                    </lightning-checkbox-group>
+                                </div>
+                                <!-- if not same then show input to add address, if same, copy paste permanent and keep the input disabled -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                    <lightning-input type="text" name="currentAddressValue" label="Current Address" value={getCurrentAddress} onchange={handleChange} disabled={freezeAddress}></lightning-input>
+                                </div>
+
+                            </div>
+                        </lightning-card>
+                        
+                        <div  class="slds-grid slds-wrap slds-grid_align-center">
+                            <lightning-button variant="brand" label="Next" title="Next" onclick={handleNext}></lightning-button>
+                            <template if:true={showModal}>
+                                <c-eligibility-modal label={topic} message={content} onclose={handleModalClose}></c-eligibility-modal>
+                            </template>
+                        </div>
+
+                    </lightning-card>
             </div>
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                <lightning-card title="EMI Calculator" class="slds-align_absolute-center">
+                    <div class="slds-grid slds-wrap slds-grid_align-center">
 
-            <lightning-card title="Identity Documents" > <!-- CIBIL using PAN/Aadhar -->
-                <div class="slds-grid slds-wrap slds-grid_align-center">
+                        <!-- first row -->
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                            <lightning-input type="number" name="loanAmount" label="Loan Amount" onchange={handleEMI}></lightning-input>
+                        </div>
 
-                    <!-- first row --> <!-- add OR -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" name="applicantPan" label="PAN Card" value={applicantPan} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="number" name="applicantAadhar" label="Aadhar" value={applicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                    </div>
+                        <!-- second row -->
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-input type="number" name="tenure" label="Tenure (Years)" value={tenureSlider} onchange={handleEMI}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-slider label="Tenure Slider" name="tenureSlider" min="0" max="30" value={tenureSlider} onchange={handleEMI}></lightning-slider>
+                        </div>
 
-                    <!-- populated from aadhar/pan -->
-                    <!-- second row -->
-                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                    </div>
+                        <!-- third row -->
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-input type="number" name="interestRate" label="Interest Rate (%)" value={rateSlider} onchange={handleEMI}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <lightning-slider name="rateSlider" label="Interest Rate Slider" min="0" max="30" value={rateSlider} onchange={handleEMI}></lightning-slider>
+                        </div>
 
-                    <!-- third row -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="date" label="Applicant DOB" value={applicantDOB} disabled={readOnly}></lightning-input>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input name="gender" label="Gender" onchange={handleChange} value={applicantGender} disabled={readOnly}></lightning-input>
-                    </div>
 
-                    <!-- fourth row -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="number" label="CIBIL Score" value={applicantCIBIL} disabled={readOnly}></lightning-input>
-                    </div>
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" label="Permanent Address" value={applicantAddress} disabled={readOnly}></lightning-input>
-                    </div>
+                        <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                            <lightning-button variant="brand" label="Calculate EMI" title="Calculate EMI" onclick={calculateEMI}></lightning-button>
+                        </div> -->
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                            <lightning-input type="number" name="emi" label="EMI" value={emi} disabled={readOnly}></lightning-input> 
+                        </div>
 
-                    <!-- fifth row -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!-- ask if current address same as permanent -->
-                        <lightning-checkbox-group 
-                            name="addressType"
-                            label="Current Address Same as Permanent Address?"
-                            options={addressOptions}
-                            value={addressType}
-                            onchange={handleCurrentAddress}
-                            disabled={disableForm}>
-                        </lightning-checkbox-group>
                     </div>
-                    <!-- if not same then show input to add address, if same, copy paste permanent and keep the input disabled -->
-                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                        <lightning-input type="text" name="currentAddressValue" label="Current Address" value={getCurrentAddress} onchange={handleChange} disabled={freezeAddress}></lightning-input>
-                    </div>
-
-                </div>
-            </lightning-card>
-            
-            <div  class="slds-grid slds-wrap slds-grid_align-center">
-                <lightning-button variant="brand" label="Next" title="Next" onclick={handleNext}></lightning-button>
-                <template if:true={showModal}>
-                    <c-eligibility-modal label={topic} message={content} onclose={handleModalClose}></c-eligibility-modal>
-                </template>
+                </lightning-card>
             </div>
-
-        </lightning-card>
+        </div>
     </template>
-    </div>
-    </div>
 </template>
 
 <!-- these are all hard-coded, if details save karna hua toh handleChange daalna padega for every input and then create record 
