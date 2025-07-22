@@ -14,21 +14,28 @@ public with sharing class addApplicant {
         Boolean leadEligible
     ){
         try {
-            Loan_Application__c appl = new Loan_Application__c();
+            Id applId = null; 
 
-            appl.Name = leadName;
-            appl.Phone__c = leadPhone;
-            appl.Email__c = leadEmail;
-            appl.PAN_Card__c = leadPan;
-            appl.Aadhar__c = leadAadhar != null ? Decimal.valueOf(leadAadhar) : null;
-            appl.Gender__c = leadGender;
-            appl.DOB__c = leadDOB != null ? Date.parse(leadDOB) : null;
-            appl.CIBIL__c = leadCIBIL != null ? Decimal.valueOf(leadCIBIL) : null;
-            appl.Permanent_Address__c = leadPAddress;
-            appl.Current_Address__c = leadCAddress;
-            appl.Eligible__c = leadEligible ? 'Yes': 'No';
+            if(leadEligible){ // if eligible toh loan applicant record to be made
+                Loan_Application__c appl = new Loan_Application__c();
 
-            insert appl;
+                appl.Name = leadName;
+                appl.Phone__c = leadPhone;
+                appl.Email__c = leadEmail;
+                appl.PAN_Card__c = leadPan;
+                appl.Aadhar__c = leadAadhar != null ? Decimal.valueOf(leadAadhar) : null;
+                appl.Gender__c = leadGender;
+                appl.DOB__c = leadDOB != null ? Date.parse(leadDOB) : null;
+                appl.CIBIL__c = leadCIBIL != null ? Decimal.valueOf(leadCIBIL) : null;
+                appl.Permanent_Address__c = leadPAddress;
+                appl.Current_Address__c = leadCAddress;
+                appl.Eligible__c = leadEligible ? 'Yes': 'No';
+
+                insert appl;
+                applId = appl.Id;
+            }
+
+            // else only lead made regardless of eligibility
 
             Lead newLead = new Lead();
             newLead.LastName = leadName;
@@ -36,15 +43,23 @@ public with sharing class addApplicant {
             newLead.Email = leadEmail;
             newLead.Company = leadPAddress;
             newLead.Status = leadEligible ? 'Working - Contacted' : 'Closed - Not Converted';
-            newLead.Applicant_ID__c = appl.Id; 
+            
+            if(leadEligible){
+                newLead.Applicant_ID__c = applId; 
+                newLead.Loan_Application__c = applId;
+            }
             
             insert newLead;
 
-            appl.Lead_ID__c = newLead.Id;
-            update appl;
+            if(leadEligible){
+                Loan_Application__c appl = new Loan_Application__c(Id = applId);
+                appl.Lead_ID__c = newLead.Id;
+                appl.Lead__c = newLead.Id;
+                update appl;
+            }
 
             return new Map<String,String>{
-                'loanAppId' => appl.Id,
+                'loanAppId' => applId,
                 'leadId' => newLead.Id
             };
 
@@ -296,6 +311,7 @@ public with sharing class addApplicant {
             appl.Loan_Purpose__c = loanPurpose;
             appl.Loan_Amount__c = loanAmt != null ? Decimal.valueOf(loanAmt) : null;
             appl.Tenure__c = loanTenure != null ? Decimal.valueOf(loanTenure) : null;
+            appl.Total_Pending_Loans__c	= 1;
 
             update appl;
 

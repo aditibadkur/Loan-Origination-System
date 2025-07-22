@@ -52,14 +52,14 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867180018'){
+        if(this.applicantPhone == '9867180123'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Arav';
-            this.applicantEmail = 'arav@gmail.com';
+            this.applicantName = 'Anshul';
+            this.applicantEmail = 'anshul@gmail.com';
         }
-        if(this.applicantPhone == '1234567896'){
+        if(this.applicantPhone == '1234567891'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
@@ -80,11 +80,11 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789018' && this.applicantPan == 'ABCDE1234W'){
+        if(this.applicantAadhar == '123456789123' && this.applicantPan == 'ABCDE1234F'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '710';
-            this.applicantDOB = '02/02/02';
+            this.applicantCIBIL = '730';
+            this.applicantDOB = '01/02/03';
             this.applicantGender = 'Male';
             this.applicantAddress = '123 Oxford Street';
             this.freezeAddress = false;
@@ -98,7 +98,7 @@ export default class LeadGeneration extends LightningElement {
             }
         } 
 
-        if(this.applicantAadhar == '123456789088' && this.applicantPan == 'ABCDE1234U'){
+        if(this.applicantAadhar == '123456789098' && this.applicantPan == 'ABCDE1234S'){
             this.formDisabled = true;
             this.disableForm = false;
             this.applicantCIBIL = '430';
