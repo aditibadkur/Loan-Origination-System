@@ -4,7 +4,7 @@
       "path": "force-app",
       "default": true
     }
-  ],
+  ],Z
   "name": "LoanOriginationSystem",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",

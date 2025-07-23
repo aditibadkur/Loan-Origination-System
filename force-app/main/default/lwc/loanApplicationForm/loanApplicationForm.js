@@ -3,9 +3,9 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import familyDetails from '@salesforce/apex/addApplicant.familyDetails';
 
 import fetchFiles from '@salesforce/apex/fileUpload.fetchFiles';
-// import NavigationMixin from 'lightning/navigationMixin';
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class LoanApplicationForm extends LightningElement {
+export default class LoanApplicationForm extends NavigationMixin(LightningElement)  {
 
     @track formVisible = false;
     @api applicantid;
@@ -206,11 +206,25 @@ export default class LoanApplicationForm extends LightningElement {
     
     handleViewFile(event) {
         const contentDocumentId = event.currentTarget.dataset.id;
-        this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
-        this.showPreview = true;
+        // console.log('Attempting to preview file with ID:', contentDocumentId);
+        // this.previewUrl = `/sfc/servlet.shepherd/version/download/${contentDocumentId}`;
+        // this.previewUrl = `/sfc/servlet.shepherd/document/download/${contentDocumentId}`;
+        // this.showPreview = true;
         // Salesforce standard file viewer URL
         // window.open(`/sfc/servlet.shepherd/document/preview/${contentDocumentId}`, '_self'); // not working same page preview
         // window.open(`/sfc/servlet.shepherd/document/download/${contentDocumentId}`, '_blank'); // opens in new tab
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__namedPage',
+            attributes: {
+                pageName: 'filePreview'
+            },
+            state: {
+                recordIds: contentDocumentId,
+                selectedRecordId: contentDocumentId
+            }
+        });
+
     }
 
     formattedSize(size) {

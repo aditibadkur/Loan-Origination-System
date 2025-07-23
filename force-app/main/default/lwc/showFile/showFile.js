@@ -19,21 +19,20 @@ export default class ShowFile extends LightningElement {
         }
     }
 
-    @api // on every upload call hota from parent, hence api is needed (so that all files are fetched)
+    @api
     getFiles() { 
+        this.isFileLoaded = false; // Show loading state
         fetchFiles({ recordId: this.recordId })
             .then(result => {
-                // isse size aane lag gaya!!!!! (since method directly call nhi hota, toh add as property to each file)
                 this.files = result.map(file => ({
-                    ...file, // get all deets of file
+                    ...file,
                     formattedSize: this.formattedSize(file.ContentDocument.ContentSize)
                 }));
                 this.error = undefined;
+                this.isFileLoaded = true;
+                
                 if (!result || result.length === 0) {
-                    this.isFileLoaded = false;
-                    this.showToast('No Files', 'No files found for this record.', 'info');
-                } else {
-                    this.isFileLoaded = true;
+                    this.showToast('Info', 'No files found for this record.', 'info');
                 }
             })
             .catch(error => {
@@ -45,12 +44,11 @@ export default class ShowFile extends LightningElement {
     }
 
     handleViewFile(event) {
+        event.preventDefault(); // Add this to prevent any default behavior
         const contentDocumentId = event.currentTarget.dataset.id;
+        // Use download URL instead of preview URL
         this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
         this.showPreview = true;
-        // Salesforce standard file viewer URL
-        window.open(`/sfc/servlet.shepherd/document/preview/${contentDocumentId}`, '_self'); // not working same page preview
-        // window.open(`/sfc/servlet.shepherd/document/download/${contentDocumentId}`, '_blank'); // opens in new tab
     }
 
     formattedSize(size) {
@@ -60,7 +58,7 @@ export default class ShowFile extends LightningElement {
     }
 
     showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title,  message, variant }));
+        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
     }
 
     handleClosePreview() {

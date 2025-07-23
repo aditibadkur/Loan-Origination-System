@@ -54,14 +54,14 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867180773'){
+        if(this.applicantPhone == '9867198776'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantFName = 'Jainam';
-            this.applicantLName = 'Prajapati';
+            this.applicantFName = 'Reyansh';
+            this.applicantLName = 'Agarwal';
             this.applicantName = this.applicantFName + ' ' + this.applicantLName;
-            this.applicantEmail = 'jai.p@gmail.com';
+            this.applicantEmail = 'reyansh.agarwal@gmail.com';
         }
         if(this.applicantPhone == '1234567802'){
             this.verified = true;
@@ -85,13 +85,13 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789773' && this.applicantPan == 'ABCDE1234H'){
+        if(this.applicantAadhar == '123456798776' && this.applicantPan == 'ABCDE1234G'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '630';
-            this.applicantDOB = '03/02/03';
+            this.applicantCIBIL = '600';
+            this.applicantDOB = '02/02/03';
             this.applicantGender = 'Male';
-            this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
+            this.applicantAddress = 'Charkop, Kandivali West, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
