@@ -341,7 +341,7 @@ export default class EmploymentDetails extends LightningElement {
                 // else{
                     this.employRecId = result;
                     this.formVisible = true;
-                    this.showToast('Success', 'Self-Employed details collected', 'success');
+                    // this.showToast('Success', 'Self-Employed details collected', 'success');
                     console.log(this.applicantid+' Record updated');
                 // }
             })
@@ -372,7 +372,7 @@ export default class EmploymentDetails extends LightningElement {
                 // else{
                     this.employRecId = result;
                     this.formVisible = true;
-                    this.showToast('Success', 'Salaried details collected', 'success');
+                    // this.showToast('Success', 'Salaried details collected', 'success');
                     console.log(this.applicantid+' Record updated');
                 // }
             })
@@ -453,7 +453,7 @@ export default class EmploymentDetails extends LightningElement {
             this.formDisabled = true;
 
             if(this.coApplicantCIBIL >= 600){
-                this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
+                // this.showToast('Success', 'Co-Applicant eligible for loan', 'Success');
             }
             else{
                 this.showToast('Error', 'Co-Applicant not eligible for loan, change applicant (number)', 'error');
@@ -552,7 +552,7 @@ export default class EmploymentDetails extends LightningElement {
                     // else{
                         this.employRecId = result;
                         this.formVisible = true;
-                        this.showToast('Success', 'Student details collected', 'success');
+                        // this.showToast('Success', 'Student details collected', 'success');
                         console.log(this.applicantid+' Record updated');
                     // }
                 })
@@ -586,7 +586,7 @@ export default class EmploymentDetails extends LightningElement {
                     // else{
                         this.employRecId = result;
                         this.formVisible = true;
-                        this.showToast('Success', 'Unemployed details collected', 'success');
+                        // this.showToast('Success', 'Unemployed details collected', 'success');
                         console.log(this.applicantid+' Record updated');
                     // }
                 })

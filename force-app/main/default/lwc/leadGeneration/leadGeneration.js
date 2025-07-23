@@ -14,6 +14,8 @@ export default class LeadGeneration extends LightningElement {
 
     @track applicantPhone = '';
     @track applicantName = '';
+    @track applicantFName = '';
+    @track applicantLName = '';
     @track applicantEmail = '';
 
     @track verified = false; 
@@ -52,19 +54,22 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867180123'){
+        if(this.applicantPhone == '9867180773'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Anshul';
-            this.applicantEmail = 'anshul@gmail.com';
+            this.applicantFName = 'Jainam';
+            this.applicantLName = 'Prajapati';
+            this.applicantName = this.applicantFName + ' ' + this.applicantLName;
+            this.applicantEmail = 'jai.p@gmail.com';
         }
-        if(this.applicantPhone == '1234567891'){
+        if(this.applicantPhone == '1234567802'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantName = 'Reyansh';
-            this.applicantEmail = 'aditisbadkur@gmail.com';
+            this.applicantFName = 'Krish';
+            this.applicantLName = 'Singhania';
+            this.applicantEmail = 's.krish@gmail.com';
         }
         if(this.verified){
             this.freezePhone = true;
@@ -80,38 +85,38 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456789123' && this.applicantPan == 'ABCDE1234F'){
+        if(this.applicantAadhar == '123456789773' && this.applicantPan == 'ABCDE1234H'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '730';
-            this.applicantDOB = '01/02/03';
+            this.applicantCIBIL = '630';
+            this.applicantDOB = '03/02/03';
             this.applicantGender = 'Male';
-            this.applicantAddress = '123 Oxford Street';
+            this.applicantAddress = 'Mahavir Nagar, Kandivali West, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
-                this.showToast('Success', 'You are eligible for a loan!', 'success');
+                // this.showToast('Success', 'You are eligible for a loan!', 'success');
                 this.isEligible = true;
             } else {
-                this.showToast('Error', 'You are not eligible for a loan.', 'error');
+                // this.showToast('Error', 'You are not eligible for a loan.', 'error');
                 this.isEligible = false;
             }
         } 
 
-        if(this.applicantAadhar == '123456789098' && this.applicantPan == 'ABCDE1234S'){
+        if(this.applicantAadhar == '123456781028' && this.applicantPan == 'ABCDE1234R'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '430';
-            this.applicantDOB = '12/03/2002';
+            this.applicantCIBIL = '530';
+            this.applicantDOB = '01/03/02';
             this.applicantGender = 'Male';
-            this.applicantAddress = 'Thakur Complex, Kandivali East, Mumbai';
+            this.applicantAddress = 'Thakur Village, Kandivali East, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 
-                this.showToast('Success', 'You are eligible for a loan!', 'success');
+                // this.showToast('Success', 'You are eligible for a loan!', 'success');
                 this.isEligible = true;
             } else {
-                this.showToast('Error', 'You are not eligible for a loan.', 'error');
+                // this.showToast('Error', 'You are not eligible for a loan.', 'error');
                 this.isEligible = false;
             }
         } 
@@ -153,7 +158,7 @@ export default class LeadGeneration extends LightningElement {
             this.recordId = result.loanAppId;
             this.leadRecordId = result.leadId;
             console.log('recordId: '+this.recordId+' Lead record ID: '+this.leadRecordId);
-            this.showToast('Success', 'Record created successfully!', 'success');
+            // this.showToast('Success', 'Record created successfully!', 'success');
             
             if (this.isEligible) {
                 // Only redirect to Loan Application if eligible

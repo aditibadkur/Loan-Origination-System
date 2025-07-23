@@ -49,7 +49,7 @@ export default class ShowFile extends LightningElement {
         this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
         this.showPreview = true;
         // Salesforce standard file viewer URL
-        // window.open(`/sfc/servlet.shepherd/document/preview/${contentDocumentId}`, '_self'); // not working same page preview
+        window.open(`/sfc/servlet.shepherd/document/preview/${contentDocumentId}`, '_self'); // not working same page preview
         // window.open(`/sfc/servlet.shepherd/document/download/${contentDocumentId}`, '_blank'); // opens in new tab
     }
 

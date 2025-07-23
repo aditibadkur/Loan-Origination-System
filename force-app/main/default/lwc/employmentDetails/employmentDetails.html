@@ -222,7 +222,7 @@
                             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                                 <lightning-combobox
                                     name="relation"
-                                    label="Relation to the Co-Applicant"
+                                    label="Relation"
                                     value={relation}
                                     placeholder="Select Relation"
                                     options={relationOptions}
@@ -230,7 +230,7 @@
                                     >
                                 </lightning-combobox>
                             </div>
-                            <div class="slds-col slds-size_1-of-2 slds-p-around_small"> <!--get picklist values from sf-->
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
                                 <lightning-combobox
                                     name="qualification"
                                     label="Qualification"
@@ -244,51 +244,53 @@
                             
                         </div>
 
-                        <lightning-accordion allow-multiple-sections-open>
-                            <lightning-accordion-section name="section1" label="Co-Applicant Details">
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                            <lightning-accordion allow-multiple-sections-open>
+                                <lightning-accordion-section name="section1" label="Co-Applicant Details">
 
-                                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
-                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
+                                            <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                            <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
+                                        </div>
+
                                     </div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                                        <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
                                     </div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                    </div>
-
-                                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                    </div>
-
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
-                                    </div>
-
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                                    <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={clearFields}></lightning-button>
-                                </div>
-
-                            </lightning-accordion-section>
-                        </lightning-accordion>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </div>
                     </template>
 
                     <!-- STUDENT -->
@@ -320,51 +322,53 @@
                             
                         </div>
 
-                        <lightning-accordion allow-multiple-sections-open>
-                            <lightning-accordion-section name="section1" label="Co-Applicant Details">
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                            <lightning-accordion allow-multiple-sections-open>
+                                <lightning-accordion-section name="section1" label="Co-Applicant Details">
 
-                                <div class="slds-grid slds-wrap slds-grid_align-center"> 
+                                    <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
-                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="phone" name="coApplicantNumber" label="Co-Applicant Number" value={coApplicantNumber} onchange={handleChange}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-m-top_large">
+                                            <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
+                                            <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
+                                        </div>
+
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                                            <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
+                                        </div>
+
                                     </div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Co-Applicant's Name" value={coApplicant} disabled={readOnly}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="email" label="Co-Applicant's Email" value={coApplicantEmail} disabled={readOnly}></lightning-input>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
+                                        <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
                                     </div>
 
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" name="coApplicantPAN" label="PAN Card" value={coApplicantPAN} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="number" name="coApplicantAadhar" label="Aadhar" value={coApplicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
-                                    </div>
-
-                                    <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-align_absolute-center">
-                                        <lightning-button variant="brand" label="Verify" title="Verify" onclick={handleVerification}></lightning-button>
-                                    </div>
-
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="text" label="Co-Applicant's Occupation" value={occupation} disabled={readOnly}></lightning-input>
-                                    </div>
-                                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                        <lightning-input type="number" label="Co-Applicant's CIBIL" value={coApplicantCIBIL} disabled={readOnly}></lightning-input>
-                                    </div>
-
-                                </div>
-
-                                <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">
-                                    <lightning-button variant="brand" label="Change Applicant" title="Change Applicant" onclick={handleNotEligible}></lightning-button>
-                                </div>
-
-                            </lightning-accordion-section>
-                        </lightning-accordion>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </div>
                     </template>
                     
                     <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-align_absolute-center">

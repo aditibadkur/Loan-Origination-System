@@ -311,7 +311,7 @@ public with sharing class addApplicant {
             appl.Loan_Purpose__c = loanPurpose;
             appl.Loan_Amount__c = loanAmt != null ? Decimal.valueOf(loanAmt) : null;
             appl.Tenure__c = loanTenure != null ? Decimal.valueOf(loanTenure) : null;
-            appl.Total_Pending_Loans__c	= 1;
+            appl.Total_Pending_Loans__c	= '1';
 
             update appl;
 

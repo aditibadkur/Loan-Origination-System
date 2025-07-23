@@ -39,7 +39,7 @@ export default class PropertyDetails extends LightningElement {
             }
             else{
                 this.formVisible = true;
-                this.showToast('Success', 'Property details collected', 'success');
+                // this.showToast('Success', 'Property details collected', 'success');
                 console.log(this.applicantid+' Record updated');
             }
         })

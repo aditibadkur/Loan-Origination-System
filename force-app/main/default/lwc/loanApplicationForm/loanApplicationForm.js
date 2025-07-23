@@ -3,6 +3,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import familyDetails from '@salesforce/apex/addApplicant.familyDetails';
 
 import fetchFiles from '@salesforce/apex/fileUpload.fetchFiles';
+// import NavigationMixin from 'lightning/navigationMixin';
 
 export default class LoanApplicationForm extends LightningElement {
 
@@ -11,6 +12,7 @@ export default class LoanApplicationForm extends LightningElement {
 
     @api message;
     @api name;
+    @api lname;
     @api email;
     @api phone;
     @api age;
@@ -86,7 +88,7 @@ export default class LoanApplicationForm extends LightningElement {
             }
             else{
                 this.formVisible = true;
-                this.showToast('Success', 'Personal + Family details collected', 'success');
+                // this.showToast('Success', 'Personal + Family details collected', 'success');
                 console.log(this.applicantid+' Record updated');
             }
         })
@@ -150,44 +152,55 @@ export default class LoanApplicationForm extends LightningElement {
         }
     }
 
-    @api
+    @api 
     forceRefreshFiles() {
+        this.isFileLoaded = false; // Show loading state
         this._lastRecordIdFetched = null; // Reset the last fetched ID
         if (this.applicantid) {
-            this.getFiles();
+            this.getFiles()
+                .then(() => {
+                    this.showToast('Success', 'Files refreshed successfully', 'success');
+                })
+                .catch(error => {
+                    this.showToast('Error', 'Error refreshing files', 'error');
+                });
         }
     }
     
     @api 
     getFiles() { 
-        console.log('Fetching files for applicant:', this.applicantid);
-        fetchFiles({ 
-            recordId: this.applicantid 
-        })
-        .then(result => {
-            console.log('Files fetched:', result);
-            if (result && result.length > 0) {
-                this.files = result.map(file => ({
-                    ...file,
-                    formattedSize: this.formattedSize(file.ContentDocument.ContentSize)
-                }));
-                this.error = undefined;
-                this.isFileLoaded = true;
-                this.showFileComponent = true; 
-                
-                console.log('Processed files:', this.files);
-            } else {
-                this.files = [];
-                this.isFileLoaded = false;
-                this.showToast('No Files', 'No files found for this record.', 'info');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching files:', error);
-            this.error = error;
-            this.files = [];
+        return new Promise((resolve, reject) => {
+            console.log('Fetching files for applicant:', this.applicantid);
             this.isFileLoaded = false;
-            this.showToast('Error', 'Error fetching files: ' + (error.body?.message || error.message), 'error');
+            
+            fetchFiles({ 
+                recordId: this.applicantid 
+            })
+            .then(result => {
+                console.log('Files fetched:', result);
+                if (result && result.length > 0) {
+                    this.files = result.map(file => ({
+                        ...file,
+                        formattedSize: this.formattedSize(file.ContentDocument.ContentSize)
+                    }));
+                    this.error = undefined;
+                    this.showFileComponent = true; 
+                    console.log('Processed files:', this.files);
+                } else {
+                    this.files = [];
+                    this.showToast('Info', 'No files found for this record.', 'info');
+                }
+                this.isFileLoaded = true;
+                resolve();
+            })
+            .catch(error => {
+                console.error('Error fetching files:', error);
+                this.error = error;
+                this.files = [];
+                this.isFileLoaded = true;
+                this.showToast('Error', 'Error fetching files: ' + (error.body?.message || error.message), 'error');
+                reject(error);
+            });
         });
     }
     
