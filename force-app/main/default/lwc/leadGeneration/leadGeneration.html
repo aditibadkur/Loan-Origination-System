@@ -47,7 +47,7 @@
                                     <lightning-input type="text" name="applicantPan" label="PAN Card" value={applicantPan} onchange={handleChange} disabled={formDisabled}></lightning-input>
                                 </div>
                                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
-                                    <lightning-input type="number" name="applicantAadhar" label="Aadhar" value={applicantAadhar} onchange={handleChange} disabled={formDisabled}></lightning-input>
+                                    <lightning-input name="applicantAadhar" label="Aadhar Number" value={formattedAadhar} maxlength="14" onchange={handleAadharChange} disabled={formDisabled}></lightning-input>
                                 </div>
 
                                 <!-- populated from aadhar/pan -->

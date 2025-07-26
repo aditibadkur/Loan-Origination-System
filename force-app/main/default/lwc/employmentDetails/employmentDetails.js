@@ -477,6 +477,10 @@ export default class EmploymentDetails extends LightningElement {
         }
     }
 
+    handleNotEligible(){
+        this.clearFields();
+    }
+
     clearFields(){
         this.coApplicantNumber = '';
         this.coApplicant = '';

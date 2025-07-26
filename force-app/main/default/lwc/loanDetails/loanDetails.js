@@ -79,13 +79,6 @@ export default class LoanDetails extends LightningElement {
         }, 1000);
     }
 
-    // refreshFileList() {
-    //     const fileComponent = this.template.querySelector('c-show-file');
-    //     if (fileComponent) {
-    //         fileComponent.getFiles();
-    //     }
-    // }
-
     get fileVisible() {
         return this.showFileComponent && this.files && this.files.length > 0;
     }

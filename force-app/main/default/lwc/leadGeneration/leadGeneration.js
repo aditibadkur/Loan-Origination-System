@@ -45,6 +45,18 @@ export default class LeadGeneration extends LightningElement {
         // console.log(`Field changed: ${field}, Value: ${this[field]}`);
     }
 
+    get formattedAadhar() {
+        if (!this.applicantAadhar) return '';
+        // Add spaces every 4 digits for better readability
+        return this.applicantAadhar.replace(/(\d{4})(?=\d)/g, '$1 ');
+    }
+
+    handleAadharChange(event) {
+        let value = event.target.value;
+        // Remove all non-digit characters and limit to 12 digits
+        this.applicantAadhar = value.replace(/\D/g, '').substring(0, 12);
+    }
+
     connectedCallback() {
         console.log("Component connected");
         this.handleVerification();  
@@ -54,14 +66,14 @@ export default class LeadGeneration extends LightningElement {
 
     handleVerification(){
         console.log("verification is working");
-        if(this.applicantPhone == '9867198776'){
+        if(this.applicantPhone == '9867187345'){
             this.verified = true;
             this.formDisabled = false;
             this.disableForm = true;
-            this.applicantFName = 'Reyansh';
-            this.applicantLName = 'Agarwal';
+            this.applicantFName = 'Samir';
+            this.applicantLName = 'Kumar';
             this.applicantName = this.applicantFName + ' ' + this.applicantLName;
-            this.applicantEmail = 'reyansh.agarwal@gmail.com';
+            this.applicantEmail = 'samir.k@gmail.com';
         }
         if(this.applicantPhone == '1234567802'){
             this.verified = true;
@@ -69,6 +81,7 @@ export default class LeadGeneration extends LightningElement {
             this.disableForm = true;
             this.applicantFName = 'Krish';
             this.applicantLName = 'Singhania';
+            this.applicantName = this.applicantFName + ' ' + this.applicantLName;
             this.applicantEmail = 's.krish@gmail.com';
         }
         if(this.verified){
@@ -85,13 +98,13 @@ export default class LeadGeneration extends LightningElement {
 
     handleDocuments(){
         console.log("documents is working");
-        if(this.applicantAadhar == '123456798776' && this.applicantPan == 'ABCDE1234G'){
+        if(this.applicantAadhar == '123456798734' && this.applicantPan == 'ABCDE1234C'){
             this.formDisabled = true;
             this.disableForm = false;
-            this.applicantCIBIL = '600';
-            this.applicantDOB = '02/02/03';
+            this.applicantCIBIL = '660';
+            this.applicantDOB = '01/05/08';
             this.applicantGender = 'Male';
-            this.applicantAddress = 'Charkop, Kandivali West, Mumbai';
+            this.applicantAddress = 'Patel Nagar, Kandivali West, Mumbai';
             this.freezeAddress = false;
 
             if(parseInt(this.applicantCIBIL) >= 600){ 

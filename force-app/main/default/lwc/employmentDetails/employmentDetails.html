@@ -33,7 +33,7 @@
                         <div class="slds-grid slds-wrap slds-grid_align-center">
 
                             <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                                <lightning-input type="text" name="companyName" label="Company" onchange={handleChange}></lightning-input>
+                                <lightning-input type="text" name="companyName" label="Company" onchange={handleChange} required></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                                 <lightning-combobox
@@ -43,6 +43,7 @@
                                     placeholder="Select Format"
                                     options={formatOptions}
                                     onchange={handleChange} 
+                                    required
                                     >
                                 </lightning-combobox>
                             </div>
@@ -58,6 +59,7 @@
                                     placeholder="Select Income"
                                     options={incomeOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -69,6 +71,7 @@
                                     accept={acceptedFormats}
                                     record-id={applicantid}
                                     onuploadfinished={handleUploadFinished}
+                                    required
                                 >
                                 </lightning-file-upload>
                             </div>
@@ -97,6 +100,7 @@
                                     placeholder="Select Qualification"
                                     options={qualificationOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -107,6 +111,7 @@
                                     accept={acceptedFormats}
                                     record-id={applicantid}
                                     onuploadfinished={handleUploadFinished}
+                                    required
                                 >
                                 </lightning-file-upload>
                             </div>
@@ -119,7 +124,7 @@
                         <div class="slds-grid slds-wrap slds-grid_align-center">
 
                             <div class="slds-col slds-size_1-of-3 slds-p-around_small">
-                                <lightning-input type="text" name="bName" label="Business Name" onchange={handleChange}></lightning-input>
+                                <lightning-input type="text" name="bName" label="Business Name" onchange={handleChange} required></lightning-input>
                             </div>
                             <div class="slds-col slds-size_1-of-3 slds-p-around_small">
                                 <lightning-combobox
@@ -129,6 +134,7 @@
                                     placeholder="Select Business Type"
                                     options={businessOptions}
                                     onchange={handleChange} 
+                                    required
                                     >
                                 </lightning-combobox>
                             </div>
@@ -144,6 +150,7 @@
                                     placeholder="Select Income"
                                     options={incomeOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -155,6 +162,7 @@
                                     accept={acceptedFormats}
                                     record-id={applicantid}
                                     onuploadfinished={handleUploadFinished}
+                                    required
                                 >
                                 </lightning-file-upload>
                             </div>
@@ -168,6 +176,7 @@
                                     placeholder="Select Qualification"
                                     options={qualificationOptions}
                                     onchange={handleChange} 
+                                    required
                                     >
                                 </lightning-combobox>
                             </div>
@@ -178,6 +187,7 @@
                                     accept={acceptedFormats}
                                     record-id={applicantid}
                                     onuploadfinished={handleUploadFinished}
+                                    required
                                 >
                                 </lightning-file-upload>
                             </div>
@@ -227,6 +237,7 @@
                                     placeholder="Select Relation"
                                     options={relationOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -238,6 +249,7 @@
                                     placeholder="Select Qualification"
                                     options={qualificationOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -246,7 +258,7 @@
 
                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
                             <lightning-accordion allow-multiple-sections-open>
-                                <lightning-accordion-section name="section1" label="Co-Applicant Details">
+                                <lightning-accordion-section name="section1" label="Co-Applicant Details (Required)">
 
                                     <div class="slds-grid slds-wrap slds-grid_align-center"> 
 
@@ -305,6 +317,7 @@
                                     placeholder="Select Relation"
                                     options={relationOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -316,6 +329,7 @@
                                     placeholder="Select Qualification"
                                     options={qualificationOptions}
                                     onchange={handleChange} 
+                                    required 
                                     >
                                 </lightning-combobox>
                             </div>
@@ -324,7 +338,7 @@
 
                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
                             <lightning-accordion allow-multiple-sections-open>
-                                <lightning-accordion-section name="section1" label="Co-Applicant Details">
+                                <lightning-accordion-section name="section1" label="Co-Applicant Details (Required)">
 
                                     <div class="slds-grid slds-wrap slds-grid_align-center"> 
 

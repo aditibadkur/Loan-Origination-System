@@ -35,13 +35,13 @@
                         
                         <!-- conditional rendering of city and then pincode maybe? -->
                         <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                            <lightning-input type="text" name="applicantState" label="State" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" name="applicantState" label="State" onchange={handleChange} required></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                            <lightning-input type="text" name="applicantCity" label="City" onchange={handleChange}></lightning-input>
+                            <lightning-input type="text" name="applicantCity" label="City" onchange={handleChange} required></lightning-input>
                         </div>
                         <div class="slds-col slds-size_1-of-3 slds-p-around_medium">
-                            <lightning-input type="number" name="applicantPincode" label="Pincode" onchange={handleChange}></lightning-input>
+                            <lightning-input name="applicantPincode" label="Pincode" value={formattedPincode} maxlength="7" onchange={handlePincodeChange} required></lightning-input>
                         </div>
 
                     </div>

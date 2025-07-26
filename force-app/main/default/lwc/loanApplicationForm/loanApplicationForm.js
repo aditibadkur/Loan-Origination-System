@@ -125,13 +125,6 @@ export default class LoanApplicationForm extends NavigationMixin(LightningElemen
         }, 1000);
     }
 
-    // refreshFileList() {
-    //     const fileComponent = this.template.querySelector('c-show-file');
-    //     if (fileComponent) {
-    //         fileComponent.getFiles();
-    //     }
-    // }
-
     get fileVisible() {
         return this.showFileComponent && this.files && this.files.length > 0;
     }

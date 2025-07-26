@@ -25,6 +25,16 @@ export default class PropertyDetails extends LightningElement {
         console.log(`Field changed: ${field}, Value: ${this[field]}`);
     }
 
+    get formattedPincode() {
+        if (!this.applicantPincode) return '';
+        return this.applicantPincode.replace(/(\d{3})(?=\d)/g, '$1 '); // Add space after 3 digits
+    }
+
+    handlePincodeChange(event) {
+        let value = event.target.value;
+        this.applicantPincode = value.replace(/\D/g, '').substring(0, 6); // Remove all non-digit characters and limit to 6 digits
+    }
+
     handleSubmit(){
         propertyDetails({
             recordId: this.applicantid,
@@ -67,92 +77,4 @@ export default class PropertyDetails extends LightningElement {
             this.getFiles(); // Call getFiles directly instead of refreshFileList
         }, 1000);
     }
-
-    // refreshFileList() {
-    //     const fileComponent = this.template.querySelector('c-show-file');
-    //     if (fileComponent) {
-    //         fileComponent.getFiles();
-    //     }
-    // }
-
-    // get fileVisible() {
-    //     return this.showFileComponent && this.files && this.files.length > 0;
-    // }
-
-    // @track isFileLoaded = true;
-    // @track files;
-    // @track error;
-    // _lastRecordIdFetched;
-
-    // @track previewUrl = '';
-    // @track showPreview = false;
-
-    // renderedCallback() {
-    //     // Only fetch files when showFileComponent is true and applicantid changes
-    //     if (this.showFileComponent && this.applicantid && this.applicantid !== this._lastRecordIdFetched) {
-    //         this.getFiles();
-    //         this._lastRecordIdFetched = this.applicantid;
-    //     }
-    // }
-
-    // @api
-    // forceRefreshFiles() {
-    //     this._lastRecordIdFetched = null; // Reset the last fetched ID
-    //     if (this.applicantid) {
-    //         this.getFiles();
-    //     }
-    // }
-    
-    // @api 
-    // getFiles() { 
-    //     console.log('Fetching files for applicant:', this.applicantid);
-    //     fetchFiles({ 
-    //         recordId: this.applicantid 
-    //     })
-    //     .then(result => {
-    //         console.log('Files fetched:', result);
-    //         if (result && result.length > 0) {
-    //             this.files = result.map(file => ({
-    //                 ...file,
-    //                 formattedSize: this.formattedSize(file.ContentDocument.ContentSize)
-    //             }));
-    //             this.error = undefined;
-    //             this.isFileLoaded = true;
-    //             this.showFileComponent = true; 
-                
-    //             console.log('Processed files:', this.files);
-    //         } else {
-    //             this.files = [];
-    //             this.isFileLoaded = false;
-    //             this.showToast('No Files', 'No files found for this record.', 'info');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching files:', error);
-    //         this.error = error;
-    //         this.files = [];
-    //         this.isFileLoaded = false;
-    //         this.showToast('Error', 'Error fetching files: ' + (error.body?.message || error.message), 'error');
-    //     });
-    // }
-    
-    // handleViewFile(event) {
-    //     const contentDocumentId = event.currentTarget.dataset.id;
-    //     this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
-    //     this.showPreview = true;
-    //     // Salesforce standard file viewer URL
-    //     // window.open(`/sfc/servlet.shepherd/document/preview/${contentDocumentId}`, '_self'); // not working same page preview
-    //     // window.open(`/sfc/servlet.shepherd/document/download/${contentDocumentId}`, '_blank'); // opens in new tab
-    // }
-
-    // formattedSize(size) {
-    //     if (size < 1024) return size + ' B';
-    //     if (size < 1048576) return Math.round(size / 102.4) / 10 + ' KB';
-    //     return Math.round(size / 104857.6) / 10 + ' MB';
-    // }
-
-    // handleClosePreview() {
-    //     this.showPreview = false;
-    //     this.previewUrl = '';
-    // }
 }

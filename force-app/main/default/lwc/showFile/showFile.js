@@ -1,6 +1,8 @@
 import { api, LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import fetchFiles from '@salesforce/apex/fileUpload.fetchFiles';
+import { NavigationMixin } from 'lightning/navigation';
+
 
 export default class ShowFile extends LightningElement {
     @api recordId;
@@ -44,11 +46,22 @@ export default class ShowFile extends LightningElement {
     }
 
     handleViewFile(event) {
-        event.preventDefault(); // Add this to prevent any default behavior
+        // event.preventDefault(); // Add this to prevent any default behavior
         const contentDocumentId = event.currentTarget.dataset.id;
         // Use download URL instead of preview URL
-        this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
-        this.showPreview = true;
+        // this.previewUrl = `/sfc/servlet.shepherd/document/preview/${contentDocumentId}`;
+        // this.showPreview = true;
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__namedPage',
+            attributes: {
+                pageName: 'filePreview'
+            },
+            state: {
+                recordIds: contentDocumentId,
+                selectedRecordId: contentDocumentId
+            }
+        });
     }
 
     formattedSize(size) {
