@@ -1,18 +1,71 @@
-# Salesforce DX Project: Next Steps
+# Loan Origination System (LOS)  
+Salesforce Loan Origination Prototype  
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+The **Loan Origination System (LOS)** is a Salesforce-based prototype designed to assist Relationship Managers in streamlining loan processing by reducing manual data entry, accelerating underwriting workflows, and incorporating intelligent KYC verification.  
 
-## How Do You Plan to Deploy Your Changes?
+## 🚀 Quick Start  
+### Prerequisites  
+- Salesforce CLI  
+- Visual Studio Code + Salesforce Extensions  
+- Access to a Salesforce org (Dev / Sandbox / Production)  
+- Node.js (for LWC development & testing)  
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+### Installation  
 
-## Configure Your Salesforce DX Project
+```bash
+git clone https://github.com/aditibadkur/Loan-Origination-System.git
+cd Loan-Origination-System
+```
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+## 📋 System Overview
+This prototype helps simplify loan origination by:
+- 📝 Intelligent Auto-Fill Forms – Pre-populate applicant/loan fields to minimize manual entry
+- ⚡ Automated Underwriting Flows – Drive decision-making via Salesforce Flows
+- 🧾 Mock KYC Verification – Simulated workflows to validate applicant information
+- 📊 Risk Scoring Logic – Apex logic to combine income and credit data into a single score
+- 👤 Relationship Manager Dashboards – Track application statuses and risk outcomes
 
-## Read All About It
+## 🔑 Core Features
+| Feature                | Description                                               | Users                 |
+|-------------------------|-----------------------------------------------------------|-----------------------|
+| Auto-Fill Loan Forms    | Intelligent form population from applicant data           | Relationship Managers |
+| KYC Verification        | Simulated workflow for document & identity verification   | Relationship Managers |
+| Underwriting Automation | Automated Salesforce Flows for loan decisions             | Loan Officers / System|
+| Risk Scoring            | Apex-driven income + credit evaluation logic              | Loan Officers / RMs   |
+| Application Dashboard   | View pipeline, statuses, and risk levels                  | Relationship Managers |
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## 🔧 Development Guide
+### Project Structure
+```bash
+force-app/main/default/
+├── classes/            # Apex controllers & services
+├── lwc/                # Lightning Web Components
+├── objects/            # Custom objects & fields
+├── flows/              # Salesforce Flows
+├── permissionsets/     # Permission sets
+└── ...
+```
+## 📖 Usage Guide
+### For Relationship Managers
+- Create new loan applications via the Auto-Fill Form
+- Submit applications for KYC verification
+- Review underwriting & risk scores
+- Track loan status on the dashboard
+
+### For Loan Officers
+- Configure credit/income thresholds via metadata
+- Review flagged applications
+- Approve/reject based on risk evaluation
+
+### For Admins
+- Manage custom metadata (rules, KYC config)
+- Assign permission sets
+- Deploy & monitor Salesforce Flows
+
+## 🔒 Security Features
+- Role-based access to loan application data
+- Field-level security for sensitive applicant fields
+- Metadata-driven configuration for underwriting rules
+
+## 📄 License
+This project is licensed under the MIT License – see the LICENSE file for details.
